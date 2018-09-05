@@ -8,6 +8,11 @@
 	<artifactId>knowledge</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	<modules>
+		<module>spring-boot-docker</module>
+		<module>transaction</module>
+		<module>mysql</module>
+	</modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
