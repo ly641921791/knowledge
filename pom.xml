@@ -12,6 +12,9 @@
 		<module>spring-boot-docker</module>
 		<module>transaction</module>
 		<module>mysql</module>
+		<module>spring-boot-mvc</module>
+		<module>spring-boot-test</module>
+		<module>spring-boot-jdbc</module>
 	</modules>
 
 	<parent>
