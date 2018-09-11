@@ -120,33 +120,46 @@
 	强制删除容器 docker rm -f [container_name|container_id]
 	删除全部容器 docker rm -f $(docker ps -a -q) 
 
+## 4 Dockerfile构建Docker镜像
 
+### 4.1 使用案例
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Dockerfile构建Docker镜像
+第一步：编写Dockerfile
 
 	FROM nginx
 	RUN echo '<h1>hello docker</h1>' > /usr/share/nginx/html/index.html
-
-echo：输出指定文字
->：覆盖或创建指定文件
->>：创建或追加内容到指定文件
-
-
-Docker简介
 	
+	命令说明：
+	echo：输出指定文字
+	>：覆盖或创建指定文件
+	>>：创建或追加内容到指定文件
+
+第二步：构建镜像
+
+	docker build -t nginx:my .
 	
+第三步：启动镜像
+
+	docker run -d -p 80:80 nginx:my
+
+### 4.2 Dockerfile常用指令
+
+#### 4.2.1 ADD 复制文件
+
+将scr目录复制文件到dest
+
+	ADD <src>... <dest>
+
+#### 4.2.2 ARG 设置构建参数
+
+#### 4.2.3 CMD 容器启动命令
+
+#### COPY 复制文件
+
+#### ENTRYPOINT 入口点
+
+#### ENV 设置环境变量
+
+#### EXPOSE 暴露端口
+
+#### FROM 指定基础镜像
