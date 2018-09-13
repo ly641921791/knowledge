@@ -34,3 +34,14 @@ SHOW INDEX FROM tb_name
 - REPLACE INTO tb_name (col1...) VALUES (...)
 - REPLACE INTO tb_name (col1...) SELECT ...
 - REPLACE INTO tb_name SET col1=value1 , ....
+
+
+
+
+
+
+
+
+
+MySql存储引擎
+	InnoDB ：事物的ACID通过

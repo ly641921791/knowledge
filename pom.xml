@@ -17,6 +17,7 @@
 		<module>spring-boot-jdbc</module>
 		<module>git</module>
 		<module>java-jvm</module>
+		<module>spring-boot-source-code</module>
 	</modules>
 
 	<parent>
