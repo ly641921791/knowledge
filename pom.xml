@@ -18,6 +18,7 @@
 		<module>git</module>
 		<module>java-jvm</module>
 		<module>spring-boot-source-code</module>
+		<module>mybatis</module>
 	</modules>
 
 	<parent>

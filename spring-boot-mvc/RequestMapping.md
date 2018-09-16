@@ -7,3 +7,10 @@ value：请求路径，支持占位符
 params：请求参数列表，并支持表达式
 	params="!id" 参数不能有id
 	params="name!=ly" 参数中name不能等于ly
+	
+	
+
+
+通过@RequestParam注解接受List
+
+@RequestParam("idList[]") List<String> idList
