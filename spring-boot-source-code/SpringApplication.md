@@ -30,45 +30,32 @@
 ### 实例化SpringApplication对象
 
 ```java
-public SpringApplication(Class... primarySources) {
-	this((ResourceLoader)null, primarySources);
-}
+	public SpringApplication(Class... primarySources) {
+		this((ResourceLoader)null, primarySources);
+	}
 
-public SpringApplication(ResourceLoader resourceLoader, Class... primarySources) {
-	// 1 初始化属性
-	this.sources = new LinkedHashSet();
-	this.bannerMode = Mode.CONSOLE;
-	this.logStartupInfo = true;
-	this.addCommandLineProperties = true;
-	this.headless = true;
-	this.registerShutdownHook = true;
-	this.additionalProfiles = new HashSet();
-	// 2 保存ResourceLoader，此处保存的是null
-	this.resourceLoader = resourceLoader;
-	// 3 保存启动类
-	Assert.notNull(primarySources, "PrimarySources must not be null");
-	this.primarySources = new LinkedHashSet(Arrays.asList(primarySources));
-	// 4 根据是否存在web相关的类推断并保存application类型
-	this.webApplicationType = this.deduceWebApplicationType();
-	// 5 读取
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
-	this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
-	this.mainApplicationClass = this.deduceMainApplicationClass();
+	public SpringApplication(ResourceLoader resourceLoader, Class... primarySources) {
+		// 1 初始化属性
+		this.sources = new LinkedHashSet();
+		this.bannerMode = Mode.CONSOLE;
+		this.logStartupInfo = true;
+		this.addCommandLineProperties = true;
+		this.headless = true;
+		this.registerShutdownHook = true;
+		this.additionalProfiles = new HashSet();
+		// 2 保存ResourceLoader，此处保存的是null
+		this.resourceLoader = resourceLoader;
+		// 3 保存启动类
+		Assert.notNull(primarySources, "PrimarySources must not be null");
+		this.primarySources = new LinkedHashSet(Arrays.asList(primarySources));
+		// 4 根据是否存在web相关的类推断并保存application类型
+		this.webApplicationType = this.deduceWebApplicationType();
+		// 5.1 读取classpath下和所有jar中META-INF/spring.factories文件
+		// 5.2 找到全部ApplicationContextInitializer对应的类并实例化保存
+		this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
+		// 6 实例化并保存ApplicationListener，过程同5
+		this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
+		this.mainApplicationClass = this.deduceMainApplicationClass();
 }
 ```
 
@@ -92,6 +79,7 @@ public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySourc
     this.mainApplicationClass = deduceMainApplicationClass();
 }
 ```
+
 
 ### 实例方法run
 
@@ -166,9 +154,6 @@ public ConfigurableApplicationContext run(String... args) {
     - 创建了内置的tomcat服务器，并且启动
 - afterRefresh(context, applicationArguments);
 - 
-
-
-
 
 
 
