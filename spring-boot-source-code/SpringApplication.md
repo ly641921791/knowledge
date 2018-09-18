@@ -6,20 +6,20 @@
 
 　　Spring Boot 启动过程分析（二）SpringApplication源码分析。
 
-　　源码版本 ：spring-boot-2.0.0.RELEASE
+　　源码版本 ：2.0.1.RELEASE
 
 ## 正文
 
 　　首先，从静态方法run开始分析Spring Boot的启动都做了哪些事情。代码如下
 
 ```java
-	public static ConfigurableApplicationContext run(Class<?> primarySource, String... args) {
-		return run(new Class[]{primarySource}, args);
-	}
-	
-	public static ConfigurableApplicationContext run(Class<?>[] primarySources, String[] args) {
-		return (new SpringApplication(primarySources)).run(args);
-	}
+public static ConfigurableApplicationContext run(Class<?> primarySource, String... args) {
+	return run(new Class[]{primarySource}, args);
+}
+
+public static ConfigurableApplicationContext run(Class<?>[] primarySources, String[] args) {
+	return (new SpringApplication(primarySources)).run(args);
+}
 ```
 
 　　分析上面四行代码，可知：静态方法run做了下面两件事
@@ -29,56 +29,35 @@
 
 ### 实例化SpringApplication对象
 
-```java
-	public SpringApplication(Class... primarySources) {
-		this((ResourceLoader)null, primarySources);
-	}
-
-	public SpringApplication(ResourceLoader resourceLoader, Class... primarySources) {
-		// 1 初始化属性
-		this.sources = new LinkedHashSet();
-		this.bannerMode = Mode.CONSOLE;
-		this.logStartupInfo = true;
-		this.addCommandLineProperties = true;
-		this.headless = true;
-		this.registerShutdownHook = true;
-		this.additionalProfiles = new HashSet();
-		// 2 保存ResourceLoader，此处保存的是null
-		this.resourceLoader = resourceLoader;
-		// 3 保存启动类
-		Assert.notNull(primarySources, "PrimarySources must not be null");
-		this.primarySources = new LinkedHashSet(Arrays.asList(primarySources));
-		// 4 根据是否存在web相关的类推断并保存application类型
-		this.webApplicationType = this.deduceWebApplicationType();
-		// 5.1 读取classpath下和所有jar中META-INF/spring.factories文件
-		// 5.2 找到全部ApplicationContextInitializer对应的类并实例化保存
-		this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
-		// 6 实例化并保存ApplicationListener，过程同5
-		this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
-		this.mainApplicationClass = this.deduceMainApplicationClass();
-}
-```
+　　下面是SpringApplication的构造方法，
 
 ```java
 public SpringApplication(Class<?>... primarySources) {
 	this(null, primarySources);
 }
+
 public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
+	// 1 this.resourceLoader 设置为null
     this.resourceLoader = resourceLoader;
+    // 2 this.primarySource 初始化并添加启动类
     Assert.notNull(primarySources, "PrimarySources must not be null");
-    // 将传入的App.class保存
     this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
-    // 推断web应用的类型
+    // 3 根据classpath下是否存在指定类判断application类型(servlet、reactive、none)
     this.webApplicationType = deduceWebApplicationType();
-    // 实例化配置文件META-INF/spring.factories中ApplicationContextInitializer.class的实现类
+    // 4 this.initializers 初始化并添加配置类，大致过程如下
+    // 4.1 扫描并获取classpath和jar包下所有META-INF/spring.factories文件列表
+    // 4.2 依次读取spring.factories文件，并将文件内容合并为MultiValueMap，缓存供下次使用
+    // 4.3 实例化4.2结果中ApplicationContextInitializer的实现类存入this.initializers
     setInitializers((Collection) getSpringFactoriesInstances(
         ApplicationContextInitializer.class));
-    // 实例化配置文件META-INF/spring.factories中ApplicationListener的实现类
+    // 5 this.listeners 初始化并添加配置类，过程同4
     setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
-    // 推断main方法所在类并保存
+    // 6 根据栈信息找到main方法所在类，并赋值给 this.mainApplicationClass
     this.mainApplicationClass = deduceMainApplicationClass();
 }
 ```
+
+
 
 
 ### 实例方法run
