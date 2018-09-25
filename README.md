@@ -1,6 +1,11 @@
 # knowledge
 
 
+## java
+
+### java基础
+
+- [序列化](./java-base/serialize.md)
 
 
 

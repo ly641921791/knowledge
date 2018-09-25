@@ -20,6 +20,7 @@
 		<module>spring-boot-source-code</module>
 		<module>mybatis</module>
 		<module>spring-boot-cache</module>
+		<module>java-base</module>
 	</modules>
 
 	<parent>
