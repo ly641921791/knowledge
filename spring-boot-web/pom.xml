@@ -9,7 +9,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>spring-boot-validation</artifactId>
+	<artifactId>spring-boot-web</artifactId>
 
 	<dependencies>
 		<dependency>

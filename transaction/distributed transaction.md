@@ -11,11 +11,16 @@
 		Isolation   隔离线 ：不同事物操作互不影响
 		Durability  持久性 ：事物成功提交，状态被记录以来
 	分布式事物   CAP （布鲁尔定理）
-		Consistency         一致性 ：读操作可以返回最新的数据。
-						强一致性 ：任意时刻，任意节点数据都是一样的
-						弱一致性 ：虽然不能保证强一致性，但是所有节点的数据会达到最终一致性
-		Availability        可用性 ：非故障节点应该在合理时间内返回合理相应
+		Consistency         一致性     ：读操作可以返回最新的数据。
+							强一致性    ：任意时刻，任意节点数据都是一样的
+							弱一致性    ：虽然不能保证强一致性，但是所有节点的数据会达到最终一致性
+		Availability        可用性     ：非故障节点应该在合理时间内返回合理相应
 		Partition tolerance 分区容错性 ：若某个节点出现问题，整个集群还可以正常工作
+
+
+Zookeeper   保证CP
+Eureka      保证AP
+
 
 BASE理论 ：Basically Available(基本可用)、Soft state(软状态)和 Eventually consistent (最终一致性)三个短语的缩写，是对 CAP 中 AP 的一个扩展。
 	
