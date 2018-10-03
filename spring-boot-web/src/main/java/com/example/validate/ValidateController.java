@@ -1,6 +1,7 @@
 package com.example.validate;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintViolation;
 import javax.validation.Payload;
+import javax.validation.Validator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -32,6 +35,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @RequestMapping("/validate")
 public class ValidateController {
 
+	@Autowired
+	private Validator validator;
+
 	@RequestMapping("/addUser")
 	public Integer addUser(@Validated(User.Add.class) User user) {
 		// 假设插入数据库后，生成id为89757
@@ -50,7 +56,7 @@ public class ValidateController {
 	public Object bindingResult(@Validated(User.Add.class) User user, BindingResult bindingResult) {
 		// 若存在校验异常则处理
 		if (bindingResult.hasErrors()) {
-			StringBuffer errorMessage = new StringBuffer();
+			StringBuilder errorMessage = new StringBuilder();
 			// 遍历全部校验异常并拼接异常信息
 			for (FieldError error : bindingResult.getFieldErrors()) {
 				errorMessage.append(error.getField()).append(error.getDefaultMessage()).append('\n');
@@ -58,6 +64,16 @@ public class ValidateController {
 			return errorMessage.toString();
 		}
 		return true;
+	}
+
+	@RequestMapping("/activeValidate")
+	public String activeValidate(User user) {
+		Set<ConstraintViolation<User>> validate = validator.validate(user, User.Add.class);
+		StringBuilder result = new StringBuilder();
+		for (ConstraintViolation<User> violation : validate) {
+			result.append(violation.getPropertyPath()).append(violation.getMessage());
+		}
+		return result.toString();
 	}
 }
 
@@ -87,7 +103,7 @@ class User {
 @Constraint(validatedBy = SexValidator.class)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @interface Sex {
-	String message() default "参数不合法";
+	String message() default "{com.example.validate.sex}";
 
 	Class<?>[] groups() default {};
 

@@ -160,7 +160,7 @@ public class ValidateController {
 	public Object bindingResult(@Validated(User.Add.class) User user, BindingResult bindingResult) {
 		// 若存在校验异常则处理
 		if (bindingResult.hasErrors()) {
-			StringBuffer errorMessage = new StringBuffer();
+			StringBuilder errorMessage = new StringBuilder();
 			// 遍历全部校验异常并拼接异常信息
 			for (FieldError error : bindingResult.getFieldErrors()) {
 				errorMessage.append(error.getField()).append(error.getDefaultMessage()).append('\n');
@@ -198,7 +198,7 @@ public class ValidateController {
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @interface Sex {
 	// 必须的三个属性
-	String message() default "参数不合法";
+	String message() default "参数值不正确";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 	// 允许值(默认1男2女)。若使用方的性别枚举不同，可以通过该字段指定校验通过的值。
@@ -246,21 +246,76 @@ class User {
 
 ```
 浏览器输入 ：http://localhost:8080/validate/handlerBindingResult?name=ly&sex=4
-返回处理后的错误信息 ：sex参数不合法
+返回处理后的错误信息 ：sex参数值不正确
 
 浏览器输入 ：http://localhost:8080/validate/handlerBindingResult?name=ly&sex=1
 校验通过，返回true
 ```
 
+###  配置校验提示信息
 
+**classpath下新建ValidationMessages.properties文件**
 
+```
+com.example.validate.sex = :incorrect parameter values
+```
 
+**修改Sex类**
 
+```
+@Documented
+@Retention(RUNTIME)
+@Constraint(validatedBy = SexValidator.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@interface Sex {
+	// 指定配置文件中消息
+	String message() default "{com.example.validate.sex}";
+	
+	//略
+}
+```
 
+**启动服务，测试代码**
 
-#### 自定义异常信息
+```
+浏览器输入 ：http://localhost:8080/validate/handlerBindingResult?name=ly&sex=4
+返回处理后的错误信息 ：sex:incorrect parameter values
+```
 
-https://blog.csdn.net/catoop/article/details/51278675
-https://blog.csdn.net/u013815546/article/details/77248003/
+### 手动进行校验
 
-#### 手动校验
+　　一般用不到，校验方法如下
+
+**注入校验对象，新增手动校验测试方法**
+
+```
+@RestController
+@RequestMapping("/validate")
+public class ValidateController {
+	// 注入校验对象。可以通过Validation.buildDefaultValidatorFactory().getValidator()获得。
+	@Autowired
+	private Validator validator;
+	
+	// 其他代码略
+	
+	@RequestMapping("/activeValidate")
+	public String activeValidate(User user) {
+		// 使用新增用户规则校验用户对象
+		Set<ConstraintViolation<User>> validate = validator.validate(user, User.Add.class);
+		// 处理校验结果
+		StringBuilder result = new StringBuilder();
+		for (ConstraintViolation<User> violation : validate) {
+			result.append(violation.getPropertyPath()).append(violation.getMessage());
+		}
+		return result.toString();
+	}
+}
+```
+
+**启动服务，测试代码**
+
+```
+浏览器输入 ：http://localhost:8080/validate/activeValidate?name=ly
+返回处理后的错误信息 ：sex:incorrect parameter values
+```
+
