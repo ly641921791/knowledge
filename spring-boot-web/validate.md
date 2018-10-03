@@ -47,7 +47,7 @@
 
 **新建User类，为name属性添加@NotBlank注解**
 
-```
+```java
 @Data
 class User {
 	private Integer id;
@@ -58,7 +58,7 @@ class User {
 
 **新增新建用户接口，添加@Validated注解开启user参数校验**
 
-```
+```java
 @RestController
 @RequestMapping("/validate")
 public class ValidateController {
@@ -74,7 +74,7 @@ public class ValidateController {
 
 **启动服务，测试代码**
 
-```
+```text
 浏览器输入 ：http://localhost:8080/validate/addUser
 由于name是null，校验不通过，返回错误
 
@@ -88,7 +88,7 @@ public class ValidateController {
 
 **修改User类，添加并指定校验组**
 
-```
+```java
 @Data
 class User {
 	// 定义新增校验组和更新校验组
@@ -108,7 +108,7 @@ class User {
 
 **添加修改用户接口，为新增和修改用户接口指定校验组**
 
-```
+```java
 @RestController
 @RequestMapping("/validate")
 public class ValidateController {
@@ -129,7 +129,7 @@ public class ValidateController {
 
 **启动服务，测试代码**
 
-```
+```text
 浏览器输入 ：http://localhost:8080/validate/addUser?id=1&name=ly
 由于id不是空，校验不通过，返回错误
 
@@ -149,7 +149,7 @@ public class ValidateController {
 
 **新增方法，用于测试校验结果的获取**
 
-```
+```java
 @RestController
 @RequestMapping("/validate")
 public class ValidateController {
@@ -174,7 +174,7 @@ public class ValidateController {
 
 **启动服务，测试代码**
 
-```
+```text
 浏览器输入 ：http://localhost:8080/validate/handlerBindingResult?id=1
 返回处理后的错误信息 ：id必须为null name不能为空
 
@@ -190,7 +190,7 @@ public class ValidateController {
 
 **新建Sex注解，用于性别参数校验**
 
-```
+```java
 @Documented
 @Retention(RUNTIME)
 // 指定校验类
@@ -208,7 +208,7 @@ public class ValidateController {
 
 **新增Sex注解校验类**
 
-```
+```text
 // 校验类需要实现ConstraintValidator接口，通过泛型指定被校验注解类型和被校验字段类型
 class SexValidator implements ConstraintValidator<Sex, Integer> {
 	private Set<Integer> allowed = new HashSet<>(2);
@@ -230,7 +230,7 @@ class SexValidator implements ConstraintValidator<Sex, Integer> {
 
 **修改User类**
 
-```
+```java
 @Data
 class User {
 
@@ -244,7 +244,7 @@ class User {
 
 **启动服务，测试代码**
 
-```
+```text
 浏览器输入 ：http://localhost:8080/validate/handlerBindingResult?name=ly&sex=4
 返回处理后的错误信息 ：sex参数值不正确
 
@@ -256,13 +256,13 @@ class User {
 
 **classpath下新建ValidationMessages.properties文件**
 
-```
+```properties
 com.example.validate.sex = :incorrect parameter values
 ```
 
 **修改Sex类**
 
-```
+```java
 @Documented
 @Retention(RUNTIME)
 @Constraint(validatedBy = SexValidator.class)
@@ -277,7 +277,7 @@ com.example.validate.sex = :incorrect parameter values
 
 **启动服务，测试代码**
 
-```
+```text
 浏览器输入 ：http://localhost:8080/validate/handlerBindingResult?name=ly&sex=4
 返回处理后的错误信息 ：sex:incorrect parameter values
 ```
@@ -288,7 +288,7 @@ com.example.validate.sex = :incorrect parameter values
 
 **注入校验对象，新增手动校验测试方法**
 
-```
+```java
 @RestController
 @RequestMapping("/validate")
 public class ValidateController {
@@ -314,7 +314,7 @@ public class ValidateController {
 
 **启动服务，测试代码**
 
-```
+```text
 浏览器输入 ：http://localhost:8080/validate/activeValidate?name=ly
 返回处理后的错误信息 ：sex:incorrect parameter values
 ```
