@@ -18,9 +18,10 @@
 
 ## spring boot
 
-### spring boot web
+### spring boot mvc
 
-- [参数校验](./spring-boot-web/validate.md)
+- [JSON](./spring-boot-mvc-json/json.md)
+- [参数校验](./spring-boot-mvc-validate/validate.md)
 
 #### 
 

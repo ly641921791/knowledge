@@ -21,7 +21,9 @@
 		<module>mybatis</module>
 		<module>spring-boot-cache</module>
 		<module>java-base</module>
-		<module>spring-boot-web</module>
+		<module>java-lombok</module>
+		<module>spring-boot-mvc-json</module>
+		<module>spring-boot-mvc-validate</module>
 	</modules>
 
 	<parent>
