@@ -163,3 +163,66 @@
 #### EXPOSE 暴露端口
 
 #### FROM 指定基础镜像
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@[toc]
+#Docker
+
+##核心概念
+
+- 仓库：保存镜像
+- 主机：安装了Docker程序的机器
+- 镜像：创建容器的模版
+- 容器：镜像启动后的实例
+- 客户端：
+
+## 使用过程
+
+- 安装Docker
+- 搜索镜像
+- 运行镜像
+
+## 安装Docker
+
+- 要求：虚拟机内核版本高于3.10
+	- 查看虚拟机内核版本：`uname -r`
+	- 若版本低于3.10，升级虚拟机内核：`yum update`
+- 安装：`yum install docker`
+- 启动：`systemctl start docker`
+- 停止：`systemctl stop docker`
+- 自启：`systemctl enable docker`
+
+## 镜像操作
+
+- 搜索：`docker search image_name`
+- 下载：`docker pull image_name[:tag]`
+- 查看本地镜像列表：`docker images`
+- 删除：`docker rmi image_id`
+
+## 容器操作
+
+- 创建并运行容器：`docker run image-name`
+	- 指定容器名：`--name container_name`
+	- 后台运行：`-d`
+	- 文件映射：`-v 本地文件路径:容器文件路径`
+	- 端口映射：`-p port:port`
+- 查看容器列表：`docker ps`
+	- 查看全部容器：`-a`
+- 停止容器：`docker stop container_id`
+- 启动容器：`docker start container_id`
+- 删除容器：`docker rm container_id`
+- 查看容器日志：`docker logs container_id`
