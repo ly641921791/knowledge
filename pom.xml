@@ -27,6 +27,7 @@
 		<module>redis</module>
 		<module>spring-ioc</module>
 		<module>docker</module>
+		<module>swagger</module>
 	</modules>
 
 	<parent>
@@ -50,7 +51,7 @@
 				<artifactId>fastjson</artifactId>
 				<version>1.2.51</version>
 			</dependency>
-			
+
 		</dependencies>
 	</dependencyManagement>
 
