@@ -8,26 +8,31 @@
 	<artifactId>knowledge</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<modules>
-		<module>transaction</module>
+		<module>docker</module>
+		<module>git</module>
+		<module>java-base</module>
+		<module>java-json</module>
+		<module>java-jvm</module>
+		<module>java-lombok</module>
+		<module>maven</module>
+		<module>mybatis</module>
 		<module>mysql</module>
+		<module>nginx</module>
+		<module>redis</module>
+		<module>spring-boot-source-code</module>
+		<module>spring-boot-cache</module>
 		<module>spring-boot-mvc</module>
 		<module>spring-boot-test</module>
 		<module>spring-boot-jdbc</module>
-		<module>git</module>
-		<module>java-jvm</module>
-		<module>spring-boot-source-code</module>
-		<module>mybatis</module>
-		<module>spring-boot-cache</module>
-		<module>java-base</module>
-		<module>java-lombok</module>
 		<module>spring-boot-mvc-json</module>
 		<module>spring-boot-mvc-validate</module>
-		<module>java-json</module>
-		<module>redis</module>
+		<module>spring-boot-xml</module>
 		<module>spring-ioc</module>
-		<module>docker</module>
+		<module>spring-security</module>
 		<module>swagger</module>
+		<module>transaction</module>
 	</modules>
 
 	<parent>
@@ -35,6 +40,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.1.RELEASE</version>
 	</parent>
+	
 	<dependencyManagement>
 		<dependencies>
 
@@ -47,9 +53,26 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+
+			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>1.2.51</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.8.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>2.8.0</version>
 			</dependency>
 
 		</dependencies>
