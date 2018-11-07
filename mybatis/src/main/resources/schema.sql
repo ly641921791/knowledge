@@ -1,0 +1,6 @@
+CREATE TABLE user (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'id',
+  name VARCHAR (16) COMMENT '姓名',
+  sex INT COMMENT '性别',
+  PRIMARY KEY (id)
+);
