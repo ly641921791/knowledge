@@ -36,6 +36,8 @@
 		<module>swagger</module>
 		<module>transaction</module>
 		<module>spring-boot-websocket</module>
+		<module>netty</module>
+		<module>spring-aop</module>
 	</modules>
 
 	<parent>
