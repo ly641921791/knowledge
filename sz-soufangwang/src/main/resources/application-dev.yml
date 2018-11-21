@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: 'jdbc:h2:mem:test'
+  thymeleaf:
+    cache: false              # 禁止缓存
+    mode: HTML                # 模式
+    prefix: classpath:/templates/
+    suffix: .html
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+security:
+  basic:
+    enabled: false
