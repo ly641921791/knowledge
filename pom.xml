@@ -20,8 +20,10 @@
 		<module>maven</module>
 		<module>mybatis</module>
 		<module>mysql</module>
+		<module>netty</module>
 		<module>nginx</module>
 		<module>redis</module>
+		<module>spring-aop</module>
 		<module>spring-boot-source-code</module>
 		<module>spring-boot-cache</module>
 		<module>spring-boot-mvc</module>
@@ -30,14 +32,14 @@
 		<module>spring-boot-jdbc</module>
 		<module>spring-boot-mvc-json</module>
 		<module>spring-boot-mvc-validate</module>
+		<module>spring-boot-websocket</module>
 		<module>spring-boot-xml</module>
 		<module>spring-ioc</module>
 		<module>spring-security</module>
 		<module>swagger</module>
+		<!-- 实战：搜房网 -->
+		<module>sz-soufangwang</module>
 		<module>transaction</module>
-		<module>spring-boot-websocket</module>
-		<module>netty</module>
-		<module>spring-aop</module>
 	</modules>
 
 	<parent>
@@ -45,7 +47,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.1.RELEASE</version>
 	</parent>
-	
+
 	<dependencyManagement>
 		<dependencies>
 
