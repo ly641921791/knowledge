@@ -17,6 +17,7 @@
 		<module>java-json</module>
 		<module>java-jvm</module>
 		<module>java-lombok</module>
+        <module>jira</module>
 		<module>maven</module>
 		<module>mybatis</module>
 		<module>mysql</module>
@@ -40,7 +41,8 @@
 		<!-- 实战：搜房网 -->
 		<module>sz-soufangwang</module>
 		<module>transaction</module>
-	</modules>
+        <module>elasticsearch</module>
+    </modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
