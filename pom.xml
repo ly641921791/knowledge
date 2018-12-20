@@ -17,7 +17,7 @@
 		<module>java-json</module>
 		<module>java-jvm</module>
 		<module>java-lombok</module>
-        <module>jira</module>
+		<module>jira</module>
 		<module>maven</module>
 		<module>mybatis</module>
 		<module>mysql</module>
@@ -38,11 +38,13 @@
 		<module>spring-ioc</module>
 		<module>spring-security</module>
 		<module>swagger</module>
+		<!-- 实战：秒杀 -->
+		<module>sz-seckill</module>
 		<!-- 实战：搜房网 -->
 		<module>sz-soufangwang</module>
-		<module>transaction</module>
-        <module>elasticsearch</module>
-    </modules>
+		<module>elasticsearch</module>
+		<module>mq</module>
+	</modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
