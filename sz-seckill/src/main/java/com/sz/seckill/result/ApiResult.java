@@ -1,8 +1,11 @@
 package com.sz.seckill.result;
 
+import lombok.Data;
+
 /**
  * @author ly
  */
+@Data
 public class ApiResult<T> {
 
     private int code;
