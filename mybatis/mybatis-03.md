@@ -1,6 +1,6 @@
 [TOC]
 
-# Mapper配置
+# Mapper配置详解
 
 本文介绍Mapper配置
 
@@ -109,16 +109,6 @@ public interface UserMapper {
 @Insert、@Delete、@Update、@Select的value属性都是数组，经过测试，会将字符串连接起来一次执行，也就是如果是多个SQL，每个SQL需要以`;`结束。
 
 对于@Select，会将第一条SQL的结果返回，其余SQL也会执行，但不会返回结果。
-
-### 配置获取自增主键
-
-```java
-public interface UserMapper {
-	@Options(userGenerationKey=true,keyProperty="id")    
-	@Insert("insert into users(name, age) values(#{name}, #{age})")
-	public int add(User user);
-}
-```
 
 ## 方法重载
 
