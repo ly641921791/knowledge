@@ -4,6 +4,16 @@
 
 本文提供一个入门示例
 
+下面是MyBatis的使用流程图
+
+```sequence
+Title:MyBatis使用流程
+SqlSessionFactoryBuilder->SqlSessionFactory: build(解析配置)
+SqlSessionFactory->SqlSession: openSession(获得可用连接)
+SqlSession->SqlSession:执行Sql
+SqlSession->SqlSessionFactory:close(归还连接)
+```
+
 ## 引入JAR包
 
 这里通过maven管理依赖

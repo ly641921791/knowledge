@@ -36,15 +36,15 @@ public class SqlSessionFactoryBuilder {
 源码很简洁，主要做了下面几件事
 
 1 创建XMLConfigBuilder
-	1.1 创建Configuration
-	1.2 保存Configuration
-	1.3 保存其他入参
+​	1.1 创建Configuration
+​	1.2 保存Configuration
+​	1.3 保存其他入参
 2 解析配置
-	2.1 调用parse解析配置文件，对Configuration各属性进行赋值
-	2.2 返回Configuration
+​	2.1 调用parse解析配置文件，对Configuration各属性进行赋值
+​	2.2 返回Configuration
 2 创建DefaultSqlSessionFactory
-	2.1 保存入参Configuration
-	2.2 返回DefaultSqlSessionFactory
+​	2.1 保存入参Configuration
+​	2.2 返回DefaultSqlSessionFactory
 
 **parse**
 
@@ -78,8 +78,8 @@ public class XMLConfigBuilder extends BaseBuilder {
 源码很简洁，主要做了下面几件事
 
 1 解析获得配置文件中的configuration节点
-	1.1 依次解析configuration的子节点
-	
+​	1.1 依次解析configuration的子节点
+​	
 **mapperElement**
 
 解析过程基本大致相同，这里重点看mapper节点的处理过程，源码如下
@@ -243,3 +243,18 @@ public class MapperAnnotationBuilder {
 	}
 }
 ```
+
+**getSqlSourceFromAnnotations**
+
+主要做了下面几件事，以@Select("SELECT * FROM USER WHERE id = #{id}")为例
+
+1 获取@Select注解
+	1.1 获取value属性（String[]类型）
+	1.2 将value拼接获得script
+2 解析script
+	2.1 解析${}，从全局properties中获取值替换
+	2.2 检查是否动态SQL（存在未解析的${}语句）
+	2.3 解析#{}，替换为?
+3 返回
+
+按理说应该继续分析代码，考虑到后面还有不少代码，就这样简单的分析一波吧
