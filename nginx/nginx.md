@@ -1,6 +1,53 @@
 [TOC]
 
-# Nginx
+# Nginx文档
+
+官网文档：http://nginx.org/en/docs/
+
+## 初学者指南
+
+### 配置文件结构
+
+```log
+...				# 全局块
+events {		# events块
+    ...
+}
+http {			# http块
+    ...
+    server {	# server块
+        ...	
+        location [PATTERN] {
+            ...
+        }
+    }
+    server {
+    }
+}
+```
+
+###配置静态服务器
+
+```log
+server {
+    location / {
+        root /data/www;
+    }
+    location /images/ {
+        root /data;
+    }
+}
+```
+
+http://localhost/images/example.png -> /data/images/example.png
+
+http://localhost/directory/index.html -> /data/www/directory/index.html
+
+### 配置代理服务器
+
+
+
+
 
 ## 使用
 
@@ -17,7 +64,31 @@
 
 ### 配置文件
 
+配置文件可能出现在三个地方
+
+- /etc/nginx/nginx.conf
+- /usr/local/etc/nginx/nginx.conf
+- /usr/local/nginx/nginx.conf
+
+
+
 默认配置文件 ：conf/nginx.conf
+
+
+
+#### 配置文件结构
+
+```log
+|- 指令
+	|- 普通指令
+	|- 数组指令
+	|- 行动指令
+|- 上下文/块
+```
+
+
+
+### 功能配置
 
 #### 配置反向代理
 
