@@ -26,16 +26,18 @@ http {			# http块
 }
 ```
 
-###配置静态服务器
+### 配置静态服务器
 
 ```log
-server {
-    location / {
-        root /data/www;
-    }
-    location /images/ {
-        root /data;
-    }
+http {
+	server {
+	    location / {
+	        root /data/www;
+	    }
+	    location /images/ {
+	        root /data;
+	    }
+	}
 }
 ```
 
@@ -45,6 +47,35 @@ http://localhost/directory/index.html -> /data/www/directory/index.html
 
 ### 配置代理服务器
 
+转发8080端口全部请求到/data/www目录下
+
+```log
+http {
+	server {	
+		listen 8080;
+			
+		root /data/www;
+		
+		location / {
+		}
+	}
+}
+```
+
+通过正则表达式，指定gif、jpg、png结尾的请求发送
+
+```log
+http {
+	server {
+		location / {
+			proxy_pass http://localhost:8080;
+		}
+		location ~ \.(gif|jpg|png)$ {
+			root /data;
+		}
+	}
+}
+```
 
 
 
