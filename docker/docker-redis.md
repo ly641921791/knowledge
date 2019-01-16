@@ -1,12 +1,16 @@
-[TOC]
+[toc]
 
-# Docker安装redis
+## 摘要
 
-> 相关地址 ：https://hub.docker.com/_/redis
+本文介绍通过Docker安装Redis的过程。
 
-## 准备redis容器启动命令
+## 安装过程
 
-保存为redis.sh文件，作为备份，同时供日后修改。
+将配置文件保存在本地，挂载到容器内部，方便修改配置。保存容器启动命令，作为备份。
+
+1. /root下新增redis.conf文件，作为redis容器的配置文件。
+
+2. /root下新增redis.sh文件，作为容器创建脚本，内容如下。
 
 ```shell
 docker run \
@@ -17,12 +21,13 @@ docker run \
 	-d redis:5 
 ```
 
-## 准备redis配置文件
+3. 运行容器创建脚本，命令如下
 
-> 配置文件地址 ： http://download.redis.io/redis-stable/redis.conf
-
-将内容复制保存为redis.conf
-
-## 执行命令启动
-
+```shell
 sh redis.sh
+```
+
+## 相关参考
+
+> Redis镜像官网地址 ：https://hub.docker.com/_/redis
+> Redis官网配置文件 ：http://download.redis.io/redis-stable/redis.conf
