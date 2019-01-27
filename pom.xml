@@ -13,7 +13,7 @@
 		<module>apache-shiro</module>
 		<module>docker</module>
 		<module>git</module>
-		<module>java-base</module>
+		<module>java</module>
 		<module>java-json</module>
 		<module>java-jvm</module>
 		<module>java-lombok</module>

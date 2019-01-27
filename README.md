@@ -7,7 +7,7 @@
 
 ### java基础
 
-- [序列化](./java-base/serialize.md)
+- [序列化](./java/serialize.md)
 
 ## 框架
 
@@ -127,5 +127,4 @@ Tomcat单机QPS=1200
 数据库QPS=500
 
 5 根据高峰QPS、单机QPS预估需要的
-
 
