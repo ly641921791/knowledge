@@ -55,6 +55,10 @@ public class Demo implements Serializable {
 ```
 
 
+## 坑
+
+若不显示声明序列化字段，会默认生成
+
 
 > 还有其他序列化方式
 > https://blog.csdn.net/huzhigenlaohu/article/details/51674513

@@ -135,3 +135,18 @@ public class SubClass implements SuperClass{
 ```
 
 这种情况下，编译器新增的方法就是桥接方法，桥接方法可以通过反射获取到，若泛型类型为Object，则不会新增桥接方法。
+
+
+
+
+
+
+
+
+// 获取父类泛型
+//        Type genericSuperclass = type.getGenericSuperclass();
+
+// 获取接口泛型
+ParameterizedType genericInterfaces = (ParameterizedType) type.getGenericInterfaces()[0];
+Class tableClass = (Class) genericInterfaces.getActualTypeArguments()[0];
+

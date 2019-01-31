@@ -88,3 +88,5 @@ response.setHeader("Access-Control-Allow-Origin", “null”);
 > w3c ：https://www.w3.org/TR/cors/
 
 > http://www.ruanyifeng.com/blog/2016/04/cors.html
+
+> https://blog.csdn.net/a78270528/article/details/78282804
