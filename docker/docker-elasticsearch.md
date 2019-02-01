@@ -35,14 +35,19 @@ docker run \
 	-it \
 	-d \
 	-p 9200:9200 -p 9300:9300 \
-	-v /opt/data/elasticsearch/logs:/usr/share/elasticsearch/logs \
-	-v /opt/data/elasticsearch/data:/usr/share/elasticsearch/data \
+	-v /usr/share/elasticsearch/logs:/usr/share/elasticsearch/logs \
+	-v /usr/share/elasticsearch/data:/usr/share/elasticsearch/data \
 	--name mylasticsearch -e "discovery.type=single-node" elasticsearch
 ```
 
 elasticsearch 报错 ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] 
 解决方案：生产模式 1
 
+
+将目录映射出来，启动会报错，JDK版本过低
+
+
+常见问题 https://www.jianshu.com/p/a12026b943a0
 
 > Elasticsearch官方文档 ：https://www.elastic.co/guide/en/elasticsearch/reference/6.5/docker.html
 > Elasticsearch官方Docker ：https://hub.docker.com/_/elasticsearch/
