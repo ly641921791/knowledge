@@ -44,6 +44,7 @@
 		<module>sz-soufangwang</module>
 		<module>elasticsearch</module>
 		<module>mq</module>
+		<module>web</module>
 	</modules>
 
 	<parent>

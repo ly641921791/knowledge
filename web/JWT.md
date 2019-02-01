@@ -1,12 +1,16 @@
-JWT
+[toc]
+
+# JWT介绍
 
 全称：Json Web Token，是一种特殊的Token
 
-jwt由三部分组成：头部（header）、载荷（payload）、签证（signature），格式如下：
+## 组成
+
+由三部分组成：头部（header）、载荷（payload）、签证（signature），格式如下：
 
 xxxx.yyyy.zzzz
 
-头部
+### 头部
 
 用于声明类型和加密算法，内容如下：
 
@@ -20,7 +24,7 @@ alg声明加密算法为HS256，可以使用其他加密算法
 
 将头部通过Base64加密得到xxxx
 
-荷载
+### 荷载
 
 用于存放信息，包含标准声明和其他声明，不建议存放敏感信息
 
@@ -40,7 +44,7 @@ jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重
 
 将荷载通过Base64加密得到yyyy
 
-签证
+### 签证
 
 用于jwt的验证
 
