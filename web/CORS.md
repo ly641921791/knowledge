@@ -23,9 +23,13 @@ CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource s
 
 ## 非简单请求处理流程
 
+非简单请求在请求之前会发送一次预检查请求，检查服务器是否允许本次请求
 
+其他处理流程同简单请求处理流程2
 
 ## 如何携带Cookie
+
+未验证，转载来源忘记保存了
 
 ```log
 
@@ -49,13 +53,11 @@ The credentials mode of an XMLHttpRequest is controlled by the withCredentials a
 
 大概意思是，当Credentials是true时，Access-Control-Allow-Origin不允许为*
 
-
-    3. 解决该问题
+3. 解决该问题
 
 response.setHeader("Access-Control-Allow-Origin", “null”);
 
 ```
-
 
 ## 简单请求
 
