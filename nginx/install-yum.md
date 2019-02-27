@@ -6,7 +6,7 @@
 
 执行下面命令
 
-```log
+```shell
 rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 ```
 
@@ -16,7 +16,7 @@ rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0
 
 执行下面命令
 
-```log
+```shell
 yum install -y nginx
 ```
 

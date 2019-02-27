@@ -128,3 +128,9 @@ Tomcat单机QPS=1200
 
 5 根据高峰QPS、单机QPS预估需要的
 
+## Nginx教程
+
+### 安装
+
+- [yum安装](./nginx/install-yum.md)
+- [docker安装](./nginx/install-docker.md)
