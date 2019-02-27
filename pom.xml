@@ -22,7 +22,6 @@
 		<module>mybatis</module>
 		<module>mysql</module>
 		<module>netty</module>
-		<module>nginx</module>
 		<module>redis</module>
 		<module>spring-aop</module>
 		<module>spring-boot-source-code</module>

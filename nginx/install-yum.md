@@ -2,7 +2,7 @@
 
 本文介绍CentOS 7系统如何通过yum命令安装Nginx
 
-##### 1. 配置Nginx源
+#### 1. 配置Nginx源
 
 执行下面命令
 
@@ -12,7 +12,7 @@ rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0
 
 执行命令后，在/etc/yum.repos.d/目录下出现nginx.repo文件，说明配置成功
 
-##### 2. 安装Nginx
+#### 2. 安装Nginx
 
 执行下面命令
 
