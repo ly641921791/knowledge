@@ -11,7 +11,6 @@
 
 	<modules>
 		<module>apache-shiro</module>
-		<module>docker</module>
 		<module>git</module>
 		<module>java</module>
 		<module>java-json</module>
@@ -43,7 +42,6 @@
 		<module>sz-soufangwang</module>
 		<module>elasticsearch</module>
 		<module>mq</module>
-		<module>web</module>
 	</modules>
 
 	<parent>
