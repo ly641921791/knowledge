@@ -117,6 +117,10 @@
 - [yum安装](./nginx/install-yum.md)
 - [docker安装](./nginx/install-docker.md)
 
+## Redis
+
+- [分布式锁](./redis/distributed%20lock.md)
+
 ## Spring Boot
 
 - [文件上传](./spring-boot-mvc/file-upload.md)
