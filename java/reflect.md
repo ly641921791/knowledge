@@ -142,11 +142,3 @@ public class SubClass implements SuperClass{
 
 
 
-
-// 获取父类泛型
-//        Type genericSuperclass = type.getGenericSuperclass();
-
-// 获取接口泛型
-ParameterizedType genericInterfaces = (ParameterizedType) type.getGenericInterfaces()[0];
-Class tableClass = (Class) genericInterfaces.getActualTypeArguments()[0];
-
