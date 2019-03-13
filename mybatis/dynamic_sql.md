@@ -189,3 +189,52 @@ public interface BlogMapper {
     }
 }
 ```
+
+#### 参数传递
+
+Mapper方法单参数，可以直接传入，如：
+
+```java
+public interface BlogMapper {
+    @SelectProvider(type=SqlProvider.class,method="findById")
+    Blog findById(long id);
+    
+    class SqlProvider {
+        public String findById(long id){
+            return "SELECT * FROM blog WHERE id = #{id}";
+        }
+    }
+}
+```
+
+Mapper方法多参数，可以通过Map传入，如：
+
+```java
+public interface BlogMapper {
+    @SelectProvider(type=SqlProvider.class,method="findById")
+    Blog findById(@Param("id1")long id1,@Param("id2")long id2);
+    
+    class SqlProvider {
+        public String findById(Map<String,Object> param){
+            long id1 = (long) param.get("id1");
+            long id1 = (long) param.get("id2");
+            return "SELECT * FROM blog WHERE id IN (#{id1},#{id2})";
+        }
+    }
+}
+```
+
+Mapper方法多参数，还可以通过@Param指定传入参数，如：
+
+```java
+public interface BlogMapper {
+    @SelectProvider(type=SqlProvider.class,method="findById")
+    Blog findById(@Param("id1")long id1,@Param("id2")long id2);
+    
+    class SqlProvider {
+        public String findById(@Param("id1")long id1,@Param("id2")long id2){
+            return "SELECT * FROM blog WHERE id IN (#{id1},#{id2})";
+        }
+    }
+}
+```
