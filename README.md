@@ -122,6 +122,7 @@
 
 - [数据类型](./mysql/data-type.md)
 - [索引使用](./mysql/index.md)
+- [存储引擎](./mysql/storage_engines.md)
 - [性能优化](./mysql/optimize.md)
 
 ## Nginx教程
