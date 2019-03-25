@@ -152,6 +152,15 @@ XML实现动态SQL是基于OGNL表达式实现的，MyBatis提供了以下标签
 </select>
 ```
 
+#### 自定义判断
+
+`<if>`标签会将空字符串和0判断相等，通过自定义判断类，解决该问题
+
+```xml
+<if test="@StringUtils@isNotEmpty(id)">
+</if>
+```
+
 ### 注解实现动态SQL
 
 注解实现动态SQL是基于反射实现的，MyBatis提供了以下注解：
