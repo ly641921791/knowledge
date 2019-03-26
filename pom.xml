@@ -16,7 +16,6 @@
 		<module>java-jvm</module>
 		<module>java-lombok</module>
 		<module>jira</module>
-		<module>maven</module>
 		<module>mq</module>
 		<module>mybatis</module>
 		<module>mysql</module>
@@ -40,7 +39,6 @@
 		<module>sz-seckill</module>
 		<!-- 实战：搜房网 -->
 		<module>sz-soufangwang</module>
-		<module>elasticsearch</module>
 	</modules>
 
 	<parent>
