@@ -11,15 +11,12 @@
 
 	<modules>
 		<module>apache-shiro</module>
-		<module>git</module>
 		<module>java-jvm</module>
 		<module>java-lombok</module>
 		<module>jira</module>
 		<module>mq</module>
 		<module>mybatis</module>
-		<module>mysql</module>
 		<module>netty</module>
-		<module>redis</module>
 		<module>spring-aop</module>
 		<module>spring-boot-source-code</module>
 		<module>spring-boot-cache</module>
