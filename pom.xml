@@ -12,7 +12,6 @@
 	<modules>
 		<module>apache-shiro</module>
 		<module>git</module>
-		<module>java-json</module>
 		<module>java-jvm</module>
 		<module>java-lombok</module>
 		<module>jira</module>
