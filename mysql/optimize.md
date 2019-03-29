@@ -58,24 +58,32 @@ MySQL提供INET_ATON和INET_NTOA函数，将IP字符串和十进制数字之间�
 
 避免对字段进行NULL判断，会放弃索引
 
-避免LIKE '%xxx'式查询，会放弃索引。
+避免LIKE '%xxx'式查询，会放弃索引。可以使用全文索引，
 
-IN优化。避免数值过多，对于连续的值，使用BETWEEN替换
+避免对字段进行运算，例如 WHERE age - 18 > 0，改为WHERE age > 0 + 18
+
+IN优化。避免数值过多，个数建议控制在200以内，对于连续的值，使用BETWEEN替换
 
 OR优化。可能会导致索引失效。坑：许多文章提到可以使用UNION ALL代替，测试发现并没有提高效率，因为UNION连接的语句还是会全表扫描，个人感觉应该没有影响。
+OR两段列相同的改写为IN，OR的效率是n级别，IN的效率是log(n)级别
 
-避免隐式类型转换。坑：个人使用主键查看执行计划，type=const，并无影响
+避免隐式类型转换。坑：个人使用主键查看执行计划，type=const，并无影响，可能是版本问题
+
+IN和EXISTS。`SELECT * FROM a WHERE id IN (SELECT id FROM b)`等价于`SELECT * FROM a WHERE EXISTS (SELECT * FROM b WHERE b.id = a.id)`
+IN以内表驱动，内表小时效率高，EXISTS以外表驱动，外表小时效率高
 
 3. ORDER BY
 
 排序列尽量加索引
 
-
+避免ORDER BY RAND()，数据量小的情况下可以使用，数据量大的情况下，随机一个id，连续取指定条数
 
 4. LIMIT
 
 坑：许多文章都提到使用`LIMIT 1`，可以使EXPLAIN的type=const，个人使用MySQL5.7和5.8测试主键列和非索引列后，发现均显示`all`。
 `但是`查询速度快了，个人感觉是响应数据包减少导致的速度加快。
+
+分页查询时，MySQL是将数据放在内存进行的，随着offset变大，越来越慢，数据量大的情况，可以使用上一页的id作为起点进行分页
 
 5. 函数
 
@@ -85,7 +93,14 @@ OR优化。可能会导致索引失效。坑：许多文章提到可以使用UNI
 
 若能保证数据没有重复，可以使用UNION ALL，避免去重导致的资源消耗。
 
+7. JOIN
 
+LEFT JOIN 左表作为驱动表
+INNER JOIN 系统自动选择驱动表
+RIGHT JOIN 右表左驱动表
+
+使用小表驱动大表
+ON的字段加索引
 
 
 
@@ -159,7 +174,7 @@ OR优化。可能会导致索引失效。坑：许多文章提到可以使用UNI
 
 7.sql语句尽可能简单：一条sql只能在一个cpu运算；大语句拆小语句，减少锁时间；一条大sql可以堵死整个库
 
-8.OR改写成IN：OR的效率是n级别，IN的效率是log(n)级别，in的个数建议控制在200以内
+
 
 9.不用函数和触发器，在应用程序实现
 
@@ -187,56 +202,6 @@ where match(user_name) against('zhangsan' in boolean mode);
 
 注意：在需要创建全文索引之前，请联系DBA确定能否创建。同时需要注意的是查询语句的写法与普通索引的区别。
 
-
-# 8、不使用ORDER BY RAND()
-
-select id from `table_name` 
-order by rand() limit 1000;
-上面的sql语句，可优化为
-
-select id from `table_name` t1 join 
-(select rand() * (select max(id) from `table_name`) as nid) t2 
-on t1.id > t2.nid limit 1000;
-
-# 9、区分in和exists， not in和not exists
-
-select * from 表A where id in (select id from 表B)
-
-上面sql语句相当于
-
-select * from 表A where exists
-(select * from 表B where 表B.id=表A.id)
-
-区分in和exists主要是造成了驱动顺序的改变（这是性能变化的关键），如果是exists，那么以外层表为驱动表，先被访问，如果是IN，那么先执行子查询。所以IN适合于外表大而内表小的情况；EXISTS适合于外表小而内表大的情况。
-
-关于not in和not exists，推荐使用not exists，不仅仅是效率问题，not in可能存在逻辑问题。如何高效的写出一个替代not exists的sql语句？
-
-原sql语句
-
-select colname … from A表 
-where a.id not in (select b.id from B表)
-
-高效的sql语句
-
-select colname … from A表 Left join B表 on 
-where a.id = b.id where b.id is null
-
-取出的结果集如下图表示，A表不在B表中的数据。
-
-
-# 10、使用合理的分页方式以提高分页的效率
-
-select id,name from table_name limit 866613, 20
-
-使用上述sql语句做分页的时候，可能有人会发现，随着表数据量的增加，直接使用limit分页查询会越来越慢。
-
-优化的方法如下：可以取前一页的最大行数的id，然后根据这个最大的id来限制下一页的起点。比如此列中，上一页最大的id是866612。sql可以采用如下的写法。
-
-select id,name from table_name where id> 866612 limit 20
-
-# 11、分段查询
-
-在一些用户选择页面中，可能一些用户选择的时间范围过大，造成查询缓慢。主要的原因是扫描行数过多。这个时候可以通过程序，分段进行查询，循环遍历，将结果合并处理进行展示。
 
 3.分区
 
@@ -284,7 +249,9 @@ MySQL在5.1版引入的分区是一种简单的水平拆分，用户需要在建
 
 5.具体关于mysql分区的概念请自行google或查询官方文档，我这里只是抛砖引玉了。
 
-我首先根据月份把上网记录表RANGE分区了12份，查询效率提高6倍左右，效果不明显，故：换id为HASH分区，分了64个分区，查询速度提升显著。问题解决！
+
+我首先根据月份把上网记录表RANGE分区了12份，查询效率提高6倍左右，效果不明显，
+故：换id为HASH分区，分了64个分区，查询速度提升显著。问题解决！
 
 结果如下：PARTITION BY HASH (id)PARTITIONS 64
 
@@ -371,4 +338,3 @@ MaxCompute可以理解为开源的Hive，提供sql/mapreduce/ai算法/python脚�
 当然你也可以选择阿里云hbase等其他产品，我这里主要是离线处理，故选择MaxCompute，基本都是图形界面操作，大概写了300行sql，费用不超过100块钱就解决了数据处理问题。
 
 
-https://mp.weixin.qq.com/s/_abnnW7FzeQuNnA7NoRILg
