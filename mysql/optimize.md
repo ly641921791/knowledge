@@ -52,23 +52,38 @@ MySQL提供INET_ATON和INET_NTOA函数，将IP字符串和十进制数字之间�
 
 1. SELECT
 
-查询具体的列代替SELECT *
+`SELECT *`优化。增加了不必要的CPU、IO、内存、带宽消耗，`SELECT *`和`SELECT id`执行计划的extra列是不一样的
 
 2. WHERE
 
 避免对字段进行NULL判断，会放弃索引
 
-避免LIKE '%xxx'式查询，会放弃索引
+避免LIKE '%xxx'式查询，会放弃索引。
 
-3. LIMIT
+IN优化。避免数值过多，对于连续的值，使用BETWEEN替换
 
-使用LIMIT对查询结果的记录进行限定，例如：根据手机号查询用户，使用LIMIT 1限制，避免查询到结果后进行没必要的全表扫描
+OR优化。可能会导致索引失效。坑：许多文章提到可以使用UNION ALL代替，测试发现并没有提高效率，因为UNION连接的语句还是会全表扫描，个人感觉应该没有影响。
 
-4. 函数
+避免隐式类型转换。坑：个人使用主键查看执行计划，type=const，并无影响
+
+3. ORDER BY
+
+排序列尽量加索引
+
+
+
+4. LIMIT
+
+坑：许多文章都提到使用`LIMIT 1`，可以使EXPLAIN的type=const，个人使用MySQL5.7和5.8测试主键列和非索引列后，发现均显示`all`。
+`但是`查询速度快了，个人感觉是响应数据包减少导致的速度加快。
+
+5. 函数
 
 不对列进行运算。例如：SELECT id WHERE age + 1 = 10，任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边
 
+6. UNION
 
+若能保证数据没有重复，可以使用UNION ALL，避免去重导致的资源消耗。
 
 
 
@@ -83,7 +98,26 @@ MySQL提供INET_ATON和INET_NTOA函数，将IP字符串和十进制数字之间�
 
 ### 分析SQL
 
-EXPLAIN命令
+执行 `EXPLAIN SELECT id FROM user WHERE id = 1`
+
+分析结果
+
+|id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra|
+|---|---|---|---|---|---|---|---|---|---|---|---|
+|1|	SIMPLE|	user	|(NULL)|	const|	PRIMARY	|PRIMARY	|8	|const|	1	|100.00|	Using index|
+
+分析说明
+
+|row|mean|
+|---|---|
+|type|连接类型<br>尽量range，避免all|
+|key|使用的索引名，null表示未使用，可以强制索引|
+|key_len|索引长度|
+|rows|预估扫描行数|
+|extra|详细说明<br>避免Using filesort, Using temporary|
+
+
+
 
 ## 使用索引
 
@@ -140,6 +174,69 @@ EXPLAIN命令
 14.对于连续数值，使用BETWEEN不用IN：SELECT id FROM t WHERE num BETWEEN 1 AND 5
 
 15.列表数据不要拿全表，要使用LIMIT来分页，每页数量也不要太大
+
+
+创建全文索引的sql语法是：
+
+ALTER TABLE `table_name` ADD FULLTEXT INDEX `idx_user_name` (`user_name`);
+
+使用全文索引的sql语句是：
+
+select id,fnum,fdst from table_name 
+where match(user_name) against('zhangsan' in boolean mode);
+
+注意：在需要创建全文索引之前，请联系DBA确定能否创建。同时需要注意的是查询语句的写法与普通索引的区别。
+
+
+# 8、不使用ORDER BY RAND()
+
+select id from `table_name` 
+order by rand() limit 1000;
+上面的sql语句，可优化为
+
+select id from `table_name` t1 join 
+(select rand() * (select max(id) from `table_name`) as nid) t2 
+on t1.id > t2.nid limit 1000;
+
+# 9、区分in和exists， not in和not exists
+
+select * from 表A where id in (select id from 表B)
+
+上面sql语句相当于
+
+select * from 表A where exists
+(select * from 表B where 表B.id=表A.id)
+
+区分in和exists主要是造成了驱动顺序的改变（这是性能变化的关键），如果是exists，那么以外层表为驱动表，先被访问，如果是IN，那么先执行子查询。所以IN适合于外表大而内表小的情况；EXISTS适合于外表小而内表大的情况。
+
+关于not in和not exists，推荐使用not exists，不仅仅是效率问题，not in可能存在逻辑问题。如何高效的写出一个替代not exists的sql语句？
+
+原sql语句
+
+select colname … from A表 
+where a.id not in (select b.id from B表)
+
+高效的sql语句
+
+select colname … from A表 Left join B表 on 
+where a.id = b.id where b.id is null
+
+取出的结果集如下图表示，A表不在B表中的数据。
+
+
+# 10、使用合理的分页方式以提高分页的效率
+
+select id,name from table_name limit 866613, 20
+
+使用上述sql语句做分页的时候，可能有人会发现，随着表数据量的增加，直接使用limit分页查询会越来越慢。
+
+优化的方法如下：可以取前一页的最大行数的id，然后根据这个最大的id来限制下一页的起点。比如此列中，上一页最大的id是866612。sql可以采用如下的写法。
+
+select id,name from table_name where id> 866612 limit 20
+
+# 11、分段查询
+
+在一些用户选择页面中，可能一些用户选择的时间范围过大，造成查询缓慢。主要的原因是扫描行数过多。这个时候可以通过程序，分段进行查询，循环遍历，将结果合并处理进行展示。
 
 3.分区
 
@@ -272,3 +369,6 @@ hadoop家族。hbase/hive怼上就是了。但是有很高的运维成本，一�
 MaxCompute可以理解为开源的Hive，提供sql/mapreduce/ai算法/python脚本/shell脚本等方式操作数据，数据以表格的形式展现，以分布式方式存储，采用定时任务和批处理的方式处理数据。DataWorks提供了一种工作流的方式管理你的数据处理任务和调度监控。
 
 当然你也可以选择阿里云hbase等其他产品，我这里主要是离线处理，故选择MaxCompute，基本都是图形界面操作，大概写了300行sql，费用不超过100块钱就解决了数据处理问题。
+
+
+https://mp.weixin.qq.com/s/_abnnW7FzeQuNnA7NoRILg
