@@ -1,6 +1,6 @@
 # Java 序列化
 
-　　实现Serializable后，可以通过ObjectInputStream和ObjectOutputStream进行对象的读写，[例子](../java-base/src/main/java/com/example/SerializeDemo.java)。
+　　实现Serializable后，可以通过ObjectInputStream和ObjectOutputStream进行对象的读写。
 
 	静态字段不支持序列化，因为是属于类的，不属于对象。
 	
