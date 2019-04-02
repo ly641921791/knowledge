@@ -30,10 +30,6 @@
 		<module>spring-ioc</module>
 		<module>spring-security</module>
 		<module>swagger</module>
-		<!-- 实战：秒杀 -->
-		<module>sz-seckill</module>
-		<!-- 实战：搜房网 -->
-		<module>sz-soufangwang</module>
 	</modules>
 
 	<parent>
