@@ -56,25 +56,41 @@ max_binlog_size = 100M
 
 #### 错误日志
 
+错误日志记录了MySQL启停和发送错误时的信息
 
+- 配置
 
+默认情况下，存放在在数据目录下，文件名为hostname.err，通过修改配置文件[MySQLd]下的组进行配置
 
+```ini
+[mysqld]
+log-error [=path/[filename]]
+```
 
+- 查看
 
+执行`SHOW VARIABLES LIKE 'log_error'`获得错误日志的文件地址，使用记事本打开
 
+- 删除
 
+执行`flush logs`或直接删除
 
-## 二 通用查询日志
+#### 查询日志
 
-###1 查看、设置启动状态
+记录了用户的所有操作：启停服务、查询、更新数据等
 
-**查看**
+- 配置
+
+默认情况下，存放在数据目录下，文件名为hostname.log，不开启，通过修改配置文件[MySQLd]下的组进行配置
+
+```ini
+[mysqld]
+log [=path/[filename]]
+```
 
 执行`show variables like '%general%';`
 
 general_log为ON表示开启，为OFF表示关闭。默认关闭。
-
-**设置**
 
 临时开启：`set global general_log=on;`
 
@@ -84,15 +100,13 @@ general_log为ON表示开启，为OFF表示关闭。默认关闭。
 
 永久关闭：my.cnf -> general_log=0
 
-### 2 查看、设置日志输出格式
+- 查看
 
-**查看**
+可以使用记事本打开
 
 执行`show variables like '%log_output%';`
 
 FILE表示存储在数据库数据文件的hostname.log中，TABLE表示存储在mysql.general_log表
-
-**设置**
 
 临时设置输出表：`set global log_output='TABLE';`
 
@@ -102,13 +116,23 @@ FILE表示存储在数据库数据文件的hostname.log中，TABLE表示存储�
 
 永久设置输出表和文件：my.cnf -> log_output=FILE,TABLE
 
-## 三 慢查询日志
+- 删除
 
-记录运行时间超过long_query_time的SQL。要求高性能的话，建议写文件。默认不开启。默认10S，通常设置1S。
+执行`flush logs`或直接删除
 
-### 1 查看启动状态
+#### 三 慢查询日志
 
-**查看**
+用于记录查询时间超过long_query_time的SQL，然后进行优化，要求高性能的话，建议写文件。默认不开启。默认10S，通常设置1S。
+
+##### 配置
+
+默认情况下，是关闭的，通过如下配置打开
+
+```ini
+[mysqld]
+log-slow-queries [=path/filename]
+long_query_time=n
+```
 
 执行`show variables like '%quer%';`
 
@@ -121,6 +145,8 @@ FILE表示存储在数据库数据文件的hostname.log中，TABLE表示存储�
 慢查询日志会输出到mysql.slow_log表中
 
 查询当前慢查询的语句数量 ：`show golbal status like '%slow%';`
+
+删除同上
 
 
 
