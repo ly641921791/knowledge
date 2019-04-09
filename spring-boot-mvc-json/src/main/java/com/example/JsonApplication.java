@@ -1,15 +1,11 @@
-package example;
+package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author ly
- */
 @SpringBootApplication
-public class WebApplication {
-
+public class JsonApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(WebApplication.class, args);
+		SpringApplication.run(JsonApplication.class, args);
 	}
 }

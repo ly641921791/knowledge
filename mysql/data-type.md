@@ -45,6 +45,8 @@ DECIMAL以字符串形式处理，精度要求高的字段使用，浮点数数�
 
 ## 字符类型
 
+
+
 ### 枚举类型
 
 ENUM类型在建表时，规定列允许的值，语法如下：
@@ -56,3 +58,41 @@ ENUM类型在建表时，规定列允许的值，语法如下：
 
 
 
+
+
+MySql数据类型
+
+	类型			大小	范围	
+	
+数值类型
+
+	tinyint			1字节	0，2^(8-1)	
+	smallint		2字节
+	mediumint		3字节
+	int、integer	4字节
+	bigint			8字节
+	float			4字节
+	double			8字节
+	decimal			大小根据decimal(m,d)确定。m>d时，m+2字节；否则d+2字节
+	
+时间日期
+							
+	date			3		YYYY-MM-DD
+	time			3		HH:MM:SS
+	year			1		YYYY
+	datetime		8		YYYY-MM-DD HH:MM:SS
+	timestamp		4		YYYYMMDDHHMMSS
+	
+字符类型
+				单位字节
+	char		0-255
+	varchar		0-65535
+	tinyblob	0-255
+	tinytext	0-255
+	blob		0-65535
+	text		0-65535
+	MEDIUMBLOB	0-16 777 215字节	二进制形式的中等长度文本数据
+	MEDIUMTEXT	0-16 777 215字节	中等长度文本数据
+	LONGBLOB	0-4 294 967 295字节	二进制形式的极大文本数据
+	LONGTEXT	0-4 294 967 295字节	极大文本数据
+	

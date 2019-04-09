@@ -2,7 +2,9 @@ package com.example.mybatis.controller;
 
 import com.example.mybatis.bean.User;
 import com.example.mybatis.mapper.UserMapper;
+import com.swift.custom.mapper.param.SelectCondition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,11 @@ public class TypeHandlerController {
     @RequestMapping("/findAll")
     public List<User> findAll() {
         return userMapper.findAll();
+    }
+
+    @GetMapping("/hello")
+    public List<User> hello() {
+        return userMapper.select(new SelectCondition().eq("id",1));
     }
 
 }

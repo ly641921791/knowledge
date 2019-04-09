@@ -1,0 +1,1 @@
+insert into user (id,name,age) values (1,'ly',25);

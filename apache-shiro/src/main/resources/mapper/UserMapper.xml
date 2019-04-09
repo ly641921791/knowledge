@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.shiro.mapper.UserMapper">
+
+	<resultMap id="userMap" type="com.example.shiro.bean.User">
+		<id property="uid" column="uid" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<collection property="roles" ofType="com.example.shiro.bean.Role">
+			<id property="rid" column="rid" />
+			<result property="name" column="rname" />
+			<collection property="permissions" ofType="com.example.shiro.bean.Permission">
+				<id property="pid" column="pid" />
+				<result property="name" column="name"/>
+				<result property="url" column="url" />
+			</collection>
+		</collection>
+	</resultMap>
+
+</mapper>

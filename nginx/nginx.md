@@ -1,478 +1,452 @@
-[TOC]
 
-# Nginx文档
 
-官网文档：http://nginx.org/en/docs/
+Nginx
+	轻量级的Web/反向代理/电子邮件代理服务器
+	特定：占用内存少，并发强
+	服务器
+	默认端口：80
+	
+	进入sbin目录
+	启动 ./nginx
+	其他
+		./nginx -s stop		快速关闭
+		./nginx -s quit		等worker线程处理完毕关闭
+		./nginx -s reload	重新加载配置文件
+		./nginx -s reopen	重新打开日志文件
 
-## 初学者指南
 
-### 配置文件结构
+	用于解决C10K问题：一个服务器同时连接10k客户端
+	
+	基本的nginx由master进程和worker进程组成。master读取配置文件，维护worker，worker对请求处理
 
-```log
-...				# 全局块
-events {		# events块
-    ...
-}
-http {			# http块
-    ...
-    server {	# server块
-        ...	
-        location [PATTERN] {
-            ...
-        }
-    }
-    server {
-    }
-}
-```
+	
+	nginx无法访问
+		1：可能是端口未开放：/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+	
+正向代理和反向代理的区别
+	正向代理：客户端通过代理服务器向服务端发出请求，服务端并不知道请求的源头
+	反向代理：客户端向服务器发出请求，服务器只是反向代理服务器，会将请求发送至真正的服务器，客户端并不知道请求最终的流向
+	用途：
+		正向代理典型用途就是跳过防火墙访问外网，如通过VPN翻墙
+		反向代理典型用途就是负载均衡
+	安全性：
+		正向代理客户端可以通过它访问任意网站且隐藏自身，不安全，需要采取安全措施仅对授权的客户端提供服务
+		反向代理对外透明，客户端并不知道自己访问的是代理服务器
 
-### 配置静态服务器
+CentOS7安装nginx服务器
+1：编译环境安装
+	安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装：
+	yum install gcc-c++
+2：pcre安装
+	nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要安装
+	yum install -y pcre pcre-devel
+3：zlib 安装
+	zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。
+	yum install -y zlib zlib-devel
+4：OpenSSL 安装
+	OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。
+	nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。
+	yum install -y openssl openssl-devel
 
-```log
-http {
-	server {
-	    location / {
-	        root /data/www;
-	    }
-	    location /images/ {
-	        root /data;
-	    }
-	}
-}
-```
-
-http://localhost/images/example.png -> /data/images/example.png
-
-http://localhost/directory/index.html -> /data/www/directory/index.html
-
-### 配置代理服务器
-
-转发8080端口全部请求到/data/www目录下
-
-```log
-http {
-	server {	
-		listen 8080;
-			
-		root /data/www;
-		
-		location / {
-		}
-	}
-}
-```
-
-通过正则表达式，指定gif、jpg、png结尾的请求发送
-
-```log
-http {
-	server {
-		location / {
-			proxy_pass http://localhost:8080;
-		}
-		location ~ \.(gif|jpg|png)$ {
-			root /data;
-		}
-	}
-}
-```
+5：下载nginx源码
+	推荐使用命令下载
+	wget -c https://nginx.org/download/nginx-1.10.1.tar.gz
+6：解压并进入目录
+	tar -zxvf nginx-1.10.1.tar.gz
+	cd nginx-1.10.1
+7：配置
+	使用默认配置
+	./configure
+8：编译安装
+	make
+	make install
+	
 
 
 
+
+
+
+# Elasticsearch
+
+> 电子书
+> https://www.elastic.co/guide/cn/elasticsearch/guide/current/_finding_your_feet.html
+
+
+## 实现：倒排索引
+
+## 结构
+
+Elasticsearch
+	|-  Index                   类似数据库
+		|-  Type                类似表
+			|-  Document        表中一条记录
 
 ## 使用
 
-### 常用命令
+### 插入记录
 
-- nginx -s stop ：快速关闭nginx
-- nginx -s quit ：正常关闭nginx
-- nginx -s reload ：重新加载配置文件
-- nginx -s reopen ：重新打开日志文件
-- nginx -c configName ：指定配置文件启动
-- nginx -t ：测试配置文件是否可用
-- nginx -v ：显示版本
-- nginx -V ：显示版本、编译器版本、配置参数
-
-### 配置文件
-
-配置文件可能出现在三个地方
-
-- /etc/nginx/nginx.conf
-- /usr/local/etc/nginx/nginx.conf
-- /usr/local/nginx/nginx.conf
-
-
-
-默认配置文件 ：conf/nginx.conf
-
-
-
-#### 配置文件结构
+向megacorp库的employee表插入id=1的记录
 
 ```log
-|- 指令
-	|- 普通指令
-	|- 数组指令
-	|- 行动指令
-|- 上下文/块
+PUT /megacorp/employee/1
+{
+    "first_name" : "John",
+    "last_name" :  "Smith",
+    "age" :        25,
+    "about" :      "I love to go rock climbing",
+    "interests": [ "sports", "music" ]
+}
 ```
 
+### 查询记录
 
+查询megacorp库的employee表中id=1的记录
 
-### 功能配置
-
-#### 配置反向代理
-
-```property
-#运行用户
-#user somebody;
-
-#启动进程,通常设置成和cpu的数量相等
-worker_processes  1;
-
-#全局错误日志
-error_log  D:/Tools/nginx-1.10.1/logs/error.log;
-error_log  D:/Tools/nginx-1.10.1/logs/notice.log  notice;
-error_log  D:/Tools/nginx-1.10.1/logs/info.log  info;
-
-#PID文件，记录当前启动的nginx的进程ID
-pid        D:/Tools/nginx-1.10.1/logs/nginx.pid;
-
-#工作模式及连接数上限
-events {
-   worker_connections 1024;    #单个后台worker process进程的最大并发链接数
+```log
+输入
+GET /megacorp/employee/1
+输出
+{
+  "_index" :   "megacorp",
+  "_type" :    "employee",
+  "_id" :      "1",
+  "_version" : 1,
+  "found" :    true,
+  "_source" :  {
+      "first_name" :  "John",
+      "last_name" :   "Smith",
+      "age" :         25,
+      "about" :       "I love to go rock climbing",
+      "interests":  [ "sports", "music" ]
+  }
 }
+```
 
-#设定http服务器，利用它的反向代理功能提供负载均衡支持
-http {
-   #设定mime类型(邮件支持类型),类型由mime.types文件定义
-   include       D:/Tools/nginx-1.10.1/conf/mime.types;
-   default_type  application/octet-stream;
+### 其他
 
-   #设定日志
-   log_format  main  '[$remote_addr] - [$remote_user] [$time_local] "$request" '
-                     '$status $body_bytes_sent "$http_referer" '
-                     '"$http_user_agent" "$http_x_forwarded_for"';
+DELETE  删除
+HEAD    检查存在
+PUT     更新
 
-   access_log    D:/Tools/nginx-1.10.1/logs/access.log main;
-   rewrite_log     on;
+### 检索
 
-   #sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，
-   #必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.
-   sendfile        on;
-   #tcp_nopush     on;
+#### 检索全部
 
-   #连接超时时间
-   keepalive_timeout  120;
-   tcp_nodelay        on;
-
-   #gzip压缩开关
-   #gzip  on;
-
-   #设定实际的服务器列表
-   upstream zp_server1{
-       server 127.0.0.1:8089;
-   }
-
-   #HTTP服务器
-   server {
-       #监听80端口，80端口是知名端口号，用于HTTP协议
-       listen       80;
-
-       #定义使用www.xx.com访问
-       server_name  www.helloworld.com;
-
-       #首页
-       index index.html
-
-       #指向webapp的目录
-       root D:_WorkspaceProjectgithubzpSpringNotesspring-securityspring-shirosrcmainwebapp;
-
-       #编码格式
-       charset utf-8;
-
-       #代理配置参数
-       proxy_connect_timeout 180;
-       proxy_send_timeout 180;
-       proxy_read_timeout 180;
-       proxy_set_header Host $host;
-       proxy_set_header X-Forwarder-For $remote_addr;
-
-       #反向代理的路径（和upstream绑定），location 后面设置映射的路径
-       location / {
-           proxy_pass http://zp_server1;
-       }
-
-       #静态文件，nginx自己处理
-       location ~ ^/(images|javascript|js|css|flash|media|static)/ {
-           root D:_WorkspaceProjectgithubzpSpringNotesspring-securityspring-shirosrcmainwebappiews;
-           #过期30天，静态文件不怎么更新，过期可以设大一点，如果频繁更新，则可以设置得小一点。
-           expires 30d;
-       }
-
-       #设定查看Nginx状态的地址
-       location /NginxStatus {
-           stub_status           on;
-           access_log            on;
-           auth_basic            "NginxStatus";
-           auth_basic_user_file  conf/htpasswd;
-       }
-
-       #禁止访问 .htxxx 文件
-       location ~ /.ht {
-           deny all;
-       }
-
-       #错误处理页面（可选择性配置）
-       #error_page   404              /404.html;
-       #error_page   500 502 503 504  /50x.html;
-       #location = /50x.html {
-       #    root   html;
-       #}
+```log
+输入
+GET /megacorp/employee/_search
+输出
+{
+   "took":      6,
+   "timed_out": false,
+   "_shards": { ... },
+   "hits": {
+      "total":      1,
+      "max_score":  1,
+      "hits": [
+         {
+            "_index":         "megacorp",
+            "_type":          "employee",
+            "_id":            "3",
+            "_score":         1,
+            "_source": {
+               "first_name":  "Douglas",
+               "last_name":   "Fir",
+               "age":         35,
+               "about":       "I like to build cabinets",
+               "interests": [ "forestry" ]
+            }
+         }
+      ]
    }
 }
 ```
 
-#### 配置负载均衡
+#### 基本检索
 
-```property
-http {
-    #设定mime类型,类型由mime.type文件定义
-   include       /etc/nginx/mime.types;
-   default_type  application/octet-stream;
-   #设定日志格式
-   access_log    /var/log/nginx/access.log;
+查询姓为Smith的人
 
-   #设定负载均衡的服务器列表
-   upstream load_balance_server {
-       #weigth参数表示权值，权值越高被分配到的几率越大
-       server 192.168.1.11:80   weight=5;
-       server 192.168.1.12:80   weight=1;
-       server 192.168.1.13:80   weight=6;
-   }
-
-  #HTTP服务器
-  server {
-       #侦听80端口
-       listen       80;
-
-       #定义使用www.xx.com访问
-       server_name  www.helloworld.com;
-
-       #对所有请求进行负载均衡请求
-       location / {
-           root        /root;                 #定义服务器的默认网站根目录位置
-           index       index.html index.htm;  #定义首页索引文件的名称
-           proxy_pass  http://load_balance_server ;#请求转向load_balance_server 定义的服务器列表
-
-           #以下是一些反向代理的配置(可选择性配置)
-           #proxy_redirect off;
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           #后端的Web服务器可以通过X-Forwarded-For获取用户真实IP
-           proxy_set_header X-Forwarded-For $remote_addr;
-           proxy_connect_timeout 90;          #nginx跟后端服务器连接超时时间(代理连接超时)
-           proxy_send_timeout 90;             #后端服务器数据回传时间(代理发送超时)
-           proxy_read_timeout 90;             #连接成功后，后端服务器响应时间(代理接收超时)
-           proxy_buffer_size 4k;              #设置代理服务器（nginx）保存用户头信息的缓冲区大小
-           proxy_buffers 4 32k;               #proxy_buffers缓冲区，网页平均在32k以下的话，这样设置
-           proxy_busy_buffers_size 64k;       #高负荷下缓冲大小（proxy_buffers*2）
-           proxy_temp_file_write_size 64k;    #设定缓存文件夹大小，大于这个值，将从upstream服务器传
-
-           client_max_body_size 10m;          #允许客户端请求的最大单文件字节数
-           client_body_buffer_size 128k;      #缓冲区代理缓冲用户端请求的最大字节数
-       }
-   }
+```log
+输入 query-string
+GET /megacorp/employee/_search?q=last_name:Smith
+输入 DSL表达式
+GET /megacorp/employee/_search
+{
+    "query" : {
+        "match" : {
+            "last_name" : "Smith"
+        }
+    }
 }
 ```
 
-#### 配置多个地址转发
+查询姓为Smith且年龄大于30的人
 
-```property
-http {
-   #此处省略一些基本配置
-
-   upstream product_server{
-       server www.helloworld.com:8081;
-   }
-
-   upstream admin_server{
-       server www.helloworld.com:8082;
-   }
-
-   upstream finance_server{
-       server www.helloworld.com:8083;
-   }
-
-   server {
-       #此处省略一些基本配置
-       #默认指向product的server
-       location / {
-           proxy_pass http://product_server;
-       }
-
-       location /product/{
-           proxy_pass http://product_server;
-       }
-
-       location /admin/ {
-           proxy_pass http://admin_server;
-       }
-
-       location /finance/ {
-           proxy_pass http://finance_server;
-       }
-   }
+```log
+GET /megacorp/employee/_search
+{
+    "query" : {
+        "bool": {
+            "must": {
+                "match" : {
+                    "last_name" : "smith" 
+                }
+            },
+            "filter": {
+                "range" : {
+                    "age" : { "gt" : 30 } 
+                }
+            }
+        }
+    }
 }
 ```
 
-#### 配置HTTPS反向代理
+#### 高级检索
 
-- HTTPS 的固定端口号是 443，不同于 HTTP 的 80 端口
-- SSL 标准需要引入安全证书，所以在 nginx.conf 中你需要指定证书和它对应的 key
+查询喜欢攀援的人（会查询出部分匹配的记录）
 
-```property
-#HTTP服务器
- server {
-     #监听443端口。443为知名端口号，主要用于HTTPS协议
-     listen       443 ssl;
-
-     #定义使用www.xx.com访问
-     server_name  www.helloworld.com;
-
-     #ssl证书文件位置(常见证书文件格式为：crt/pem)
-     ssl_certificate      cert.pem;
-     #ssl证书key位置
-     ssl_certificate_key  cert.key;
-
-     #ssl配置参数（选择性配置）
-     ssl_session_cache    shared:SSL:1m;
-     ssl_session_timeout  5m;
-     #数字签名，此处使用MD5
-     ssl_ciphers  HIGH:!aNULL:!MD5;
-     ssl_prefer_server_ciphers  on;
-
-     location / {
-         root   /root;
-         index  index.html index.htm;
-     }
- }
-```
-
-#### 静态页配置
-
-```property
-worker_processes  1;
-
-events {
-   worker_connections  1024;
-}
-
-http {
-   include       mime.types;
-   default_type  application/octet-stream;
-   sendfile        on;
-   keepalive_timeout  65;
-
-   gzip on;
-   gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/javascript image/jpeg image/gif image/png;
-   gzip_vary on;
-
-   server {
-       listen       80;
-       server_name  static.zp.cn;
-
-       location / {
-           root /app/dist;
-           index index.html;
-           #转发任何请求到 index.html
-       }
-   }
+```log
+GET /megacorp/employee/_search
+{
+    "query" : {
+        "match" : {
+            "about" : "rock climbing"
+        }
+    }
 }
 ```
 
-#### 跨域配置
-
-web 领域开发中，经常采用前后端分离模式。这种模式下，前端和后端分别是独立的 web 应用程序，例如：后端是 Java 程序，前端是 React 或 Vue 应用。
-
-各自独立的 web app 在互相访问时，势必存在跨域问题。解决跨域问题一般有两种思路：
-
-CORS
-
-在后端服务器设置 HTTP 响应头，把你需要运行访问的域名加入加入 Access-Control-Allow-Origin 中。
-
-jsonp
-
-把后端根据请求，构造json数据，并返回，前端用 jsonp 跨域。
-
-这两种思路，本文不展开讨论。
-
-需要说明的是，nginx 根据第一种思路，也提供了一种解决跨域的解决方案。
-
-举例：www.helloworld.com 网站是由一个前端 app ，一个后端 app 组成的。前端端口号为 9000， 后端端口号为 8080。
-
-前端和后端如果使用 http 进行交互时，请求会被拒绝，因为存在跨域问题。来看看，nginx 是怎么解决的吧：
-
-首先，在 enable-cors.conf 文件中设置 cors ：
-
-```property
-# allow origin list
-set $ACAO '*';
-
-# set single origin
-if ($http_origin ~* (www.helloworld.com)$) {
- set $ACAO $http_origin;
-}
-
-if ($cors = "trueget") {
-   add_header 'Access-Control-Allow-Origin' "$http_origin";
-   add_header 'Access-Control-Allow-Credentials' 'true';
-   add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-   add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-}
-
-if ($request_method = 'OPTIONS') {
- set $cors "${cors}options";
-}
-
-if ($request_method = 'GET') {
- set $cors "${cors}get";
-}
-
-if ($request_method = 'POST') {
- set $cors "${cors}post";
+短语搜索：精确匹配
+```log
+GET /megacorp/employee/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    }
 }
 ```
 
-接下来，在你的服务器中 include enable-cors.conf 来引入跨域配置：
+高亮搜索：结果会增加匹配的高亮处理
 
-```property
-# ----------------------------------------------------
-# 此文件为项目 nginx 配置片段
-# 可以直接在 nginx config 中 include（推荐）
-# 或者 copy 到现有 nginx 中，自行配置
-# www.helloworld.com 域名需配合 dns hosts 进行配置
-# 其中，api 开启了 cors，需配合本目录下另一份配置文件
-# ----------------------------------------------------
-upstream front_server{
- server www.helloworld.com:9000;
-}
-upstream api_server{
- server www.helloworld.com:8080;
-}
-
-server {
- listen       80;
- server_name  www.helloworld.com;
-
- location ~ ^/api/ {
-   include enable-cors.conf;
-   proxy_pass http://api_server;
-   rewrite "^/api/(.*)$" /$1 break;
- }
-
- location ~ ^/ {
-   proxy_pass http://front_server;
- }
+```log
+GET /megacorp/employee/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    },
+    "highlight": {
+        "fields" : {
+            "about" : {}
+        }
+    }
 }
 ```
+
+分析：类似group，强大的分析能力
+
+
+
+
+> 官网文档 ： https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
+
+
+
+## 类型
+
+### 增
+
+在index库的type表中新增或修改id=1的记录，字段如下
+
+```log
+PUT index/type/1
+{
+	"user" : "kimchy",
+	"post_date" : "2009-11-15T14:12:12",
+	"message" : "trying out Elasticsearch"
+}
+```
+
+
+curl -X PUT "http://47.95.252.113:8798/hotcar/user/3" -H 'Content-Type: application/json' -d'
+{
+    "userId" : 1111
+}
+';
+
+
+### 改
+
+同增
+
+### 查
+
+查询index库下type表中id=1的记录
+
+```log
+GET index/type/1
+```
+
+### 搜
+
+
+
+## 补全功能
+
+使用该功能，需要为字段指定类型（completion）。
+
+### 创建mappings
+
+创建一个user索引，字段userName类型为completion
+
+```log
+PUT user
+{
+	"mappings":{
+		"_doc":{
+			"properties":{
+				"userName":{
+					"type":"completion"
+				}
+			}
+		}
+	}
+}
+```
+
+支持以下参数
+
+analyzer
+
+	默认simple
+
+search_analyzer
+
+	默认analyzer
+
+preserve_separators
+
+	保留分隔符，默认true。官网文档的解释是，若设置false，输入`foof`，会得到类似`Foo Fighters`的结果。
+
+preserve_position_increments
+
+	不懂
+
+max_input_length
+
+	最大输入长度，默认50。
+
+### 插入记录
+
+> 插入记录并设置排序权重
+
+```log
+PUT user/_doc/1
+{
+	"userName":{
+		"inout":["ly","ly2"],
+		"weight":34
+	}
+}
+```
+
+input
+	
+	自动补全候选内容，字符串或字符串数组
+	
+weight
+
+	权重值，影响排序
+	
+> 插入记录并设置不同的权重
+
+```log
+PUT user/_doc/1
+{
+	"userName":[
+		{
+			"input":"ly",
+			"weight":34
+		},{
+			"input":"ly",
+			"weight":35
+		}
+	]
+}
+```
+
+> 插入记录不设置权重
+
+```log
+PUT user/_doc/1
+{
+	"userName":"ly"
+}
+```
+
+### 补全搜索
+
+查询user的userName字段以l开始的补全建议，userNameComp为属性名。
+
+```log
+POST user/_search
+{
+	"suggest":{
+		"userNameComp":{
+			"prefix":"l",
+			"completion":{
+				"field":"userName"
+			}
+		}
+	}
+}
+```
+
+
+
+看到这里了 https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html#querying
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

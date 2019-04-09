@@ -39,6 +39,9 @@ CentOS 安装
 
 	git clone http://Ly641921791:Ly19930830@47.96.16.130/Ly641921791/digitop-cloud.git
 	
+	
+	克隆分支     git clone -b <分支名>  clone地址
+	
 提交本地仓库
 
 	git add .

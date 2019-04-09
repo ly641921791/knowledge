@@ -20,5 +20,5 @@
 
 - [Lambda表达式](./lambda.md)
 - [Stream](./stream.md)
-- [Optional](https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484410&idx=1&sn=ce6d4cf18846cc7b9e6e92427c9bba26&chksm=ebd742fbdca0cbedac796e06ebea4bad92ff7d707a5457c5ce521aa25b522dce96a23c4dcfbc&token=620000779&lang=zh_CN&scene=21#wechat_redirect)
+- [Optional](./jdk8_optional.md)
 - 接口默认方法

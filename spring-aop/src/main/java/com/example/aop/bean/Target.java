@@ -8,6 +8,10 @@ import lombok.Data;
 @Data
 public class Target {
 
+    public Target() {
+        System.out.println();
+    }
+
     public void target(RuntimeException e) {
         if (e != null) {
             throw e;
