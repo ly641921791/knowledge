@@ -104,16 +104,8 @@
 
 重启容器命令实际是stop和start命令的组合
 
-#### 3.2.4 进入容器
+[进入容器](container/enter.md)
 
-- docker attach [container_name|container_id]
-
-	多个窗口同事使用attach进入容器，会同步显示控制台，若一个窗口阻塞，其他窗口无法操作
-
-- nsenter
-
-	p209
-	
 #### 3.2.5 删除容器
 
 	删除停止容器 docker rm [container_name|container_id]

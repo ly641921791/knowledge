@@ -31,6 +31,10 @@ CentOS 安装
 |(,1.1),(1.1,)|	version != 1.1|
 
 
+[官方配置文档](http://maven.apache.org/ref/3.6.0/maven-settings/settings.html)
+[重量级！Maven史上最全教程，看了必懂](https://www.cnblogs.com/hzg110/p/6936101.html)
+
+
 ### 向Maven中央仓库发布jar
 
 https://www.jianshu.com/p/2c29f50e4ec0
