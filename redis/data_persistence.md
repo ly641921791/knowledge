@@ -1,12 +1,41 @@
 数据持久化
 -
 
-Redis提供了两种数据持久化方案，当RDB和AOF同时使用时，AOF文件会被用于恢复数据，因为AOF的数据更为完整
+Redis提供了两种数据持久化方案，同时使用时，AOF文件会被用于恢复数据，因为AOF的数据更为完整
 
-- RDB ：每隔一段时间保存一次数据快照
-- AOF ：记录每一个操作日志，当日志文件较大时，会整理并重写日志
+- RDB ：定时保存数据快照，启动时通过数据快照恢复数据
+- AOF ：记录全部写操作，启动时执行全部写操作恢复数据
 
 ### RDB
+
+*相关配置*
+
+RDB的相关配置只有`save`，可以配置多次。
+
+语法：`save [seconds] [changes]`
+
+含义：在`seconds`秒内发生了`changes`次数据修改，则保存一次数据快照。
+
+例如：`save 60 100`表示每60秒检查一次，若发生100次以上数据变更，则保持快照
+
+配置`save ""`表示关闭RDB。（记得注释掉其他save配置）
+
+RDB默认开启，默认策略如下：
+
+```conf
+save 900 1
+save 300 10
+save 60 10000
+```
+
+*命令关闭*
+
+执行`config set save ""`
+
+*命令触发*
+
+- save 使用主线程保存快照，会导致其他请求阻塞，成功后返回OK
+- bgsave 使用子线程异步保存快照，可以使用`lastsave`命令查询是否成功，该命令可以理解为background save
 
 *优点*
 
@@ -21,6 +50,31 @@ Redis提供了两种数据持久化方案，当RDB和AOF同时使用时，AOF文
 
 ### AOF 
 
+AOF是Append Only File的简写，默认关闭，默认的存储策略是每秒同步一次写操作到文件，同时提供了日志重写功能，当日志文件较大时，会通过日志重写
+得到一个最小的日志文件
+
+*相关配置*
+
+- appendonly yes/no 配置开启/关闭
+- appendfsync no/always/everysec 理解为append file sync，即文件同步策略
+	- no 不进行文件同步，将flush文件交给OS处理，速度最快
+	- always 每写入一个日志就进行一次文件同步
+	- everysec 每秒进行一次文件同步
+
+*日志重写配置*	
+
+```conf
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+```
+
+Redis在每次AOF rewrite时，会记录完成rewrite后的AOF日志大小，上面两行配置的含义是，当AOF日志大小在该基础上增长了100%后，自动进行AOF rewrite。
+同时如果增长的大小没有达到64mb，则不会进行rewrite。
+
+*命令触发日志重写*
+
+- bgrewriteaof 类似bgsave
+
 *优点*
 
 1. 安全性。最多丢失一秒数据
@@ -33,69 +87,5 @@ Redis提供了两种数据持久化方案，当RDB和AOF同时使用时，AOF文
 1. 文件相比RDB文件更大
 2. 性能消耗较RDB高
 3. 恢复速度较RDB慢
-
-### FAQ
-
- 
-
-
-Redis提供了将数据定期自动持久化至硬盘的能力，包括RDB和AOF两种方案，两种方案分别有其长处和短板，可以配合起来同时运行，确保数据的稳定性。
-
-必须使用数据持久化吗？
-
-Redis的数据持久化机制是可以关闭的。如果你只把Redis作为缓存服务使用，Redis中存储的所有数据都不是该数据的主体而仅仅是同步过来的备份，那么可以关闭Redis的数据持久化机制。
-
-但通常来说，仍然建议至少开启RDB方式的数据持久化，因为：
-
-RDB方式的持久化几乎不损耗Redis本身的性能，在进行RDB持久化时，Redis主进程唯一需要做的事情就是fork出一个子进程，所有持久化工作都由子进程完成
-Redis无论因为什么原因crash掉之后，重启时能够自动恢复到上一次RDB快照中记录的数据。这省去了手工从其他数据源（如DB）同步数据的过程，而且要比其他任何的数据恢复方式都要快
-现在硬盘那么大，真的不缺那一点地方
-RDB
-
-采用RDB持久方式，Redis会定期保存数据快照至一个rbd文件中，并在启动时自动加载rdb文件，恢复之前保存的数据。可以在配置文件中配置Redis进行快照保存的时机：
-
-save [seconds] [changes]
- 
-意为在[seconds]秒内如果发生了[changes]次数据修改，则进行一次RDB快照保存，例如
-
-save 60 100
- 
-会让Redis每60秒检查一次数据变更情况，如果发生了100次或以上的数据变更，则进行RDB快照保存。
-
-可以配置多条save指令，让Redis执行多级的快照保存策略。
-
-Redis默认开启RDB快照，默认的RDB策略如下：
-
-save 900 1
-save 300 10
-save 60 10000
-
-也可以通过BGSAVE命令手工触发RDB快照保存。
-
-AOF
-
-采用AOF持久方式时，Redis会把每一个写请求都记录在一个日志文件里。在Redis重启时，会把AOF文件中记录的所有写操作顺序执行一遍，确保数据恢复到最新。
-
-AOF默认是关闭的，如要开启，进行如下配置：
-
-appendonly yes
- 
-AOF提供了三种fsync配置，always/everysec/no，通过配置项[appendfsync]指定：
-
-appendfsync no：不进行fsync，将flush文件的时机交给OS决定，速度最快
-appendfsync always：每写入一条日志就进行一次fsync操作，数据安全性最高，但速度最慢
-appendfsync everysec：折中的做法，交由后台线程每秒fsync一次
-
-随着AOF不断地记录写操作日志，必定会出现一些无用的日志，例如某个时间点执行了命令SET key1 “abc”，在之后某个时间点又执行了SET key1 “bcd”，那么第一条命令很显然是没有用的。大量的无用日志会让AOF文件过大，也会让数据恢复的时间过长。
-
-所以Redis提供了AOF rewrite功能，可以重写AOF文件，只保留能够把数据恢复到最新状态的最小写操作集。
-
-AOF rewrite可以通过BGREWRITEAOF命令触发，也可以配置Redis定期自动进行：
-
-auto-aof-rewrite-percentage 100
-auto-aof-rewrite-min-size 64mb
-
-上面两行配置的含义是，Redis在每次AOF rewrite时，会记录完成rewrite后的AOF日志大小，当AOF日志大小在该基础上增长了100%后，自动进行AOF rewrite。同时如果增长的大小没有达到64mb，则不会进行rewrite。
-
 
 > 官方文档：https://redis.io/topics/persistence
