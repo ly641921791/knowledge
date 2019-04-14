@@ -20,7 +20,6 @@
         <module>java-jvm</module>
         <module>java-lombok</module>
         <module>jira</module>
-        <module>mybatis</module>
         <module>netty</module>
         <module>spring-aop</module>
         <module>spring-boot-source-code</module>
