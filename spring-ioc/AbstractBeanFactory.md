@@ -26,7 +26,12 @@ doGetBean
 5  类型转换
 
 
+- singletonObjects：
+- earlySingletonObjects：
 
+- singletonFactories
+
+- singletonsCurrentlyInCreation：
 
 
 ```java
@@ -34,13 +39,17 @@ public class AbstractBeanFactory {
 	protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,	@Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
 
 		/*
-			获得真实的BeanName
-			例如：FactoryBean名称会加入&前缀
+			获得真实的BeanName。例如：FactoryBean名称会加入&前缀
 		 */
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
-		// Eagerly check singleton cache for manually registered singletons.
+		/*
+			获得单例bean
+			1. 从单例对象缓存中获得bean
+			2. 从正在创建的bean缓存中获得bean
+			3. 从beanFactory缓存中获得beanFactory，再获得bean
+		 */
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
 			if (logger.isDebugEnabled()) {
@@ -52,17 +61,23 @@ public class AbstractBeanFactory {
 					logger.debug("Returning cached instance of singleton bean '" + beanName + "'");
 				}
 			}
+			/*
+				若是beanFactory，则通过beanFactory获得bean
+			 */
 			bean = getObjectForBeanInstance(sharedInstance, name, beanName, null);
 		}
 
 		else {
-			// Fail if we're already creating this bean instance:
-			// We're assumably within a circular reference.
+			/*
+				检查属性是否正在创建
+			 */
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
 
-			// Check if bean definition exists in this factory.
+			/*
+				通过父工厂创建
+			 */
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.
