@@ -17,7 +17,6 @@
 
     <modules>
         <module>apache-shiro</module>
-        <module>java-jvm</module>
         <module>jira</module>
         <module>netty</module>
         <module>spring-aop</module>

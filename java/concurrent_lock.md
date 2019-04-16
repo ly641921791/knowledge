@@ -66,3 +66,6 @@ int updateCount = execute("UPDATE stock SET num = #{newNum} WHERE product_id = #
 
 与MySQL锁同理，但是操作内存更快，且可以设置锁的过期时间
 
+#### 基于Zookeeper的分布式锁
+
+[锁](https://www.cnblogs.com/JJJ1990/p/10496850.html)
