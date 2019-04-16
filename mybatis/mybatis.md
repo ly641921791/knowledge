@@ -20,3 +20,10 @@ MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过�
 相关参考
 
 > 官网文档 ：http://www.mybatis.org/mybatis-3/zh/index.html
+
+
+
+
+
+LIKE子句如何传参
+https://blog.csdn.net/why15732625998/article/details/79081146
