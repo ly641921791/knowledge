@@ -6,3 +6,5 @@
 [握手与挥手](connection.md)
 
 [DNS](dns.md)
+
+[缓存](cache.md)

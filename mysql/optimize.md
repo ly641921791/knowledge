@@ -348,9 +348,7 @@ MaxCompute可以理解为开源的Hive，提供sql/mapreduce/ai算法/python脚�
 
 成本最低。通过慢查询日志定位慢SQL，通过explain分析执行计划，添加索引
 
-第二步：搭建缓存
-
-需要考虑，[缓存和数据库一致性](http://www.cnblogs.com/rjzheng/p/9041659.html)，[缓存击穿、缓存穿透、缓存雪崩](https://mp.weixin.qq.com/s?__biz=MzU0OTE4MzYzMw==&mid=2247484796&idx=1&sn=5c0aa20dd3a9672266a5b35e1416ad72&chksm=fbb28c82ccc50594a053c203379421f051623eb045bfbd1f689aa1b0b8bb1264c6ee2d95d596&scene=21#wechat_redirect)
+第二步：搭建[缓存](/http/cache.md)
 
 第三步：读写分离
 
