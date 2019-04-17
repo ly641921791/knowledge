@@ -123,5 +123,3 @@
 
 - [qps](./web-server/qps.md)
 - [过滤器和拦截器](https://mp.weixin.qq.com/s/c9d-avYSkhljLNDFVvFggA)
-
-- [DNS](https://mp.weixin.qq.com/s/AeZn1wrN78F0GYEBEeyf7Q)
