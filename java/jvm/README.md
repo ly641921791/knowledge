@@ -121,3 +121,9 @@ GC算法
 4. 在进程中查找对应的线程ID，`cat jstack.txt | grep -i [TID]`。 
 
    TID是线程id的16进制表示
+   
+   
+   
+   
+
+> https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA
