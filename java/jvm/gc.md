@@ -45,39 +45,6 @@ public class Foo {
 }
 ```
 
-### 与GC交互
-
-Java2增强了内存管理功能，增加了一个java.lang.ref包，其中定义了三种引用类。这三种引用类分别为SoftReference、WeakReference和 PhantomReference.通过使用这些引用类，程序员可以在一定程度与GC进行交互，以便改善GC的工作效率。这些引用类的引用强度介于可达对象和不可达对象之间。
-
-创建一个引用对象也非常容易，例如如果你需要创建一个Soft Reference对象，那么首先创建一个对象，并采用普通引用方式（可达对象）；然后再创建一个SoftReference引用该对象；最后将普通引用设置为null.通过这种方式，这个对象就只有一个Soft Reference引用。同时，我们称这个对象为Soft Reference 对象。
-
-Soft Reference的主要特点是据有较强的引用功能。只有当内存不够的时候，才进行回收这类内存，因此在内存足够的时候，它们通常不被回收。另外，这些引用对象还能保证在Java抛出OutOfMemory 异常之前，被设置为null.它可以用于实现一些常用图片的缓存，实现Cache的功能，保证最大限度的使用内存而不引起OutOfMemory.以下给出这种引用类型的使用伪代码；
-
-```java
-public class Foo {
-    public static void main(String[] args){
-        // 创建
-        Image image = new Image();
-        // 使用 略
-        
-        // 缓存
-        SoftReference cache = new SoftReference(image);
-        image = null;
-        
-        // 再次使用
-        if(cache!=null){
-            image = cache.get();
-        }else {
-            image = new Image();
-        }
-    }
-}
-```
-
-Weak引用对象与Soft引用对象的最大不同就在于：GC在进行回收时，需要通过算法检查是否回收Soft引用对象，而对于Weak引用对象，GC总是进行回收。Weak引用对象更容易、更快被 GC回收。虽然，GC在运行时一定回收Weak对象，但是复杂关系的Weak对象群常常需要好几次GC的运行才能完成。Weak引用对象常常用于Map结构中，引用数据量较大的对象，一旦该对象的强引用为null时，GC能够快速地回收该对象空间。
-
-Phantom引用的用途较少，主要用于辅助 finalize函数的使用。Phantom对象指一些对象，它们执行完了finalize函数，并为不可达对象，但是它们还没有被GC回收。这种对象可以辅助finalize进行一些后期的回收工作，我们通过覆盖Reference的clear（）方法，增强资源回收机制的灵活性。
-
 ### 建议
 
 根据GC的工作原理，我们可以通过一些技巧和方式，让GC运行更加有效率，更加符合应用程序的要求。以下就是一些程序设计的几点建议。
