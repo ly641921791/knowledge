@@ -19,7 +19,6 @@
         <module>apache-shiro</module>
         <module>jira</module>
         <module>netty</module>
-        <module>spring-aop</module>
         <module>spring-boot-source-code</module>
         <module>spring-boot-cache</module>
         <module>spring-boot-mvc</module>

@@ -36,9 +36,9 @@
 
 ### 源码
 
-- [Spring Boot 启动过程（一）SpringBootApplication](./spring-boot-source-code/SpringBootApplication.md)
-- [Spring Boot 启动过程（二）SpringApplication](./spring-boot-source-code/SpringApplication.md)
-- [Spring Boot AOP原理](./spring-boot-source-code/AOP.md)
+- [Spring Boot 启动过程（一）SpringBootApplication](spring/boot/SpringBootApplication.md)
+- [Spring Boot 启动过程（二）SpringApplication](spring/boot/SpringApplication.md)
+- [Spring Boot AOP原理](spring/aop/AOP.md)
 
 
 
