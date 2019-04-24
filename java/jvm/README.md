@@ -5,6 +5,9 @@
 
 [Code Cache](https://mp.weixin.qq.com/s/mmrltf3vqrVOgBPGoC2bCQ)
 
+[JVM内存分布](jvm_memory.md)
+
+[GC调优参数](gc_optimize.md)
 
 
 
@@ -21,12 +24,7 @@ jmap ：
 
 
 
-## 调优参数
 
-	-Xms ：堆的最小值。初始容量，若跟最大值一样，可以避免堆自动扩容。
-	-Xmx ：堆的最大值。
-	-Xmn ：年轻代容量。
-	-Xss ：栈的容量。
 
 
 
