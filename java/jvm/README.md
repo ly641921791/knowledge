@@ -7,6 +7,8 @@
 
 [JVM内存模型](memory_model.md)
 
+[垃圾回收算法](gc_algorithm.md)
+
 [GC调优参数](gc_optimize.md)
 
 
