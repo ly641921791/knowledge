@@ -5,7 +5,7 @@
 
 [Code Cache](https://mp.weixin.qq.com/s/mmrltf3vqrVOgBPGoC2bCQ)
 
-[JVM内存分布](jvm_memory.md)
+[JVM内存模型](memory_model.md)
 
 [GC调优参数](gc_optimize.md)
 
