@@ -9,6 +9,8 @@
 
 [垃圾回收算法](gc_algorithm.md)
 
+[垃圾回收-HotSpot虚拟机](gc_hotspot.md)
+
 [GC调优参数](gc_optimize.md)
 
 
