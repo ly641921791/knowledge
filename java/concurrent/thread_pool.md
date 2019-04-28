@@ -1,24 +1,43 @@
 线程池
 -
 
-合理使用线程池带来三个好处
+###### 为什么使用
 
 1. 降低资源消耗。重复利用已创建线程，可以降低线程创建和销毁造成的消耗
 2. 提高响应速度。无需创建线程就可以立即执行任务
 3. 提高线程的可管理性。无限创建线程，不仅消耗系统资源，还降低系统稳定性，使用线程池可以进行统一分配、调优、监控
 
+###### 核心属性
 
+线程池有以下核心属性
 
+- corePoolSize 线程池基本大小
+- maximumPoolSize 最大线程数
+- keepAliveTime 空闲线程的存活时间，当超过基本大小后，回收
+- workQueue 待执行的工作队列
+- threadFactory 线程工厂
+- handler 拒绝策略
 
+工作队列
 
+- ArrayBlockingQueue 基于数组的FIFO的队列
+- LinkedBlockingQueue 基于链表的FIFO的队列，吞吐高于ArrayBlockingQueue。Executors.newFixedThreadPool使用
+- SynchronousBlockingQueue 不存储元素阻塞队列，吞吐高于LinkedBlockingQueue。Executors.newCachedThreadPool使用
+- PriorityBlockingQueue 优先级队列
 
+拒绝策略
 
+- AbortPolicy 直接抛出异常
+- CallerRunsPolicy 使用调养者所在线程执行任务
+- DiscardOldestPolicy 丢弃最近的任务，执行当前任务
+- DiscardPolicy 丢弃任务
 
+###### JDK提供的线程池
 
-
-
-
-
+- FixedThreadPool 固定线程池的线程池
+- SingleThreadPool 单线程的线程池
+- CachedThreadPool 可缓存的线程池
+- ScheduledThreadPool 定时任务线程池
 
 ##### FAQ
 
