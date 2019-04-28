@@ -83,4 +83,3 @@ int updateCount = execute("UPDATE stock SET num = #{newNum} WHERE product_id = #
 
 
 
-[synchronized底层实现](https://github.com/farmerjohngit/myblog/issues/12)
