@@ -69,3 +69,18 @@ int updateCount = execute("UPDATE stock SET num = #{newNum} WHERE product_id = #
 #### 基于Zookeeper的分布式锁
 
 [锁](https://www.cnblogs.com/JJJ1990/p/10496850.html)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[synchronized底层实现](https://github.com/farmerjohngit/myblog/issues/12)

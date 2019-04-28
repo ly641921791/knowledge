@@ -130,4 +130,10 @@ GC算法
    
    
 
-> https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA
+
+
+[系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路](https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA)
+
+[内存泄漏排查](https://mp.weixin.qq.com/s/M02Qk5OQ13xRytTK97SaFw)
+
+[JVM内存常见问题](http://www.cnblogs.com/QG-whz/p/9636366.html)

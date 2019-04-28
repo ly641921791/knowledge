@@ -1,14 +1,18 @@
-事物
+事务
 - 
 
-单体事物遵循ACID
+###### 什么是事务
+
+事务是一系列操作的集合
+
+###### 单体事务的ACID
 
 	Atomicity   原子性 ：事物是一个整体
 	Consistency 一致性 ：事物前后一致，若失败则回到原始状态
 	Isolation   隔离线 ：不同事物操作互不影响
 	Durability  持久性 ：事物成功提交，状态被记录以来
 
-分布式事物遵循CAP
+###### 分布式事务的CAP
 
 	Consistency         一致性     ：读操作可以返回最新的数据。
 						强一致性    ：任意时刻，任意节点数据都是一样的
@@ -102,7 +106,7 @@ TCC ：Try-Confirm-Cancel
 
 在 RocketMQ 中实现了分布式事务，实际上是对本地消息表的一个封装，将本地消息表移动到了 MQ 内部。
 
-下面简单介绍一下MQ事务，如果想对其详细了解可以参考：https://www.jianshu.com/p/453c6e7ff81c。 
+下面简单介绍一下MQ事务 
 ![](https://mmbiz.qpic.cn/mmbiz_png/WLIGprPy3z6QR2ahbaxn60XjuXS3XNrLCcFeibsiawPb8IP5N1sVdGp8UJbUcEJpr09w4C7Q6qyrAkx2qNB3mKOA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 基本流程如下：
 第一阶段 Prepared 消息，会拿到消息的地址。
@@ -179,17 +183,9 @@ ACID 和 CAP 的 CA 是一样的吗？
 
 
 
-MySql InnoDB事物原理
-	MySql的InnoDB的事物通过InnoDB日志和锁实现。隔离性通过锁实现，持久性通过Redo Log实现，原子性和一致性通过Undo Log实现。
-	操作数据之前，将数据备份到Undo Log中，然后操作数据，若回滚则利用Undo Log中的数据恢复，Redo Log记录新数据，提交事物即将Redo Log持久化
 
 
 
-
-消息中间件在分布式系统中的主要作用：
-	异步通讯
-	解耦
-	并发缓冲
 
 
 XA协议：两段提交协议
