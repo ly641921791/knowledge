@@ -72,5 +72,19 @@ Garbage-First。目的是替换CMS收集器的收集器
 - 最终标记
 - 筛选回收
 
+内存结构
+
+　　G1将内存划分为一定数量（2048左右）且大小相等（1M-32M间2的幂）的region（区域），分别作为Eden、Survivor、Old。并将超过region容量50%的对象作为Humongous对象。
+
+存在问题
+
+　　如此分配region存在region大小和大对象难以保持一致，导致空间浪费的问题。解决办法：直接设置较大的region，参数 -XX:G1HeapRegionSize=16M
+
+GC算法
+
+　　G1使用的是复合算法：
+
+- 新生代 ：使用并行的复制算法，会发生Stop-The-World
+- 老年代 ：大部分情况使用并发标记，整理是和新生代GC时顺便进行，增量进行的整理。
 
 

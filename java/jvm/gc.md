@@ -7,6 +7,8 @@ GC
 
 GC在创建对象时，就开始监控对象的地址、大小及使用情况，通常采用有向图的方式记录和管理堆中的对象，确定哪些对象是可达的，回收不可达对象。
 
+新生代GC（Young GC）一般叫做Minor GC，老年代GC叫做Major GC，整体GC叫做Full GC
+
 ### 增量式GC（Incremental GC）
 
 GC在JVM中通常由一个或一组进程实现，也会占用堆空间，占用CPU。

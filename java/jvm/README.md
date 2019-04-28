@@ -49,26 +49,6 @@ jmap ：
 　　从性能的角度看，关注三个方面：内存占用（footprint）、延时（latency）、吞吐量（throughput）。一般情况调优会侧重一个或两个方面，很少兼顾三个方面。还可以能考虑其他方面。
 
 
-### 垃圾收集器
-
-#### G1
-
-内存结构
-
-　　G1将内存划分为一定数量（2048左右）且大小相等（1M-32M间2的幂）的region（区域），分别作为Eden、Survivor、Old。并将超过region容量50%的对象作为Humongous对象。
-
-存在问题
-
-　　如此分配region存在region大小和大对象难以保持一致，导致空间浪费的问题。解决办法：直接设置较大的region，参数 -XX:G1HeapRegionSize=16M
-
-GC算法
-
-　　G1使用的是复合算法：
-
-- 新生代 ：使用并行的复制算法，会发生Stop-The-World
-- 老年代 ：大部分情况使用并发标记，整理是和新生代GC时顺便进行，增量进行的整理。
-
-　　新生代GC（Young GC）一般叫做Minor GC，老年代GC叫做Major GC，整体GC叫做Full GC
 
 
 ## 常见问题解决方案

@@ -14,6 +14,6 @@ MySQL
 
 
 
-
+[多主一从配置](https://my.oschina.net/u/2399373/blog/2878650)
 
 [优惠券系统设计](https://juejin.im/post/5c88606c6fb9a049cb199c04)
