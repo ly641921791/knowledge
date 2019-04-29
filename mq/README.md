@@ -37,10 +37,15 @@
 
 
 
+###### RocketMQ
+
+[顺序消息](rocketmq/order_message.md)
 
 
 
 
 
+
+[分布式开放消息系统(RocketMQ)的原理与实践](https://www.jianshu.com/p/453c6e7ff81c)
 
 

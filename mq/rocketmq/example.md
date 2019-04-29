@@ -142,58 +142,6 @@ public class Consumer {
 }
 ```
 
-#### 有序消息
-
-- 生产者
-
-```java
-public class Producer {
-    public static void main(String[] args){
-        DefaultMQProducer producer = new DefaultMQProducer("producerGroup");
-        producer.setNamesrvAddr("127.0.0.1:9876");
-        producer.start();
-        
-        Long userId = 1L;
-        Message message = new Message("topic1","tag1","key1","msg".getBytes(RemotingHelper.DEFAULT_CHARSET));
-        // 选择队列发送
-        SendResult sendResult = message.send(message,new MessageQueueSelector(){
-	        @Override
-	        public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
-	            Long id = (Long) arg;
-	            int index = id % mqs.size();
-	            return mqs.get(index);
-	        }
-        },userId);
-        
-        producer.shutdown();
-    }
-}
-```
-
-- 消费者
-
-```java
-public class Consumer {
-    public static void main(String[] args){
-        DefaultMQPushConsumer consumer = new DefaultMQPullConsumer("consumerGroup");
-        consumer.setNamesrvAddr("127.0.0.1:9876");
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        consumer.subscribe("topic1", "tag1");
-        
-        // 使用有序消息监听器
-        consumer.registerMessageListener(new MessageListenerOrderly() {
-            @Override
-            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                System.out.println(Thread.currentThread().getName() + " Receive New Messages: " + msgs);
-                return ConsumeOrderlyStatus.SUCCESS;
-            }
-        });
-        
-        consumer.start();
-    }
-}
-```
-
 #### 延时消息
 
 RocketMQ不支持自定义延时时间，通过设置消息属性`延时级别`实现延时消息：`public void setDelayTimeLevel(int level)`
