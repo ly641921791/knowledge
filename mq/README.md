@@ -49,3 +49,18 @@
 [分布式开放消息系统(RocketMQ)的原理与实践](https://www.jianshu.com/p/453c6e7ff81c)
 
 
+
+
+
+
+
+
+
+rocketMQ 事物消息
+https://blog.csdn.net/prestigeding/article/details/81318980
+
+
+
+rocketmq starter
+https://blog.csdn.net/jayjjb/article/details/70906511?locationNum=13&fps=1
+
