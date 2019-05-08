@@ -45,3 +45,8 @@ https://blog.csdn.net/z960339491/article/details/80334384
 
 [教程](build_by_git.md)
 
+[maven的三大生命周期](https://www.cnblogs.com/huxinga/p/6740897.html)
+
+[maven构建生命周期和各种plugin插件](https://blog.csdn.net/zhaojianting/article/details/80321488)
+
+[依赖冲突问题](https://mp.weixin.qq.com/s/zGlPbimTuYy7UbmgCmnkqA)
