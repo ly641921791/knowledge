@@ -87,7 +87,7 @@
 ## Java
 
 - [反射 & 泛型](./java/reflect%20&%20generics.md)
-- [并发——锁](java/concurrent/lock.md)
+- [并发——锁](java/juc/lock.md)
 
 ## MQ
 
@@ -125,3 +125,34 @@
 
 - [qps](./web-server/qps.md)
 - [过滤器和拦截器](https://mp.weixin.qq.com/s/c9d-avYSkhljLNDFVvFggA)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+面试题
+
+ES脑裂问题分析及优化
+
+Redis常用数据结构和操作
+
+dubbo原理
+
+JUC，比如CAS、ABA问题
+
+单例模式的八种实现方式以及double-checked-locking 重排序 happens-before
+
+HashMap的扩容和碰撞、ConcurrentHashMap的锁分离技术
+
+红黑树的旋转、染色、时间复杂度
+
+CopyOnWrite的原理、应用场景、缺点、需要注意的事情

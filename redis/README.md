@@ -19,8 +19,10 @@ Redis基于单线程模型实现，通过一个线程处理所有客户端请求
 
 ### 
 
+[部署模式](deployment.md)
 
 [主从复制](https://segmentfault.com/a/1190000018268350)
+
 [相关文档](https://redis.io/topics/replication)
 
 [数据持久化](data_persistence.md)

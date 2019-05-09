@@ -5,7 +5,8 @@
 
 1. 继承Thread类
 2. 实现Runnable接口
-3. 使用Executor框架创建线程池
+3. 通过线程池获取
+4. 实现Callable接口
 
 ### 相关API
 
@@ -52,7 +53,7 @@ try {
 
 ##### FAQ
 
-###### start()和run()方法的区别
+###### start()和run()的区别
 
 start()方法会创建新线程，通过新线程异步执行run()方法
 
