@@ -39,6 +39,10 @@
 - CachedThreadPool 可缓存的线程池
 - ScheduledThreadPool 定时任务线程池
 
+###### 原理
+
+每一个任务都被封装成`ThreadPoolExecutor.Worker`对象放入任务队列，工作线程不断从任务队列拿任务执行run方法
+
 ##### FAQ
 
 ###### 如何配置线程池最佳线程数
