@@ -52,7 +52,7 @@ class User {
 	
 	// 生成的getter和setter方法如下，方法体略
 	public Long getId() {}
-	public void serId(Long id) {}
+	public void setId(Long id) {}
 	public String getName() {}
 	public void setName(String name) {}
 }
