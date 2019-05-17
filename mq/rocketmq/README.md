@@ -92,3 +92,6 @@ Consumer同时和Broker的主从节点建立长连接
 1. 通过数据库、Redis或其他存储中间件记录已消费消息
 2. 消费端实现处理逻辑保证幂等性
 
+
+
+> 阿里中间件团队相关文章 http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/
