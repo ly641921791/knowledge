@@ -265,6 +265,33 @@ Master不做任何持久化工作。
 
 [数据类型](data_type.md)
 
-> 官方网站 https://redis.io/
+###### FAQ
 
+> Redis是什么？
+
+Redis是一个开源的基于内存的数据结构存储系统。常用用：数据库、缓存、消息中间件
+
+Redis 内置了复制（Replication），LUA脚本（Lua scripting）， LRU驱动事件（LRU eviction），事务（Transactions） 和不同级别的磁盘持久化（Persistence），并通过 Redis哨兵（Sentinel）和自动分区（Cluster）提供高可用性（High Availability）。
+
+> 为什么速度快？
+
+硬盘数据库工作模式：内存存储索引，硬盘存储数据。先查询内存中的索引，再通过索引查询到硬盘查询数据
+
+内存数据库工作模式：内存存储索引和数据。
+
+Redis将数据存储在内存，读写数据不受磁盘I/O速度限制，因此速度极快，QPS可到十万以上。具体测试结果如下图，X轴表示连接数，Y轴表示QPS
+
+![官网测试结果](https://raw.githubusercontent.com/dspezia/redis-doc/system_info/topics/Connections_chart.png)
+
+1. 基于内存，查询操作时间复杂度最高可达到O(1)
+2. 数据结构简单
+3. 单线程，避免上下文切换和竞争的开销；无需考虑锁，避免加锁、解锁和死锁引起的开销
+4. 多路I/O复用模型，非阻塞IO
+
+> 为什么是单线程？
+
+基于内存操作，CPU并不是速度的瓶颈。瓶颈在内存和网络
+
+> 官方网站 https://redis.io/
+>
 > 在线测试 http://try.redis.io/
