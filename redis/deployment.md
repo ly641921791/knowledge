@@ -41,4 +41,6 @@ master挂了会导致不能进行写操作
 
 为了解决单机Redis容量的问题
 
+Docker搭建Redis集群
 
+https://www.cnblogs.com/lianggp/articles/8136222.html

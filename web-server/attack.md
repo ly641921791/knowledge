@@ -36,6 +36,8 @@ DOM-base XSS 基于DOM的XSS
 大量请求攻击导致服务器瘫痪
 
 
+https://blog.tonyseek.com/post/introduce-to-xss-and-csrf/#id4
+https://www.ibm.com/developerworks/cn/web/1102_niugang_csrf/index.html
 
 
 > 《白帽子讲Web安全》
