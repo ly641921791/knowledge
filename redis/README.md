@@ -27,6 +27,9 @@ Redis基于单线程模型实现，通过一个线程处理所有客户端请求
 
 [数据持久化](data_persistence.md)
 
+[订阅/发布](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#pubsub)
+
+[消息队列](data_type_list.md)
 
 Redis的数据结构和相关常用命令
 数据持久化
@@ -295,3 +298,5 @@ Redis将数据存储在内存，读写数据不受磁盘I/O速度限制，因此
 > 官方网站 https://redis.io/
 >
 > 在线测试 http://try.redis.io/
+>
+> 系列教程 https://juejin.im/post/5b76e732f265da4376203849
