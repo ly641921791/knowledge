@@ -6,25 +6,6 @@
 2. 切入指定类全部方法
 	public int com.example.ClassName.*(int,int)
 	public int com.example.ClassName.*(..)
-	
-	
-
-
-开启
-
-​	@EnableAspectJAutoProxy
-
-原理
-
-​	利用`@Import(AspectJAutoProxyRegistrar.class) `向容器中注入`AnnotationAwareAspectJAutoProxyCreator `
-
-​	
-
-​	`AnnotationAwareAspectJAutoProxyCreator `实现了后置处理器和自动装配Bean工厂接口
-
-
-
-
 
 ## Spring AOP
 
@@ -97,97 +78,13 @@
 		p:interceptorNames="advice" p:target-ref="hello" p:proxyTargetClass="true" />
 ```
 
-
-
-
-
-##声明式事物
-
-
-
-
-
-
-
-# 拓展原理
-
-### BeanPostProcessor
-
-- bean后置处理器
-- bean创建对象初始化前后进行拦截
-
-### BeanFactoryPostProcessor
-
-- beanFactory后置处理器
-- 在beanFactory标准初始化后调用,所有的bean定义已经保存加载到beanFactory,但bean未创建对象。
-
-### BeanDefinitionRegistryPostProcessor
-
-- bean注册中心后置处理器
-- 继承了BeanFactoryPostProcessor
-- 在bean定义信息将被加载，但bean实例未创建。在BeanFactoryPostProcessor之前使用
-
-###监听器
-
-### - ApplicationListener
-
-### - @EventListener
-
-
-
-
-
-
-
-
-
-BeanDefinitionRegisiry
-
-```java
-BeanDefinitionRegisiry registry;
-
-//方法1
-RootBeanDefinition bean = new RootBeanDefinition(String.class)
-//方法2
-AbstractBeanDefinition bean = 	BeanDefinitionBuilder.rootBeanDefinition(String.class).getBeanDefinition();
-
-registry.registryBeanDefinition("hello",bean);
-```
-
-
-
-
-
-
-
-# 查找Java进程中占用CPU最多的线程
-
-1. 确定进程ID，使用`jps -v`或`top`查看
-
-2. 查看该进程哪个线程占用大量CPU，`top -H -p  [PID]`
-
-3. 将进程中所有线程输出到文件，`jstack [PID] > jstack.txt`
-
-4. 在进程中查找对应的线程ID，`cat jstack.txt | grep -i [TID]`。 
-
-   TID是线程id的16进制表示
-
-
-
-
-
-
-
 ## 切点函数
-
 
 切点函数
 	方法限定表达式	execution
 	类型限定表达式	within(包名.类型)
 		within(包名..*)包下所有类
 	Bean名称限定表达式	bean("bean的id或name属性")
-	
-	
 	
 	execution(<修饰符模式>?<返回类型模式><方法名模式>(<参数模式>)<异常模式>?)
 	返回类型、方法名、参数必须，其他可选
@@ -242,11 +139,7 @@ registry.registryBeanDefinition("hello",bean);
 	@target()
 	this()
 	
-	
 ## Spring AOP
-
-
-
 
 第一步：写Advice类，如：
 	//执行顺序：前置、环绕前、目标方法、返回、环绕后、后置

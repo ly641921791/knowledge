@@ -263,8 +263,7 @@ Master不做任何持久化工作。
 	2 队列
 	3 全页缓存 FPC
 	4 排行榜/计数器 （Set和Sorted Set）
-	
-
+	5 限流（常通过incr命令实现）
 
 [数据类型](data_type.md)
 

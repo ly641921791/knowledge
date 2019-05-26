@@ -156,3 +156,135 @@ HashMap的扩容和碰撞、ConcurrentHashMap的锁分离技术
 红黑树的旋转、染色、时间复杂度
 
 CopyOnWrite的原理、应用场景、缺点、需要注意的事情
+
+
+
+
+## 声明式事物
+
+
+
+
+
+
+
+# 拓展原理
+
+### BeanPostProcessor
+
+- bean后置处理器
+- bean创建对象初始化前后进行拦截
+
+### BeanFactoryPostProcessor
+
+- beanFactory后置处理器
+- 在beanFactory标准初始化后调用,所有的bean定义已经保存加载到beanFactory,但bean未创建对象。
+
+### BeanDefinitionRegistryPostProcessor
+
+- bean注册中心后置处理器
+- 继承了BeanFactoryPostProcessor
+- 在bean定义信息将被加载，但bean实例未创建。在BeanFactoryPostProcessor之前使用
+
+###监听器
+
+### - ApplicationListener
+
+### - @EventListener
+
+
+
+
+
+
+
+
+
+BeanDefinitionRegisiry
+
+```java
+BeanDefinitionRegisiry registry;
+
+//方法1
+RootBeanDefinition bean = new RootBeanDefinition(String.class)
+//方法2
+AbstractBeanDefinition bean = 	BeanDefinitionBuilder.rootBeanDefinition(String.class).getBeanDefinition();
+
+registry.registryBeanDefinition("hello",bean);
+```
+
+
+
+
+##声明式事物
+
+
+
+
+
+
+
+# 拓展原理
+
+### BeanPostProcessor
+
+- bean后置处理器
+- bean创建对象初始化前后进行拦截
+
+### BeanFactoryPostProcessor
+
+- beanFactory后置处理器
+- 在beanFactory标准初始化后调用,所有的bean定义已经保存加载到beanFactory,但bean未创建对象。
+
+### BeanDefinitionRegistryPostProcessor
+
+- bean注册中心后置处理器
+- 继承了BeanFactoryPostProcessor
+- 在bean定义信息将被加载，但bean实例未创建。在BeanFactoryPostProcessor之前使用
+
+###监听器
+
+### - ApplicationListener
+
+### - @EventListener
+
+
+
+
+
+
+
+
+
+BeanDefinitionRegisiry
+
+```java
+BeanDefinitionRegisiry registry;
+
+//方法1
+RootBeanDefinition bean = new RootBeanDefinition(String.class)
+//方法2
+AbstractBeanDefinition bean = 	BeanDefinitionBuilder.rootBeanDefinition(String.class).getBeanDefinition();
+
+registry.registryBeanDefinition("hello",bean);
+```
+
+
+
+
+
+
+
+# 查找Java进程中占用CPU最多的线程
+
+1. 确定进程ID，使用`jps -v`或`top`查看
+
+2. 查看该进程哪个线程占用大量CPU，`top -H -p  [PID]`
+
+3. 将进程中所有线程输出到文件，`jstack [PID] > jstack.txt`
+
+4. 在进程中查找对应的线程ID，`cat jstack.txt | grep -i [TID]`。 
+
+   TID是线程id的16进制表示
+
+

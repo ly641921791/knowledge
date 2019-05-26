@@ -131,11 +131,6 @@ public class ExampleAspect {
 
 ```
 
-**开启AOP功能**
-
-Spring项目若需要开启AOP功能，在任意一个配置类加入`EnableAspectJAutoProxy`注解，或者配置文件中加入`</aop:aspectj-autoproxy>`。
-
-Spring Boot项目中，当AOP相关依赖包都存在是，AOP功能默认开启，通过配置`spring.aop.auto=false`关闭AOP功能，查看`AopAutoConfiguration`源码了解详情。
 
 **测试AOP**
 
