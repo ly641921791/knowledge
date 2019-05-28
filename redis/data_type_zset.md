@@ -53,3 +53,4 @@ skip list按照score从小到大保存member，链表的一种
 > 实现原理 https://www.jianshu.com/p/cc379427ef9d
 >
 > 跳表实现原理 http://zhangtielei.com/posts/blog-redis-skiplist.html
+> 跳表实现原理 https://mp.weixin.qq.com/s/tWt_AsEm6cBDmruhP1W1PQ
