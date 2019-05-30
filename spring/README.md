@@ -1,6 +1,9 @@
 Spring
 -
 
+- IoC
+	- [应用配置](ioc/configuration.md) 
+
 - Web
 	- [静态资源](web/static_content.md)
 	
@@ -39,10 +42,10 @@ Spring
 
 ### - @EventListener
 
-BeanDefinitionRegisiry
+BeanDefinitionRegistry
 
 ```java
-BeanDefinitionRegisiry registry;
+BeanDefinitionRegistry registry;
 
 //方法1
 RootBeanDefinition bean = new RootBeanDefinition(String.class)
@@ -52,3 +55,5 @@ AbstractBeanDefinition bean = 	BeanDefinitionBuilder.rootBeanDefinition(String.c
 registry.registryBeanDefinition("hello",bean);
 ```
 
+AliasFor注解使用及原理
+https://www.jianshu.com/p/869ed7037833
