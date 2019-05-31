@@ -10,8 +10,11 @@ Spring
 - Cache
 	- [使用缓存](cache/use.md)
 
+- Boot
 
+###### ApplicationRunner & CommandLineRunner
 
+SpringBoot项目中，started和running状态之间会执行这两个类，详情查看SpringApplication#run方法
 
 
 
