@@ -13,6 +13,10 @@ Spring
 
 - Boot
 
+- Task
+	- [XML配置](task/task_xml.md)
+	- [几种任务实现的对比](https://blog.csdn.net/wqh8522/article/details/79224290)
+
 ###### ApplicationRunner & CommandLineRunner
 
 SpringBoot项目中，started和running状态之间会执行这两个类，详情查看SpringApplication#run方法
