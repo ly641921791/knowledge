@@ -53,7 +53,33 @@ public class SimpleAsyncTaskApplication {
 
 ###### 复杂示例
 
-TODO 如何配置异步任务
+Spring在没有找到线程池时会创建默认的线程池用于处理异常任务，对于异常的任务默认不处理
+
+Spring提供了`AsyncConfigurer`接口用于配置异步任务使用的线程池和异常处理规则，代码如下
+
+```java
+public interface AsyncConfigurer {
+	@Nullable
+	default Executor getAsyncExecutor() {
+		return null;
+	}
+
+	@Nullable
+	default AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+		return null;
+	}
+}
+```
+
+实现`AsyncConfigurer`接口，并将实现类注册到Spring容器就可以达到配置的目的，示例如下
+
+```java
+@EnableAsync
+@Configuration
+public class AsyncConfig implements AsyncConfigurer {
+	// 实现略
+}
+```
 
 > 示例代码 https://github.com/ly641921791/knowledge-examples/tree/master/spring-example/spring-task-async-complex
 
@@ -69,63 +95,108 @@ TODO 如何配置异步任务
 
 ###### 源码解析
 
-- 阅读源码必然从异步任务的开关`@EnableAsync`看起
+1. @EnableAsync
+
+@EnableAsync通过@Import引入了`AsyncConfigurationSelector`，代码如下
 
 ```java
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
 @Import(AsyncConfigurationSelector.class)
 public @interface EnableAsync {
-	// 具体属性省略
 }
+```
 
+2. AsyncConfigurationSelector
+
+```java
 public class AsyncConfigurationSelector extends AdviceModeImportSelector<EnableAsync> {
-	
-	// 省略无关内容
 
-	@Override
-	@Nullable
 	public String[] selectImports(AdviceMode adviceMode) {
 		switch (adviceMode) {
 			case PROXY:
-				return new String[] { ProxyAsyncConfiguration.class.getName() };
+				return new String[] {ProxyAsyncConfiguration.class.getName()};
 			case ASPECTJ:
-				return new String[] { ASYNC_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME };
+				return new String[] {ASYNC_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME};
 			default:
 				return null;
 		}
 	}
+
 }
 ```
 
-可以看到在`@EnableAsync`注解上标注了`@Import(AsyncConfigurationSelector.class)`这样一行代码。所以`AsyncConfigurationSelector`的代码也顺便贴在上面。
+AdviceMode是@EnableAsync的一个属性，默认值是`AdviceMode.PROXY`，也就是默认情况下，会引入`ProxyAsyncConfiguration`
 
-> **@Import**注解的作用是向容器注册组件。在博客中有[详细介绍](https://blog.csdn.net/weixin_38229356/article/details/80699973)，不懂的同学可以点进去看看。
+3. ProxyAsyncConfiguration
 
-通过查看`AsyncConfigurationSelector`的源码，我们发现默认配置的情况下，`@EnableAsync`会通过`@Inport`注解向容器注册`ProxyAsyncConfiguration`的实例。
+`ProxyAsyncConfiguration`做了三件事，代码如下
 
-- 所以，接下来看看`ProxyAsyncConfiguration`的源码
+- 通过`setImportMetadata`方法得到了@EnableAsync注解的属性信息，
+- 通过`setConfigurers`方法得到了`AsyncConfigurer`配置的线程池和异常处理器，
+- 通过`asyncAdvisor`方法配置并引入了`AsyncAnnotationBeanPostProcessor`
 
 ```java
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class ProxyAsyncConfiguration extends AbstractAsyncConfiguration {
 
+	/*  继承自 AbstractAsyncConfiguration
+		@Nullable
+		protected AnnotationAttributes enableAsync;
+	
+		@Nullable
+		protected Supplier<Executor> executor;
+	
+		@Nullable
+		protected Supplier<AsyncUncaughtExceptionHandler> exceptionHandler;
+	
+		@Override
+		public void setImportMetadata(AnnotationMetadata importMetadata) {
+			this.enableAsync = AnnotationAttributes.fromMap(
+					importMetadata.getAnnotationAttributes(EnableAsync.class.getName(), false));
+			if (this.enableAsync == null) {
+				throw new IllegalArgumentException(
+						"@EnableAsync is not present on importing class " + importMetadata.getClassName());
+			}
+		}
+	
+		@Autowired(required = false)
+		void setConfigurers(Collection<AsyncConfigurer> configurers) {
+			if (CollectionUtils.isEmpty(configurers)) {
+				return;
+			}
+			if (configurers.size() > 1) {
+				throw new IllegalStateException("Only one AsyncConfigurer may exist");
+			}
+			AsyncConfigurer configurer = configurers.iterator().next();
+			this.executor = configurer::getAsyncExecutor;
+			this.exceptionHandler = configurer::getAsyncUncaughtExceptionHandler;
+		}
+	*/
+
 	@Bean(name = TaskManagementConfigUtils.ASYNC_ANNOTATION_PROCESSOR_BEAN_NAME)
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public AsyncAnnotationBeanPostProcessor asyncAdvisor() {
-		// 内容省略
+		Assert.notNull(this.enableAsync, "@EnableAsync annotation metadata was not injected");
+		AsyncAnnotationBeanPostProcessor bpp = new AsyncAnnotationBeanPostProcessor();
+		bpp.configure(this.executor, this.exceptionHandler);
+		Class<? extends Annotation> customAsyncAnnotation = this.enableAsync.getClass("annotation");
+		if (customAsyncAnnotation != AnnotationUtils.getDefaultValue(EnableAsync.class, "annotation")) {
+			bpp.setAsyncAnnotationType(customAsyncAnnotation);
+		}
+		bpp.setProxyTargetClass(this.enableAsync.getBoolean("proxyTargetClass"));
+		bpp.setOrder(this.enableAsync.<Integer>getNumber("order"));
+		return bpp;
 	}
+
 }
 ```
 
-通过查看源码，`AbstractAsyncConfiguration`向容器中注册了`AsyncAnnotationBeanPostProcessor`的实例，通过类名也能推测出该类的作用：标记了@Async注解的Bean的后置处理器。
+4. AsyncAnnotationBeanPostProcessor
 
-> 后置处理器：Spring暴露出来的拓展点，对容器中产生的Bean进行改造，使其拥有我们配置的功能。
+`AsyncAnnotationBeanPostProcessor`
 
-![avatar](http://www.plantuml.com/plantuml/png/dP8n3i8m34NtdY8Nw0qO6WRcIfp0f0P50hkoNI0IXoT2XI4PsfB9YT-pzQLqQY0stQvD94CvGq2tHw0316D9_W62HQjdjLuue2fB0oSroR3pSr7QVhX7ZNHPqBvOlI6Vwj7jNcsxmitLC_sknsaSMMojl4Xy1cqCNbB_pDX4pmiqKV14R62HgGxR8Gtv6xm1)
+- 通过`setBeanFactory`方法创建了`AsyncAnnotationAdvisor`
+- 通过`postProcessAfterInitialization`创建了Bean的代理对象，并将`AsyncAnnotationAdvisor`作为Advisor，
 
-通过UML图，知道`AsyncAnnotationBeanPostProcessor`通过实现`BeanPostProcessor`接口得到了对Bean后置处理的功能，并且通过继承了`ProxyProcessorSupport`类得到了对bean进行代理处理的功能。
+`AsyncAnnotationAdvisor`将`AnnotationAsyncExecutionInterceptor`作为方法拦截器，拦截目标方法执行，将其交过线程池执行实现异步调用
 
-也就是异步方法的实现，是通过将容器中bean组件进行拦截处理，通过代理对象的方式得到了异步处理任务的功能。
