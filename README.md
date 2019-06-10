@@ -11,7 +11,7 @@
 
 ## 框架
 
-- [MyBatis教程](./mybatis/mybatis.md)
+- [MyBatis教程](mybatis/README.md)
 
 
 

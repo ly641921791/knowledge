@@ -30,3 +30,7 @@ SELECT id FROM user WHERE name LIKE #{keyword}
 	SELECT id FROM user WHERE name LIKE #{search}
 </select>
 ```
+
+
+LIKE子句如何传参
+https://blog.csdn.net/why15732625998/article/details/79081146

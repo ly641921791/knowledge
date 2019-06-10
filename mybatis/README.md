@@ -23,7 +23,28 @@ MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过�
 
 
 
+###### 核心组件
+
+- SqlSession
+- Executor
+- StatementHandler
+- ParameterHandler
+- ResultSetHandler
+- TypeHandler
+- MappedStatement
+- Configuration
+
+###### 执行步骤
+
+1. 加载配置文件得到XMLConfigBuilder
+2. parse()得到Configuration
+3. build()得到SqlSessionFactory
+4. openSession()得到SqlSession
+5. 将SQL执行委派给Executor
+6. 生成StatementHandler
+7. StatementHandler通过ParameterHandler得到Statement
+8. execute()得到ResultSet
+9. 通过ResultSetHandler得到最终结果
 
 
-LIKE子句如何传参
-https://blog.csdn.net/why15732625998/article/details/79081146
+
