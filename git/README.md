@@ -8,16 +8,7 @@ CentOS 安装
 
     yum install git
 
-检查
-
-    git --version
-
 ## 配置git
-
-这里的账号邮箱并不是git的，只是身份表示。
-
-    git config --global user.name "47.95.252.113"
-    git config --global user.email "wspvideo@zintow.com"
 
 配置秘钥，免密登录
 
