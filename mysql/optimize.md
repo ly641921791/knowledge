@@ -111,25 +111,9 @@ ON的字段加索引
 1. GROUP BY、ORDER BY、ON条件中出现的列
 2. WHERE中<，<=，=，>，>=，BETWEEN，IN，以及LIKE 字符串+通配符（%）出现的列
 
-### 分析SQL
 
-执行 `EXPLAIN SELECT id FROM user WHERE id = 1`
 
-分析结果
-
-|id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra|
-|---|---|---|---|---|---|---|---|---|---|---|---|
-|1|	SIMPLE|	user	|(NULL)|	const|	PRIMARY	|PRIMARY	|8	|const|	1	|100.00|	Using index|
-
-分析说明
-
-|row|mean|
-|---|---|
-|type|连接类型<br>尽量range，避免all|
-|key|使用的索引名，null表示未使用，可以强制索引|
-|key_len|索引长度|
-|rows|预估扫描行数|
-|extra|详细说明<br>避免Using filesort, Using temporary|
+###### 分析[执行计划](optimize_explain.md)
 
 
 
