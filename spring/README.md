@@ -7,7 +7,8 @@ Spring
 - Web
 	- [静态资源](web/static_content.md)
 	- [响应压缩](web/compression.md)
-	
+	- [RestTemplate使用](web/RestTemplate.md)
+
 - Cache
 	- [使用缓存](cache/use.md)
 
