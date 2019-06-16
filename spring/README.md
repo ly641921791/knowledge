@@ -5,6 +5,7 @@ Spring
 	- [应用配置](ioc/configuration.md) 
 
 - Web
+	- [过滤器](web/filter.md)
 	- [静态资源](web/static_content.md)
 	- [响应压缩](web/compression.md)
 	- [RestTemplate使用](web/RestTemplate.md)
