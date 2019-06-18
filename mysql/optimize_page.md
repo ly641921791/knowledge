@@ -1,6 +1,8 @@
 SQL优化 - 分页查询
 -
 
+MySQL中分页查询一般使用LIMIT实现，LIMIT
+
 LIMIT语法
 
 LIMIT [offset ,] size ：从offset+1行开始取，一共取size条数据。offset默认0
@@ -24,3 +26,6 @@ SELECT * FROM (SELECT id FROM table LIMIT 10,10) AS s
 INNER JOIN table AS p ON (s.id = p.id)
 
 先通过子查询得到11-20条记录的id，然后小表驱动大表，得到11-20条记录的全部信息
+
+
+> LIMIT优化 https://dev.mysql.com/doc/refman/8.0/en/limit-optimization.html
