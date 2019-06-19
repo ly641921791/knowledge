@@ -5,8 +5,18 @@ AbstractBeanFactory
 
 AbstractBeanFactory#doGetBean是生产Bean的模板方法，
 
-1 得到真实的BeanName。因为Spring存在别名机制
+1. 获得真实的BeanName。因为Spring存在别名机制
+2. 获得单例bean
+	2.1 从singletonObjects单例bean缓存中查找
+	2.2 从earlySingletonObjects早期单例bean缓存中查找（正在创建的bean）
+	2.3 从singletonFactories工厂对象缓存中查找，找到则通过工厂对象创建bean，并添加到早期单例bean缓存（问题：为什么没有加入到正在创建的bean）
+3. 
 
+singletonObjects        单例bean缓存
+earlySingletonObjects   早期单例bean缓存
+singletonFactories      单例工厂缓存
+
+singletonsCurrentlyInCreation 正在创建中的bean名称
 
 ```java
 public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
@@ -17,8 +27,12 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
-		// Eagerly check singleton cache for manually registered singletons.
+		// 2. 获得单例bean
 		Object sharedInstance = getSingleton(beanName);
+		
+		// 3
+		
+		// 3.1
 		if (sharedInstance != null && args == null) {
 			if (logger.isTraceEnabled()) {
 				if (isSingletonCurrentlyInCreation(beanName)) {
@@ -31,10 +45,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 			bean = getObjectForBeanInstance(sharedInstance, name, beanName, null);
 		}
-
+		
+		// 3.2
 		else {
-			// Fail if we're already creating this bean instance:
-			// We're assumably within a circular reference.
+			// 处理prototype类型的bean循环引用问题
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
@@ -193,25 +207,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 5  类型转换
 
 
-- singletonObjects：
-- earlySingletonObjects：
-
-- singletonFactories
-
-- singletonsCurrentlyInCreation：
-
-
 ```java
 public class AbstractBeanFactory {
 	protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,	@Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
 
-		/*
-			获得单例bean
-			1. 从单例对象缓存中获得bean
-			2. 从正在创建的bean缓存中获得bean
-			3. 从beanFactory缓存中获得beanFactory，再获得bean
-		 */
-		Object sharedInstance = getSingleton(beanName);
+
 		if (sharedInstance != null && args == null) {
 			if (logger.isDebugEnabled()) {
 				if (isSingletonCurrentlyInCreation(beanName)) {
