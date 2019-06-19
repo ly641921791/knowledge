@@ -24,7 +24,6 @@
         <module>spring-boot-test</module>
         <module>spring-boot-jdbc</module>
         <module>spring-boot-mvc-json</module>
-        <module>spring-boot-websocket</module>
         <module>spring-boot-xml</module>
         <module>spring-ioc</module>
         <module>spring-security</module>
