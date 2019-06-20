@@ -90,11 +90,6 @@
 - [存储引擎](./mysql/storage_engines.md)
 - [性能优化](./mysql/optimize.md)
 
-## Nginx教程
-
-- [yum安装](./nginx/install-yum.md)
-- [docker安装](./nginx/install-docker.md)
-
 ## Redis
 
 - [分布式锁](./redis/distributed%20lock.md)
@@ -112,7 +107,10 @@
 
 
 
+###### 代理服务器
 
+- [Nginx](nginx/README.md)
+- [LVS](lvs.md)
 
 
 

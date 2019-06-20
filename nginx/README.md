@@ -1,8 +1,9 @@
 Nginx
 - 
 
-
-[配置SSL](ssl.md)
+- [yum安装](install-yum.md)
+- [docker安装](install-docker.md)
+- [配置SSL](ssl.md)
 
 
 nginx实现不停机更新
