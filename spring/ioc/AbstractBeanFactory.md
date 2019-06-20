@@ -17,7 +17,7 @@ AbstractBeanFactory#doGetBean是生产Bean的模板方法，
         3.1.3 通过原始Bean的工厂方法获得最终Bean
     3.2 查找失败，创建Bean
         3.2.1 通过父BeanFactory创建Bean，创建成功则返回
-        3.2.2 创建Bean，创建完成后进行3.1过程的处理得到最终Bean
+        3.2.2 创建Bean，创建完成后进行，进行前置处理、初始化、后置处理、3.1过程的处理得到最终Bean
 4. 最终Bean类型检查及转换
     
 singletonObjects        单例bean缓存
