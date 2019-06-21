@@ -83,12 +83,9 @@
 
 - [动态SQL](./mybatis/dynamic_sql.md)
 
-## MySQL
+## 数据库
 
-- [数据类型](./mysql/data-type.md)
-- [索引使用](./mysql/index.md)
-- [存储引擎](./mysql/storage_engines.md)
-- [性能优化](./mysql/optimize.md)
+- [MySQL](mysql/README.md)
 
 ## Redis
 
