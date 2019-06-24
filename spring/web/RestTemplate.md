@@ -8,7 +8,7 @@ public class getWithParam {
     public static void main(String[] args){
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(
-                "http://www.baidu.com?p1={p1}&p2={p2}",
+                "https://www.google.com?p1={p1}&p2={p2}",
                 String.class,
                 "param1","param2"
         );
@@ -35,7 +35,33 @@ public class postWithForm {
         // 请求对象
         HttpEntity request = new HttpEntity(form,headers);
         
-        String response = restTemplate.postForObject("http://www.baidu.com",request,String.class);
+        String response = restTemplate.postForObject("https://www.google.com",request,String.class);
+    }
+}
+```
+
+POST请求带JSON
+
+```java
+public class postWithJson {
+    public static void main(String[] args){
+        RestTemplate restTemplate = new RestTemplate();
+        
+        // 请求头
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        
+        // 请求参数 可以是任意数据类型
+        Object body = new Object();
+        
+        // 请求对象
+        HttpEntity request = new HttpEntity(body,headers);
+ 
+        /*
+            直接将body作为参数也可以，默认以application/json;charset=UTF-8形式提交
+            String response = restTemplate.postForObject("https://www.google.com",body,String.class)
+         */
+        String response = restTemplate.postForObject("https://www.google.com",request,String.class);
     }
 }
 ```
