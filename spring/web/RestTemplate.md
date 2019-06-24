@@ -1,25 +1,27 @@
 RestTemplate
 -
 
-GET请求带参数
+RestTemplate是Spring3.0引入的同步阻塞式HTTP客户端，Spring5引入了WebClient作为非阻塞式Reactive HTTP客户端
+
+###### GET示例
 
 ```java
-public class getWithParam {
+public class GetDemo {
     public static void main(String[] args){
         RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.getForObject(
+        Object response = restTemplate.getForObject(
                 "https://www.google.com?p1={p1}&p2={p2}",
-                String.class,
+                Object.class,
                 "param1","param2"
         );
     }
 }
 ```
 
-POST请求带表单
+###### POST请求提交表单
 
 ```java
-public class postWithForm {
+public class PostWithForm {
     public static void main(String[] args){
         RestTemplate restTemplate = new RestTemplate();
         
@@ -40,10 +42,10 @@ public class postWithForm {
 }
 ```
 
-POST请求带JSON
+###### POST请求提交JSON
 
 ```java
-public class postWithJson {
+public class PostWithJson {
     public static void main(String[] args){
         RestTemplate restTemplate = new RestTemplate();
         
