@@ -46,7 +46,20 @@ beans属性
 	@Value
 		放在字段或Setter方法上，如：Value("#{}")
 		
-		
+@Value用法
+
+- 注入基本数据类型
+    - @Value("abc") private String value;
+    - @Value("123") private int value;
+- 注入环境变量，可以设置默认值
+    - @Value("${server.port}") private int value;
+    - @Value("${user.dir}") private String value;
+    - @Value("${server.port:8080}") private int value;  // 设置默认值
+- 注入SpringEL表达式
+    - @Value("#{1 > 0}") private boolean value;
+    - @Value("#{${server.port} == 8080}") private boolean value;
+
+
 @Resource和@Autowired的区别
 
 - @Resource是JSR250注解，默认注入策略是先根据名称再根据类型，可以通过name或type属性指定注入策略

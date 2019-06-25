@@ -120,5 +120,12 @@ TransactionTemplate类似Spring中的JdbcTemplate，使用回调机制将事务�
 	ISOLATION_SERIALIZABLE		最高的隔离级别，阻止脏读、不可重复读以及幻读通常是通过完全锁定事务相关的数据库表来实现的
 
 	
+###### Spring Boot 事务
 
-> 参考文档： https://docs.spring.io/spring/docs/5.1.6.RELEASE/spring-framework-reference/data-access.html#spring-data-tier
+通过DataSourceTransactionManagerAutoConfiguration引入了TransactionManager
+
+通过TransactionAutoConfiguration引入了EnableTransactionManagement
+
+
+
+> 参考文档 https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/data-access.html#spring-data-tier

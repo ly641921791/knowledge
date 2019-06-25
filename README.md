@@ -13,10 +13,6 @@
 
 - [MyBatis教程](mybatis/README.md)
 
-## 事务
-
-- [分布式事物](./transaction/distributed%20transaction.md)
-
 ## spring boot
 
 ### spring boot mvc
@@ -109,7 +105,9 @@
 - [Nginx](nginx/README.md)
 - [LVS](lvs.md)
 
+###### 分布式系统
 
+- [分布式事物](distributed_system/transaction.md)
 
 
 
