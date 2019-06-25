@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    schema: classpath:schema.sql
-    data: classpath:data.sql
-
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: mapper/*.xml
