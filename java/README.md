@@ -47,7 +47,7 @@ CopyOnWrite
 适合多读少写的场景
 
 
-[AQS](https://my.oschina.net/xiongying0214/blog/1944627)
+[AQS](juc/AQS.md)
 
 
 
@@ -229,16 +229,6 @@ CAS，全称为Compare and Swap，即比较-替换。假设有三个操作数：
 2）悲观锁：还是像它的名字一样，对于并发间操作产生的线程安全问题持悲观状态，悲观锁认为竞争总是会发生，因此每次对某资源进行操作时，都会持有一个独占的锁，就像synchronized，不管三七二十一，直接上了锁就操作资源了。
 
 点击这里了解更多乐观锁与悲观锁详情。
-
- 
-
-34、什么是AQS
-
-简单说一下AQS，AQS全称为AbstractQueuedSychronizer，翻译过来应该是抽象队列同步器。
-
-如果说java.util.concurrent的基础是CAS的话，那么AQS就是整个Java并发包的核心了，ReentrantLock、CountDownLatch、Semaphore等等都用到了它。AQS实际上以双向队列的形式连接所有的Entry，比方说ReentrantLock，所有等待的线程都被放在一个Entry中并连成双向队列，前面一个线程使用ReentrantLock好了，则双向队列实际上的第一个Entry开始运行。
-
-AQS定义了对双向队列所有的操作，而只开放了tryLock和tryRelease方法给开发者使用，开发者可以根据自己的实现重写tryLock和tryRelease方法，以实现自己的并发功能。
 
  
 

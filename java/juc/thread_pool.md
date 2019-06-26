@@ -27,7 +27,7 @@
 
 拒绝策略
 
-- AbortPolicy 直接抛出异常
+- AbortPolicy 直接抛出异常。默认策略，抛出RejectedExecutionException异常
 - CallerRunsPolicy 使用调养者所在线程执行任务
 - DiscardOldestPolicy 丢弃最近的任务，执行当前任务
 - DiscardPolicy 丢弃任务
