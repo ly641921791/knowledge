@@ -16,10 +16,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <module>apache-shiro</module>
         <module>netty</module>
-        <module>spring-boot-source-code</module>
-        <module>spring-boot-cache</module>
         <module>spring-boot-mvc</module>
         <module>spring-boot-test</module>
         <module>spring-boot-jdbc</module>

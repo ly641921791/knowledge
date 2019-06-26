@@ -57,3 +57,13 @@ IO密集型，最佳线程数2N+1。CPU使用率不高，可以在CPU等待IO时
 
 混合型任务。将任务拆分为CPU密集型和IO密集型，分别使用不同的线程池处理。
 
+##### FAQ
+
+###### submit() VS execute()
+       
+两个方法都可以向线程池提交任务
+
+execute()方法的返回类型是void，它定义在Executor接口中
+
+submit()方法可以返回持有计算结果的Future对象，它定义在ExecutorService接口中，它扩展了Executor接口，
+其它线 程池类像ThreadPoolExecutor和ScheduledThreadPoolExecutor都有这些方法。
