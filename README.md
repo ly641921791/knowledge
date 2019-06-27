@@ -72,7 +72,7 @@
 ### RocketMQ
 
 - [介绍](./mq/rocketmq/README.md)
-- [安装](./mq/rocketmq/install.md)
+- [安装](mq/rocketmq/install.md)
 - [示例](./mq/rocketmq/example.md)
 
 ## MyBatis
