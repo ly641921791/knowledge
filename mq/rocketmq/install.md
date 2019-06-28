@@ -1,6 +1,15 @@
 RocketMQ 安装
 -
 
+##### 下载 & 编译
+
+进入官方[下载地址](https://rocketmq.apache.org/dowloading/releases/)，下载目标版本的二进制包或源码包，也可以
+到[Github](https://github.com/apache/rocketmq)下载
+
+> 教程地址 https://rocketmq.apache.org/docs/quick-start/
+
+> 控制台地址 https://github.com/apache/rocketmq-externals/tree/master/rocketmq-console
+
 ##### Docker 安装
 
 ###### 启动NameServer和Broker

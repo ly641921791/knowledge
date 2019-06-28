@@ -123,3 +123,6 @@ public interface RpMessageService {
     
 }
 ```
+
+
+分布式事务伪代码 https://www.jianshu.com/p/6868ddceaa5b

@@ -18,9 +18,9 @@
 
 #### JDK1.8
 
-- [Lambda表达式](./lambda.md)
-- [Stream](./stream.md)
-- [Optional](./jdk8_optional.md)
+- [Lambda表达式](jdk8/lambda.md)
+- [Stream](jdk8/stream.md)
+- [Optional](jdk8/optional.md)
 - 接口默认方法
 
 
