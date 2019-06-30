@@ -287,3 +287,151 @@ ReentrantReadWriteLock
 ###### 无锁编程
 
 其实就是乐观锁，通过CAS实现的无锁。
+
+##### ReentrantLock
+
+- 可重入
+- 可中断
+- 可限时
+- 公平锁
+
+###### 可重入
+
+因为锁是可重入的，可以加锁多次，同时必须释放多次，因为会记录进入锁的次数
+
+```java
+public class Demo {
+    public static void main(String[] args){
+    	ReentrantLock lock = new ReentrantLock();
+    	lock.lock();
+    	lock.lock();
+    	try {
+    	    // 逻辑处理
+    	} finally{
+    	    lock.unlock();
+    	    lock.unlock();
+    	}
+    }
+}
+```
+
+###### 可中断
+
+加锁的同时，可以响应中断，通过添加守护线程，定时将可以用来防止死锁
+
+```java
+public class Demo {
+    public static void main(String[] args){
+        ReentrantLock lock = new ReentrantLock();
+        try {
+            // 响应中断的加锁
+            lock.lockInterruptibly();
+        } catch (InterruptedException e) {
+            
+        } finally {
+            // 检查当前线程是否获得锁，再解锁
+            if (lock.isHeldByCurrentThread()){
+                lock.unlock();
+            }
+        }
+    }
+    
+    private void checker() {
+        // 获得线程管理器
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        // 查找死锁id
+        long[] deadlockedThreads = threadMXBean.findDeadlockedThreads();
+        // 查找死锁信息
+        ThreadInfo[] threadInfo = threadMXBean.getThreadInfo(deadlockedThreads);
+        // 遍历当前栈，将死锁线程中断
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            for (int i = 0; i < threadInfo.length; i++) {
+                if (thread.getId() == threadInfo[i].getThreadId()) {
+                    thread.interrupt();
+                }
+            }
+        }
+    }
+}
+```
+
+###### 可限时
+
+在给定的时间内加锁，加锁失败直接返回
+
+```java
+public class Demo {
+    public static void main(String[] args){
+    	ReentrantLock lock = new ReentrantLock();
+    	try {
+    	    if (lock.tryLock(5,TimeUnit.SECONDS)){
+    	        // 加锁成功
+    	    } else {
+    	        // 加锁失败
+    	    }
+    	} catch (InterruptedException e) {
+    	    //
+    	} finally {
+    	    if (lock.isHeldByCurrentThread()) {
+    	        lock.unlock();
+    	    }
+    	}
+    }
+}
+```
+
+###### 公平锁
+
+线程先到先得，防止某些线程得不到锁，性能会比非公平锁差很多，通过构造函数`public ReentrantLock(boolean fair)`控制
+
+###### Condition
+
+类似于synchronized锁，加锁对象提供了wait()、notify()、notifyAll()方法用于线程通信
+
+Condition就是ReentrantLock的锁对象，也提供了类似方法
+
+##### Semaphore
+
+信号量，用来控制最大并发线程
+
+```java
+public class Demo {
+    public static void main(String[] args){
+    	Semaphore semaphore = new Semaphore(5);
+    	semaphore.acquire();
+    	try {
+    	    
+    	} finally {
+    		semaphore.release();
+    	}
+    }
+}
+```
+
+##### ReadWriteLock
+
+读写锁
+
+##### CountDownLatch
+
+##### CyclicBarrier
+
+cyclic [ˈsaɪklɪk] 循环的
+
+barrier [ˈbæriə(r)] 屏障
+
+线程组需要做A、B、C...几件事，但是前一件事必须都做完才可以做下一件事，此时使用
+
+##### LockSupport
+
+park() 暂停
+
+unpark(Thread) 继续 
+
+#### 并发容器
+
+ConcurrentHashMap
+
+BlockingQueue
+
+ConcurrentLinkedQueue
