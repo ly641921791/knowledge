@@ -13,6 +13,7 @@ Spring
 	- [响应压缩](web/compression.md)
 	- [WebSocket](web/websocket.md)
 	- [RestTemplate使用](web/RestTemplate.md)
+	- [模本引擎 Velocity](https://www.kancloud.cn/boshu/springboot/215852)
 
 - Cache
 	- [使用缓存](cache/use.md)
