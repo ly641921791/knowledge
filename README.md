@@ -153,3 +153,14 @@ CopyOnWrite的原理、应用场景、缺点、需要注意的事情
    TID是线程id的16进制表示
 
 
+[脚手架](https://mp.weixin.qq.com/s/e5y52jp7JFUKDizm8hPGPw)
+
+[脚手架](https://github.com/uniquezhangqi/javaweb)
+
+脚手架 https://github.com/shuzheng/zheng
+
+脚手架 https://github.com/yyhsong/iEasyUI
+
+脚手架 https://www.jianshu.com/p/923d26d705ed
+
+脚手架 https://gitee.com/jobob/jas

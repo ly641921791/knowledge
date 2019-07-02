@@ -77,3 +77,9 @@ execute()方法的返回类型是void，它定义在Executor接口中
 
 submit()方法可以返回持有计算结果的Future对象，它定义在ExecutorService接口中，它扩展了Executor接口，
 其它线 程池类像ThreadPoolExecutor和ScheduledThreadPoolExecutor都有这些方法。
+
+异常处理
+
+execute()方法会直接抛出异常
+
+submit()方法在get()时抛出异常
