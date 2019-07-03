@@ -81,13 +81,20 @@ git stash pop 恢复暂存并删除暂存记录
 git stash list 查看暂存列表
 git stash drop 暂存名(例：stash@{0}) 移除某次暂存
 git stash clear 清除暂存
-回退操作
+
+##### 回退操作
 
 git reset --hard HEAD^ 回退到上一个版本
 git reset --hard ahdhs1(commit_id) 回退到某个版本
 git checkout -- file撤销修改的文件(如果文件加入到了暂存区，则回退到暂存区的，如果文件加入到了版本库，则还原至加入版本库之后的状态)
 git reset HEAD file 撤回暂存区的文件修改到工作区
-标签操作
+
+###### 撤销未push的commit
+
+1. 通过`git log`命令找到commitId
+2. 撤销commit操作`git reset commitId`
+
+##### 标签操作
 
 git tag 标签名 添加标签(默认对当前版本)
 git tag 标签名 commit_id 对某一提交记录打标签
