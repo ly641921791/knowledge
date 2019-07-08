@@ -166,3 +166,13 @@ CopyOnWrite的原理、应用场景、缺点、需要注意的事情
 脚手架 https://gitee.com/jobob/jas
 
 脚手架 https://github.com/stylefeng/Guns
+
+https://gitee.com/lcg0124/bootdo
+
+博客系统 https://gitee.com/mtons/mblog
+
+https://github.com/wuyouzhuguli/FEBS-Shiro
+
+https://www.jianshu.com/p/68811cf6dfac
+
+https://github.com/Radom7/springboot-layui
