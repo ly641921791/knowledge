@@ -42,6 +42,27 @@ https://blog.csdn.net/z960339491/article/details/80334384
 
 ### 通过Git搭建Maven仓库
 
+###### 变量属性
+
+外部文件支持变量属性，配置filtering为true，可以使指定文件支持变量属性
+
+``` xml
+<project>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>xxx.txt</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>
+
+```
+
 [教程](build_by_git.md)
 
 [maven的三大生命周期](https://www.cnblogs.com/huxinga/p/6740897.html)
