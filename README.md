@@ -176,3 +176,11 @@ https://github.com/wuyouzhuguli/FEBS-Shiro
 https://www.jianshu.com/p/68811cf6dfac
 
 https://github.com/Radom7/springboot-layui
+
+HTML模本脚手架 https://gitee.com/yinqi/Light-Year-Admin-Template
+
+根据接口生成页面 http://gen.sdemo.cn/#/about
+
+图形化前端工具 阿里飞冰 美团乐高
+
+页面可视化搭建工具前生今世 https://github.com/CntChen/cntchen.github.io/issues/15

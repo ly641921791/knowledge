@@ -7,6 +7,10 @@
 2. 提高响应速度。无需创建线程就可以立即执行任务
 3. 提高线程的可管理性。无限创建线程，不仅消耗系统资源，还降低系统稳定性，使用线程池可以进行统一分配、调优、监控
 
+###### 工作原理
+
+每一个任务都被封装成`ThreadPoolExecutor.Worker`对象放入任务队列，工作线程不断从任务队列拿任务执行run方法
+
 ###### 核心属性
 
 线程池有以下核心属性
@@ -38,10 +42,6 @@
 - SingleThreadPool 单线程的线程池
 - CachedThreadPool 可缓存的线程池
 - ScheduledThreadPool 定时任务线程池
-
-###### 原理
-
-每一个任务都被封装成`ThreadPoolExecutor.Worker`对象放入任务队列，工作线程不断从任务队列拿任务执行run方法
 
 ###### 扩展
 
@@ -83,3 +83,7 @@ submit()方法可以返回持有计算结果的Future对象，它定义在Execut
 execute()方法会直接抛出异常
 
 submit()方法在get()时抛出异常
+
+> 如何优雅的使用和理解线程池 https://mp.weixin.qq.com/s?__biz=MzIyMzgyODkxMQ==&mid=2247483842&idx=1&sn=af7514a1e132ba84075d5ddc2f1c6b0b&chksm=e8190f02df6e8614f13ec04cee11f035fe23a29cd9c682ef18cbe52716c90d84f9581815f054&scene=21#wechat_redirect
+
+> 线程池中你不容错过的一些细节 https://mp.weixin.qq.com/s?__biz=MzIyMzgyODkxMQ==&mid=2247484144&idx=1&sn=d4b992f4a0c66bafb906683936d204d9&chksm=e8190c30df6e85266d98a4aabf24be2b96775db7baa47634418a640465d4c35c31b2157c7b99&scene=21#wechat_redirect
