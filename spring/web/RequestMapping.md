@@ -1,4 +1,5 @@
-@RequestMapping参数详解
+RequestMapping
+-
 
 value：请求路径，支持占位符
 	value="/{id}" 此时id为占位符，可以作为参数使用，通过@PathVariable提取
@@ -9,8 +10,21 @@ params：请求参数列表，并支持表达式
 	params="name!=ly" 参数中name不能等于ly
 	
 	
+###### consumes
+
+处理的请求类型
+
+###### produces
+
+返回的响应类型
 
 
 通过@RequestParam注解接受List
 
 @RequestParam("idList[]") List<String> idList
+
+表单将参数通过 arg[0] arg[1] ... 传递，可以通过String[] arg接收
+
+配置返回状态码
+
+@ResponseStatus
