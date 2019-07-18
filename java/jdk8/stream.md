@@ -1,7 +1,7 @@
 Stream
 -
 
-### 介绍
+##### 介绍
 
 Jdk1.8新增，方便处理集合的API。有以下特性：
 
@@ -12,7 +12,7 @@ Jdk1.8新增，方便处理集合的API。有以下特性：
 
 使用流程：创建流 -> 操作流 -> 使用流
 
-### 创建流
+##### 创建流
 
 1. 通过集合创建流
 
@@ -26,7 +26,7 @@ Stream<String> stream = Arrays.asList("entity").stream();
 Stream<String> stream = Stream.of("entity");
 ```
 
-### 操作流
+##### 操作流
 
 经过操作流的结果还是流，常见操作如下：
 
@@ -56,7 +56,7 @@ Stream.of(3,2,1).sorted().forEach(System.out::println);
 Stream.of(1,1).distinct().forEach(System.out::println);
 ```
 
-### 使用流
+##### 使用流
 
 使用流后，将不能再次使用或操作，否则抛出异常。常见使用如下：
 
@@ -74,8 +74,10 @@ Stream.of(1,2,3).forEach(System.out::println);
 Stream.of(1,2,3).count();
 
 // collect : [1,2,3]
-List<Integr> list = Stream.of(1,2,3).collect(Collectors.toList()); 
+List<Integer> list = Stream.of(1,2,3).collect(Collectors.toList()); 
 ```
 
+###### collect
 
-
+返回List ：List<Integer> list = Stream.of(1,2,3).collect(Collections.toList());
+返回ArrayList ：List<Integer> list = Stream.of(1,2,3).collect(Collections.toCollection(ArrayList::new));

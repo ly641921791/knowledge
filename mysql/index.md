@@ -14,6 +14,27 @@
 1. 增加存储空间
 2. 影响查询和修改性能
 
+###### 相关语句
+
+设置索引
+
+- 主键索引 ALTER TABLE tb_name ADD PRIMARY KEY (col_name)
+- 唯一索引 ALTER TABLE tb_name ADD UNIQUE (col_name)
+- 普通索引 ALTER TABLE tb_name ADD INDEX (col_name)
+- 全文索引 ALTER TABLE tb_name ADD FULLTEXT (col_name)
+- 多列索引 ALTER TABLE tb_name ADD INDEX index_name (col1,col2...)
+
+查看索引
+
+SHOW INDEX FROM tb_name
+
+唯一索引
+
+当a、b列联合作为唯一索引
+
+- a和b同时作为查询条件，a、b不区分先后索引都可以生效
+- a和b单独作为查询条件，都不会生效
+
 ###### 索引分类
 
 存储结构层次

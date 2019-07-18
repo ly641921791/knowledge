@@ -12,19 +12,6 @@ UNION ALL不会消除重复值
 
 
 
-## 索引
-
-### 设置索引
-
-- 主键索引 ALTER TABLE tb_name ADD PRIMARY KEY (col_name)
-- 唯一索引 ALTER TABLE tb_name ADD UNIQUE (col_name)
-- 普通索引 ALTER TABLE tb_name ADD INDEX (col_name)
-- 全文索引 ALTER TABLE tb_name ADD FULLTEXT (col_name)
-- 多列索引 ALTER TABLE tb_name ADD INDEX index_name (col1,col2...)
-
-### 查看索引
-
-SHOW INDEX FROM tb_name
 
 
 ## REPLACE INTO 用法
