@@ -126,3 +126,23 @@ git rm -r --cached 文件/文件夹名字 (. 忽略全部文件)
 git update-index --no-assume-unchanged file
 拉取、上传免密码
 git config --global credential.helper store
+
+###### Fork项目同步原项目
+
+将Fork的项目下载到本地
+
+git clone xxx
+
+增加原项目作为远程项目
+
+git remote add upstream xxx
+
+拉取原项目，在本地完成合并
+
+git fetch upstream
+
+git merge upstream/master
+
+提交合并结果
+
+git push
