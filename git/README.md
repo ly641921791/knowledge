@@ -146,3 +146,11 @@ git merge upstream/master
 提交合并结果
 
 git push
+
+###### 创建分支
+
+新建分支并推送到远程
+
+git checkout -b branchName
+
+git push origin branchName
