@@ -61,7 +61,26 @@ public class NacosProviderApplication {
 
 通过`Spring Cloud`原生注解`@EnableDiscoveryClient`开启服务注册发现功能
 
-###### 第五步 启动应用
+###### 第五步 接口开发
+
+``` java
+@RestController
+public class HelloController {
+
+    @Value("${spring.application.name}")
+    private String serviceName;
+
+    @RequestMapping("/hello/{name}")
+    public String sayHello(@PathVariable String name) {
+        return String.format("[%s] : Hello , %s", serviceName, name);
+    }
+
+}
+```
+
+开发一个简单接口，方便服务消费测试
+
+###### 第六步 启动应用
 
 启动应用后，在控制台的服务管理-服务列表页面找到服务名为`spring-cloud-discovery-provider`的服务，说明注册成功
 
