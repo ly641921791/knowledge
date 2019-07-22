@@ -82,7 +82,7 @@ public class HelloController {
 
 ###### 第六步 启动应用
 
-启动应用后，在控制台的服务管理-服务列表页面找到服务名为`spring-cloud-discovery-provider`的服务，说明注册成功
+启动应用后，在Nacos控制台的服务管理-服务列表页面找到服务名为`spring-cloud-discovery-provider`的服务，说明注册成功
 
 ##### 注册原理
 
