@@ -147,6 +147,8 @@ git merge upstream/master
 
 git push
 
+注：反向创建pull request也可以解决。对于改动较大，冲突很多的项目，拉取两份代码，通过对比工具解决
+
 ###### 创建分支
 
 新建分支并推送到远程
