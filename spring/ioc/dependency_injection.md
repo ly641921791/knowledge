@@ -7,7 +7,7 @@
 
 依赖注入的前提是，将Bean注册到Bean容器中
 
-###### Bean容器
+##### Bean容器
 
 开启组件扫描
 
@@ -31,7 +31,7 @@ beans属性
 	@PostConstruct初始化方法
 	@PreDestroy销毁方法
 
-###### 依赖注入
+##### 依赖注入
 
 依赖关系注入
 	@Resource
@@ -64,3 +64,34 @@ beans属性
 
 - @Resource是JSR250注解，默认注入策略是先根据名称再根据类型，可以通过name或type属性指定注入策略
 - @Autowired是Spring原生注解，默认注入策略是根据类型，通过与@Qualifier注解配合指定名称注入
+
+###### @Autowired
+
+@Autowired标记依赖注入
+
+当容器中指定类型的Bean唯一时，直接注入
+
+当容器中指定类型的Bean不唯一时，@Primary标记在其中一个Bean上，表示这个Bean优先注入
+
+还可以使用@Qualifier解决该问题，与@Qualifier同时存在时，@Qualifier优先生效
+
+当容器中指定类型的Bean不唯一时，会在这几个Bean中查找BeanName与字段名一样的注入，找不到则抛出NoUniqueBeanDefinitionException异常
+
+某些情况，不能保证字段名与BeanName一样。这种情况通过@Qualifier注解指定需要注入的BeanName，配合@Autowired实现注入
+
+下面的情况，@Qualifier的值相同也可以实现注入，并没有进行BeanName改名
+
+```java
+public class Demo {
+    @Autowired
+    @Qualifier("e")
+    private A a;
+}
+
+@Component
+@Qualifier("e")
+public class B implements A {}
+
+@Component("d")
+public class C implements A {}
+```
