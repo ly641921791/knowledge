@@ -10,9 +10,6 @@ MySQL
 - [数据类型](data-type.md)
 
 - [InnoDB](engine_innodb.md)
-- [性能优化](optimize.md)
-
-[存储引擎](engine.md)
 
 [索引](index.md)
 
@@ -26,6 +23,14 @@ MySQL
 [多主一从配置](https://my.oschina.net/u/2399373/blog/2878650)
 
 [优惠券系统设计](https://juejin.im/post/5c88606c6fb9a049cb199c04)
+
+##### 性能优化
+
+- [性能优化](optimize.md)
+- [存储引擎](engine.md)
+- [执行计划](https://mp.weixin.qq.com/s/jb40Bmv--iET7ST58PSNCg)
+- [ORDER BY 原理及优化（一）](http://blog.itpub.net/22664653/viewspace-2122656/)
+- [ORDER BY 原理及优化（二）](https://mp.weixin.qq.com/s/w4qtB5Dz_ybbiY-WRr72-Q?scene=25#wechat_redirect)
 
 EXPLIAN 中有用的信息
 

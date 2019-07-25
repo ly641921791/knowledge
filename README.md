@@ -110,7 +110,11 @@
 
 
 
+###### [负载均衡](http://www.sohu.com/a/233936157_262549)
 
+- LVS
+- Nginx
+- HAProxy
 
 
 面试题
