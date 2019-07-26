@@ -15,6 +15,7 @@ Spring
 	- [WebSocket](web/websocket.md)
 	- [RestTemplate使用](web/RestTemplate.md)
 	- [模本引擎 Velocity](https://www.kancloud.cn/boshu/springboot/215852)
+	- [RESTful](web/restful.md)
 	- [发布War](web/deploy_war.md)
 
 - Cache

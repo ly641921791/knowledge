@@ -59,7 +59,7 @@ public class MyFilter implements Filter {
 
 方法3 通过FilterRegistrationBean
 
-```java
+``` java
 @Bean
 public FilterRegistrationBean myFilter() {
 	FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -78,3 +78,7 @@ public FilterRegistrationBean registration(MyFilter filter) {
 ```
 
 过滤器的顺序：@Order或Ordered接口
+
+
+> Spring Boot 官网文档 https://docs.spring.io/spring-boot/docs/2.1.5.RELEASE/reference/htmlsingle/#boot-features-embedded-container-servlets-filters-listeners
+> Spring Boot 官网文档 https://docs.spring.io/spring-boot/docs/2.1.5.RELEASE/reference/htmlsingle/#howto-add-a-servlet-filter-or-listener

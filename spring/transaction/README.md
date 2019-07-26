@@ -126,6 +126,22 @@ TransactionTemplate类似Spring中的JdbcTemplate，使用回调机制将事务�
 
 通过TransactionAutoConfiguration引入了EnableTransactionManagement
 
+##### 事务失效
 
+TODO 调用b()，a的事务失效，待解决
+
+``` java
+public class DemoService {
+    
+    @Transaction
+    public void a(){
+    }
+    
+    public void b(){
+        ((DemoService)AopContext().currentProxy()).a();
+    }
+    
+}
+```
 
 > 参考文档 https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/data-access.html#spring-data-tier
