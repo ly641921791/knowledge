@@ -13,22 +13,6 @@
 
 - [MyBatis教程](mybatis/README.md)
 
-## spring boot
-
-### spring boot mvc
-
-- [JSON](./spring-boot-mvc-json/json.md)
-
-
-
-
-
-
-
-
-[SpringBoot + Mybatis + Druid + PageHelper 实现多数据源并分页](https://www.cnblogs.com/xuwujing/p/8964927.html)
-
-
 
 
 
@@ -86,13 +70,9 @@
 
 - [分布式锁](./redis/distributed%20lock.md)
 
-## Spring Boot
-
-- [文件上传](./spring-boot-mvc/file-upload.md)
-
 ## Web Server
 
-- [qps](./web-server/qps.md)
+- [qps](website/qps.md)
 - [过滤器和拦截器](https://mp.weixin.qq.com/s/c9d-avYSkhljLNDFVvFggA)
 
 
@@ -138,7 +118,6 @@ CopyOnWrite的原理、应用场景、缺点、需要注意的事情
 
 
 
-Nacos 公益控制台 http://console.nacos.io/nacos/index.html
 
 
 

@@ -26,3 +26,6 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 
 }
 ```
+
+1. 注册`AnnotationAwareAspectJAutoProxyCreator`
+2. 根据`@EnableAspectJAutoProxy`的属性设置`AnnotationAwareAspectJAutoProxyCreator`的属性

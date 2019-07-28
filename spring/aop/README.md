@@ -1,34 +1,20 @@
 Spring AOP 专题
 -
 
-本文讲解如何通过注解实现AOP功能。
+AOP（Aspect Oriented Programming）面向切面编程
 
-## 基本概念
+##### 基本概念
 
-个人认为，广义上的Spring AOP指的是Spring框架中AspectJ的使用，下面都是个人的理解，如有雷同，纯属巧合。
+- Aspect ：切面
+- Join point ：加入点
+- Advice ：通知，在某个加入点的操作
+- Pointcut ：切入点
+- Introduction
+- Target object
+- AOP proxy
+- Weaving
 
-AspectJ中的几个概念：
-
-- 目标（Target）
-- 代理（Proxy）
-- 切面（Aspect）
-- 切入点（PointCut）
-- 通知（Advice）
-- 连接点（JoinPoint）
-
-**目标/代理**
-
-AOP的原理是代理模式，这里的目标和代理与代理模式的概念相同。
-
-**切面**
-
-AspectJ中，Aspect=PointCut+Advice。
-
-**切入点**
-
-AspectJ提供了切点函数作为切入策略，通过切点函数匹配目标方法。
-
-**通知**
+###### Advice
 
 当目标方法执行时，执行的通知操作，AspectJ支持以下五种通知：
 
@@ -44,10 +30,59 @@ AspectJ提供了切点函数作为切入策略，通过切点函数匹配目标�
 当方法执行抛出异常时，通知顺序：环绕（前）->前置通知->后置通知->异常通知
 当环绕通知未执行目标方法，通知顺序：环绕通知->后置通知->返回通知
 
-**连接点**
+###### Aspect
+
+AspectJ中，Aspect=PointCut+Advice。
+
+###### Pointcut
+
+AspectJ提供了切点函数作为切入策略，通过切点函数匹配目标方法。
+
+###### Join ponit
 
 通知操作执行时的状态，包括通知类型、方法名、参数等信息。可以通过将任何一个通知方法的第一个参数改为`JoinPoint`类型获取连接点，
 环绕通知的连接点类型是`ProceedingJoinPoint`，继承于`JoinPoint`。
+
+##### 使用教程
+
+###### 开启AOP
+
+``` java
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+    
+}
+```
+
+``` xml
+<aop:aspectj-autoproxy/>
+```
+
+###### 声明切面
+
+```java
+@Aspect
+@Component
+public class LogAspect{
+    
+}
+```
+
+###### 声明切入点
+
+```java
+@Aspect
+@Component
+public class LogAspect{
+    
+    @Pointcut("切点函数")
+    private void logPointcut() {}
+    
+}
+```
+
+###### 通知方法
 
 ## 使用方法
 
@@ -177,7 +212,14 @@ afterReturning advice。Method：target，Args：[null]，result：null
 
 [源码分析](source_code.md)
 
+[](https://mp.weixin.qq.com/s?__biz=MzU3NzczMTAzMg==&mid=2247484781&idx=2&sn=217306a6f418e30cec6c5fbc8cd6ddb7&chksm=fd0165daca76eccca5d59401b33784babc98e6a4094cbf10342f46178ff4a2db8d430f596a16&scene=21#wechat_redirect)
+[](https://www.cnblogs.com/xrq730/p/4919025.html)
+[](https://www.cnblogs.com/xrq730/p/7003082.html)
 
 
 
 > 官网文档 https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/core.html#aop
+
+> AspectJ https://www.eclipse.org/aspectj/doc/released/progguide/index.html
+
+> AspectJ https://www.eclipse.org/aspectj/doc/released/adk15notebook/index.html

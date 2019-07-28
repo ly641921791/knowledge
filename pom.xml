@@ -16,9 +16,6 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <module>netty</module>
-        <module>spring-boot-test</module>
-        <module>spring-boot-mvc-json</module>
         <module>spring-boot-xml</module>
         <module>spring-ioc</module>
         <module>spring-security</module>

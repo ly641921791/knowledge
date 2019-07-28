@@ -6,18 +6,6 @@ Spring
 	- [依赖注入](ioc/dependency_injection.md)
     - [源码分析 - AbstractBeanFactory](ioc/AbstractBeanFactory.md)
 
-- Web
-	- [异常处理](web/exception.md)
-	- [参数校验](web/validate.md)
-	- [过滤器](web/filter.md)
-	- [静态资源](web/static_content.md)
-	- [响应压缩](web/compression.md)
-	- [WebSocket](web/websocket.md)
-	- [RestTemplate使用](web/RestTemplate.md)
-	- [模本引擎 Velocity](https://www.kancloud.cn/boshu/springboot/215852)
-	- [RESTful](web/restful.md)
-	- [发布War](web/deploy_war.md)
-
 - Cache
 	- [使用缓存](cache/use.md)
 
@@ -30,7 +18,13 @@ Spring
 	- [几种任务实现的对比](https://blog.csdn.net/wqh8522/article/details/79224290)
 
 - [Spring Aop 专题](aop/README.md)
+- [Spring MVC 专题](web/README.md)
 - [Spring Cloud 专题](cloud/README.md)
+
+
+
+[SpringBoot + Mybatis + Druid + PageHelper 实现多数据源并分页](https://www.cnblogs.com/xuwujing/p/8964927.html)
+
 
 ###### ApplicationRunner & CommandLineRunner
 
@@ -39,9 +33,6 @@ SpringBoot项目中，started和running状态之间会执行这两个类，详�
 
 
 
-## 声明式事物
-
-# 拓展原理
 
 ### BeanPostProcessor
 

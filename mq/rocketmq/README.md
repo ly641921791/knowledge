@@ -82,6 +82,11 @@ Consumer同时和Broker的主从节点建立长连接
 优点：同步双写的同步模式能保证数据不丢失
 缺点：消息的RT（response time）略长，性能低10%左右
 
+##### 书籍
+
+《RocketMQ实战与原理解析》
+《RocketMQ技术内幕》
+
 ##### 企业实践案例
 
 [网易云音乐](https://mp.weixin.qq.com/s/F94YPWQzI2_bb9pdDG4mtA)
