@@ -144,4 +144,8 @@ public class DemoService {
 }
 ```
 
+[Spring 源码分析：不得不重视的 Transaction 事务](https://mp.weixin.qq.com/s/btbapw-m_ENNo9EwhYV2sA)
+
+[【面试】足够应付面试的Spring事务源码阅读梳理（建议珍藏）](https://mp.weixin.qq.com/s/Hsc9QjuTu36BrzAmLDHbHQ)
+
 > 参考文档 https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/data-access.html#spring-data-tier

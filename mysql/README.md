@@ -32,6 +32,9 @@ MySQL
 - [ORDER BY 原理及优化（一）](http://blog.itpub.net/22664653/viewspace-2122656/)
 - [ORDER BY 原理及优化（二）](https://mp.weixin.qq.com/s/w4qtB5Dz_ybbiY-WRr72-Q?scene=25#wechat_redirect)
 
+[如何分析一条sql的性能](https://mp.weixin.qq.com/s/jb40Bmv--iET7ST58PSNCg)
+[你知道怎么分库分表吗？如何做到永不迁移数据和避免热点吗？](https://www.toutiao.com/i6677459303055491597)
+
 EXPLIAN 中有用的信息
 
 基本用法

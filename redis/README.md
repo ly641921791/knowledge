@@ -31,6 +31,8 @@ Redis基于单线程模型实现，通过一个线程处理所有客户端请求
 
 [消息队列](data_type_list.md)
 
+[Redis 备份、容灾及高可用实战](https://mp.weixin.qq.com/s/xASHj2GZdm6vpWXt_H-9og)
+
 Redis的数据结构和相关常用命令
 数据持久化
 内存管理与数据淘汰机制
