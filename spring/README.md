@@ -4,7 +4,14 @@ Spring
 - IoC
 	- [应用配置](ioc/configuration.md) 
 	- [依赖注入](ioc/dependency_injection.md)
+	- [依赖注入 - JSR330](https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/core.html#beans-standard-annotations)
     - [源码分析 - AbstractBeanFactory](ioc/AbstractBeanFactory.md)
+    
+- Spring 数据校验
+    - [数据校验](https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/core.html#validation)
+
+[Spring Boot项目支持@ConfigurationProperties校验](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-external-config.html#boot-features-external-config-validation)
+[Spring Boot项目支持任意类与方法的校验](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-validation.html)
 
 - Cache
 	- [使用缓存](cache/use.md)
