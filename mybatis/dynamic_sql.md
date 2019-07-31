@@ -30,6 +30,14 @@ XML实现动态SQL是基于OGNL表达式实现的，MyBatis提供了以下标签
 </select>
 ```
 
+对于某些复杂条件，可以通过自定义Java方法校验（OGNL表达式提供的功能，还可以访问静态属性），如下
+
+``` xml
+<if test="@org.apache.commons.lang.StringUtils@isBlank(orderColumn)">
+   ...
+</if>
+```
+
 #### choose
 
 常与when、otherwise一起使用，当条件满足时，插入标签内SQL，并结束当前choose标签

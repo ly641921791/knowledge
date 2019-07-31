@@ -9,19 +9,10 @@ JSR250
 - @PreDestroy
 
 
-JSR303
 
 
 
-###### JSR330
+[Bean验证 1.0](jsr303.md)
+[Bean验证 1.1](jsr349.md)
 
-Java依赖注入规范
-
-```xml
-<dependency>  
-    <groupId>javax.inject</groupId>
-    <artifactId>javax.inject</artifactId>
-    <version>1</version>
-</dependency> 
-```
-
+[依赖注入规范](jsr330.md)
