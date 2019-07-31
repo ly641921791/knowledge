@@ -3,7 +3,7 @@ Spring Cloud 服务消费 - Nacos
 
 ##### 前言
 
-本文介绍`Spring Cloud`如何通过`Nacos`作为配置中心实现服务消费
+本文介绍`Spring Cloud`如何通过`Nacos`作为注册中心实现服务消费
 
 Nacos服务搭建过程略，本文案例使用官网提供的服务，详细信息如下
 
