@@ -12,4 +12,14 @@ Spring Cloud 专题
 - [Spring Cloud 服务注册 - Nacos](/nacos/spring_cloud_discovery_provider.md)
 - [Spring Cloud 服务消费 - Nacos](/nacos/spring_cloud_discovery_consumer.md)
 
-- [Spring Cloud 注册中心 - Nacos](/nacos/spring_cloud_config.md)
+##### 负载均衡
+
+负载均衡是系统架构中一个非常重要的内容。可以提高系统的高可用、缓解网络压力、处理能力扩容
+
+Spring Cloud 通过 @LoadBalanced 注解标记 RestTemplate 等客户端，实现服务名替换IP以及负载均衡功能
+
+[@LoadBalanced](LoadBalanced.md)
+
+##### 配置中心
+
+- [Spring Cloud 配置中心 - Nacos](/nacos/spring_cloud_config.md)
