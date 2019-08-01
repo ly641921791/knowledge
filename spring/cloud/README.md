@@ -11,3 +11,5 @@ Spring Cloud 专题
 
 - [Spring Cloud 服务注册 - Nacos](/nacos/spring_cloud_discovery_provider.md)
 - [Spring Cloud 服务消费 - Nacos](/nacos/spring_cloud_discovery_consumer.md)
+
+- [Spring Cloud 注册中心 - Nacos](/nacos/spring_cloud_config.md)
