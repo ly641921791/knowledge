@@ -36,12 +36,43 @@ AspectJ中，Aspect=PointCut+Advice。
 
 ###### Pointcut
 
-AspectJ提供了切点函数作为切入策略，通过切点函数匹配目标方法。
+切入点，被拦截的方法。可以使用切点函数匹配目标方法。
 
-###### Join ponit
+###### Join point
 
 通知操作执行时的状态，包括通知类型、方法名、参数等信息。可以通过将任何一个通知方法的第一个参数改为`JoinPoint`类型获取连接点，
 环绕通知的连接点类型是`ProceedingJoinPoint`，继承于`JoinPoint`。
+
+切入点的切入状态，
+
+``` java
+public interface Joinpoint {
+
+    // 执行
+	Object proceed() throws Throwable;
+
+    // 目标对象。静态方法则返回null
+	Object getThis();
+
+    // 目标方法
+	AccessibleObject getStaticPart();
+
+}
+
+public interface Invocation extends Joinpoint {
+
+	// 目标方法参数
+	Object[] getArguments();
+
+}
+
+public interface MethodInvocation extends Invocation {
+
+	// 目标方法
+	Method getMethod();
+
+}
+```
 
 ##### 使用教程
 

@@ -19,13 +19,14 @@ HashMap和HashTable实现原理几乎相同，不同在于是否允许null，是
 
 基于HashEntry的首节点加锁，使用synchronized加锁，粒度降低，复杂度提高
 
-使用红黑色优化链表
+使用红黑树优化链表
 
 ##### 方法
 
 ###### get
 
+get方法不加锁，因为Node的val使用volatile修饰
 
-
+Node数组用volatile修改时保证扩容的可见性
 
 [Java 经典面试题：为什么 ConcurrentHashMap 的读操作不需要加锁？](https://mp.weixin.qq.com/s/Id29MyFHddStZTznSKn3uQ)

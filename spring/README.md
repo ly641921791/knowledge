@@ -6,12 +6,6 @@ Spring
 	- [依赖注入](ioc/dependency_injection.md)
 	- [依赖注入 - JSR330](https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/core.html#beans-standard-annotations)
     - [源码分析 - AbstractBeanFactory](ioc/AbstractBeanFactory.md)
-    
-- Spring 数据校验
-    - [数据校验](https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/core.html#validation)
-
-[Spring Boot项目支持@ConfigurationProperties校验](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-external-config.html#boot-features-external-config-validation)
-[Spring Boot项目支持任意类与方法的校验](https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-validation.html)
 
 - Cache
 	- [使用缓存](cache/use.md)
@@ -20,14 +14,22 @@ Spring
     - [Spring Boot 启动过程（一）SpringBootApplication](boot/SpringBootApplication.md)
     - [Spring Boot 启动过程（二）SpringApplication](boot/SpringApplication.md)
 
-- Task
-	- [XML配置](task/task_xml.md)
+- Spring Core
+    - [Spring Validation](core/validation.md)
+
+- Spring Data Access
+    - [JdbcTemplate](data-access/JdbcTemplate.md)
+    - [Transaction](data-access/transaction.md)
+    - [Transaction Source Code](data-access/transaction_sc.md)
+
+- Spring Integration
+	- [Task - XML配置](task/task_xml.md)
+	- [Task - async](task/async.md)
 	- [几种任务实现的对比](https://blog.csdn.net/wqh8522/article/details/79224290)
 
 - [Spring Aop 专题](aop/README.md)
 - [Spring MVC 专题](web/README.md)
 - [Spring Cloud 专题](cloud/README.md)
-
 
 
 [SpringBoot + Mybatis + Druid + PageHelper 实现多数据源并分页](https://www.cnblogs.com/xuwujing/p/8964927.html)
