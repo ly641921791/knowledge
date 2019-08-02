@@ -197,14 +197,12 @@ isInterrupted()用于检查指定线程是否中断
 	当代码出现异常持有的锁会释放。同步方法不会被继承
 
 
-*ThreadLocal
 *ReentrantLock
 *Condition
 *读写锁ReentrantReadWriteLock
 *Timer的使用
 *线程组ThreadGroup
 
-1.ThreadLocal类
 2.原子类（AtomicInteger、AtomicBoolean……）
 3.Lock类
 4.容器类
