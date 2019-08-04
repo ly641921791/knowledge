@@ -24,21 +24,20 @@ CentOS 安装
 	
 克隆仓库
 
+
 	git clone git@xxxx
 
 	http 指定账号密码
 
-	git clone http://Ly641921791:Ly19930830@47.96.16.130/Ly641921791/digitop-cloud.git
+git clone http://username:password@gitlab.*****.com
 	
-	
-	克隆分支     git clone -b <分支名>  clone地址
+克隆分支     git clone -b <分支名>  clone地址	
 	
 提交本地仓库
 
 	git add .
 	git commit -m ""
 	git push origin master
-
 
 更新仓库代码
 
@@ -156,3 +155,8 @@ git push
 git checkout -b branchName
 
 git push origin branchName
+
+## Gitlab
+
+找回密码
+http://www.cnblogs.com/heyongboke/p/9968506.html

@@ -1,16 +1,30 @@
-# MyBatis教程
+MyBatis
+-
 
-简介
+MyBatis 是一个基于Java的持久层框架
 
-MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。
+依赖坐标
 
-本文
+``` xml
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.5.2</version>
+</dependency>
+```
 
-本文是MyBatis教程的目录，参考过的书籍、文档、博客都会在最后列出来，不定时更新，随时太监。
+使用流程
 
-目录
+1. 创建 SqlSessionFactoryBuilder
+2. 通过 SqlSessionFactoryBuilder 解析配置得到 SqlSessionFactory（build方法）
+3. 通过 SqlSessionFactory 获得一个 SqlSession （openSession方法）
+4. 通过 SqlSession 执行SQL，SqlSession 中包含一个可用的数据库连接，使用完需要归还连接
+5. 关闭 SqlSession（close方法）
 
-- [教程-简单入门](mybatis-01.md)
+相关目录
+
+- [简单示例](example.md)
+
 - [教程-Config配置详解](mybatis-02.md)
 - [教程-Mapper配置详解](mybatis-03.md)
 - [教程-各种情况使用示例](mybatis-04.md)
@@ -46,5 +60,6 @@ MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过�
 8. execute()得到ResultSet
 9. 通过ResultSetHandler得到最终结果
 
+###### 插件
 
-
+https://mp.weixin.qq.com/s/BPVq7ajj2rKgNkwUL3jxGQ

@@ -516,6 +516,60 @@ POST user/_search
 
 
 
+Elasticsearch
+
+
+
+Es踩坑https://www.jianshu.com/p/fa31f38d241e
+Es集群https://zhangge.net/5135.html
+Es可视化https://www.jianshu.com/p/54e04b5b5ce2
+Es书籍https://www.elastic.co/guide/cn/elasticsearch/guide/current/foreword_id.html
+Es-Docker部署坑 https://www.cnblogs.com/XiongMaoMengNan/p/8073852.html
+
+Es 内存设置 ：https://elasticsearch.cn/article/32
+
+https://blog.csdn.net/wojiushiwo987/column/info/14675
+
+https://mp.weixin.qq.com/s?__biz=MzI2NDY1MTA3OQ==&mid=2247483901&idx=1&sn=00908967885c90ff90d640dd3856ddb0&scene=19&ascene=7&devicetype=android-27&version=26070338&nettype=WIFI&abtest_cookie=BQABAAoACwANABMAFAAFACOXHgBZmR4AhZkeAIqZHgCNmR4AAAA%3D&lang=zh_CN&pass_ticket=neL5246dsQKpya58wASZg%2B76mRizhqUUlaytxWd8ycJ1ycbeZL%2FgNfpAX%2BudrxwP&wx_header=1
+
+
+
+Mapping详解： https://www.cnblogs.com/ljhdo/p/4981928.html
+
+
+字段折叠 ： https://elasticsearch.cn/article/132
+
+分词安装 https://blog.csdn.net/a243293719/article/details/82021823
+
+分词git页   https://github.com/medcl/elasticsearch-analysis-ik
+
+ocr   https://my.oschina.net/u/3767256/blog/1613062
+
+
+
+
+
+
+自动关闭问题解决
+https://blog.csdn.net/qq_32331997/article/details/80019167
+
+
+
+
+
+自动补全
+
+1. 支持4种Suggester
+
+* 		Term Suggester
+* 		Phrase Suggester
+* 		Completion Suggester
+* 		Context Suggester
+
+
+
+https://blog.csdn.net/df007df/article/details/54781305
+
 
 
 

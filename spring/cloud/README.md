@@ -18,6 +18,8 @@ Spring Cloud 专题
 
 Spring Cloud 通过 @LoadBalanced 注解标记 RestTemplate 等客户端，实现服务名替换IP以及负载均衡功能
 
+- [Spring Cloud 负载均衡 - Ribbon](/ribbon/spring_cloud_loadbalancer.md)
+
 [@LoadBalanced](LoadBalanced.md)
 
 ##### 配置中心
