@@ -37,7 +37,7 @@ org.springframework.cloud.client.loadbalancer.reactive.ReactiveLoadBalancerAutoC
 
 ##### LoadBalancerAutoConfiguration
 
-通过 LoadBalancerAutoConfiguration 源码分析 RestTemplate 如何实现服务名替换IP以及负载均衡
+通过 LoadBalancerAutoConfiguration 源码分析 RestTemplate 如何实现负载均衡
 
 ``` java
 @Configuration
@@ -158,39 +158,26 @@ public class LoadBalancerAutoConfiguration {
 
 第五步 从容器中获得 RestTemplateCustomizer 构造出 SmartInitializingSingleton，通过该 Bean 将第四步构造的负载均衡拦截器添加到第一步得到的 RestTemplate 中
 
-##### RestTemplate
+##### LoadBalancerInterceptor
 
-RestTemplate 所有的请求最终都会走到下面方法，在创建
+RestTemplate 在 createRequest 中通过 InterceptingClientHttpRequestFactory 创建出 InterceptingClientHttpRequest，
+InterceptingClientHttpRequest 在 execute 时，会触发 LoadBalancerInterceptor 的拦截功能，下面看一下拦截器的拦截逻辑
 
 ``` java
-	protected <T> T doExecute(URI url, @Nullable HttpMethod method, @Nullable RequestCallback requestCallback,
-			@Nullable ResponseExtractor<T> responseExtractor) throws RestClientException {
+public class LoadBalancerInterceptor implements ClientHttpRequestInterceptor {
 
-		Assert.notNull(url, "URI is required");
-		Assert.notNull(method, "HttpMethod is required");
-		ClientHttpResponse response = null;
-		try {
-			ClientHttpRequest request = createRequest(url, method);
-			if (requestCallback != null) {
-				requestCallback.doWithRequest(request);
-			}
-			response = request.execute();
-			handleResponse(url, method, response);
-			return (responseExtractor != null ? responseExtractor.extractData(response) : null);
-		}
-		catch (IOException ex) {
-			String resource = url.toString();
-			String query = url.getRawQuery();
-			resource = (query != null ? resource.substring(0, resource.indexOf('?')) : resource);
-			throw new ResourceAccessException("I/O error on " + method.name() +
-					" request for \"" + resource + "\": " + ex.getMessage(), ex);
-		}
-		finally {
-			if (response != null) {
-				response.close();
-			}
-		}
+	@Override
+	public ClientHttpResponse intercept(final HttpRequest request, final byte[] body,
+			final ClientHttpRequestExecution execution) throws IOException {
+		final URI originalUri = request.getURI();
+		String serviceName = originalUri.getHost();
+		Assert.state(serviceName != null,
+				"Request URI does not contain a valid hostname: " + originalUri);
+		return this.loadBalancer.execute(serviceName,
+				this.requestFactory.createRequest(request, body, execution));
 	}
+
+}
 ```
 
-> https://blog.csdn.net/qq_20597727/article/details/82860521
+LoadBalancerInterceptor 使用 LoadBalancerRequestFactory 将原有 request 包装后通过 LoadBalancerClient 执行，最终实现负载均衡功能
