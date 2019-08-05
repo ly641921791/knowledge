@@ -169,3 +169,12 @@ HTML模本脚手架 https://gitee.com/yinqi/Light-Year-Admin-Template
 图形化前端工具 阿里飞冰 美团乐高
 
 页面可视化搭建工具前生今世 https://github.com/CntChen/cntchen.github.io/issues/15
+
+
+###### HeadlessBrowsers
+
+https://zhuanlan.zhihu.com/p/25803955
+
+https://github.com/dhamaniasad/HeadlessBrowsers
+
+http://www.testclass.net/selenium_java
