@@ -7,9 +7,6 @@ Spring
 	- [依赖注入 - JSR330](https://docs.spring.io/spring/docs/5.1.8.RELEASE/spring-framework-reference/core.html#beans-standard-annotations)
     - [源码分析 - AbstractBeanFactory](ioc/AbstractBeanFactory.md)
 
-- Cache
-	- [使用缓存](cache/use.md)
-
 - Boot
     - [Spring Boot 启动过程（一）SpringBootApplication](boot/SpringBootApplication.md)
     - [Spring Boot 启动过程（二）SpringApplication](boot/SpringApplication.md)
@@ -26,6 +23,7 @@ Spring
 	- [Task - XML配置](task/task_xml.md)
 	- [Task - async](task/async.md)
 	- [几种任务实现的对比](https://blog.csdn.net/wqh8522/article/details/79224290)
+	- [Cache](integration/cache.md)
 
 - [Spring Aop 专题](aop/README.md)
 - [Spring MVC 专题](web/README.md)
@@ -65,18 +63,27 @@ SpringBoot项目中，started和running状态之间会执行这两个类，详�
 
 ### - @EventListener
 
-BeanDefinitionRegistry
-
-```java
-BeanDefinitionRegistry registry;
-
-//方法1
-RootBeanDefinition bean = new RootBeanDefinition(String.class)
-//方法2
-AbstractBeanDefinition bean = 	BeanDefinitionBuilder.rootBeanDefinition(String.class).getBeanDefinition();
-
-registry.registryBeanDefinition("hello",bean);
-```
-
 AliasFor注解使用及原理
 https://www.jianshu.com/p/869ed7037833
+
+###### XML -> BeanDefinition
+
+AbstractRefreshableApplicationContext#refreshBeanFactory中调用loadBeanDefinitions
+
+BeanDefinitionRegistry
+
+RootBeanDefinition beanDefinition = new RootBeanDefinition();
+// 类型
+beanDefinition.setBeanClass(GroupSequence.class);
+// 初始化方法
+beanDefinition.setInitMethodName("init");
+// 范围
+beanDefinition.setScope(ConfigurableBeanFactory.SCOPE_SINGLETON);
+// 装配类型
+beanDefinition.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
+// 对应 <property name="" ref="">
+beanDefinition.getPropertyValues().addPropertyValue("sequenceDao", new RuntimeBeanReference("sequenceDao"));
+// 对应 <property name="" value="">
+beanDefinition.getPropertyValues().addPropertyValue("name", new TypedStringValue(beanName));
+// 注册
+registry.registerBeanDefinition(beanName, beanDefinition);

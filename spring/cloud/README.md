@@ -25,3 +25,7 @@ Spring Cloud 通过 @LoadBalanced 注解标记 RestTemplate 等客户端，实�
 ##### 配置中心
 
 - [Spring Cloud 配置中心 - Nacos](/nacos/spring_cloud_config.md)
+
+##### 网关组件
+
+- [Spring Cloud Gateway](spring_cloud_gateway.md)
