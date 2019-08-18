@@ -50,7 +50,12 @@ public void handle(@PathVariable String version, @PathVariable String ext) {
 
 ##### consumes
 
-处理的请求类型
+可处理的请求类型，例如：
+
+- consumes = "application/json"，表示可以处理`application/json`类型的请求
+- consumes = "!application/json"，表示可以处理`application/json`类型以外的请求
+
+更多请求类型查看`org.springframework.http.MediaType`类
 
 ##### produces
 
