@@ -102,8 +102,34 @@ curl -X POST "http://console.nacos.io/nacos/v1/cs/configs?dataId=spring-cloud-co
 
 再次访问`curl http://localhost:8080/config/get`，返回false
 
-##### 源码 & 参考
+###### 源码 & 参考
 
 源码地址（可运行）：https://github.com/ly641921791/knowledge-examples/tree/master/nacos-example/nacos-spring-cloud-config
 
 参考文档 ：https://nacos.io/zh-cn/docs/quick-start-spring-cloud.html
+
+##### 配置加载规则
+
+通过 DataId和Group 可以定位到唯一的配置
+
+###### DataId
+
+DataId 默认为 ${spring.cloud.nacos.config.prefix}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+
+- spring.cloud.nacos.config.prefix ： 默认值是`spring.application.name`
+
+- spring.profile.active ： 当该属性未配置时，DataId 为 ${spring.cloud.nacos.config.prefix}.${spring.cloud.nacos.config.file-extension}
+
+- spring.cloud.nacos.config.file-extension ： 默认 properties
+
+###### Group
+
+对应的配置为`spring.cloud.nacos.config.group`， 默认 DEFAULT_GROUP
+
+###### Namespace
+
+对应的配置为`spring.cloud.nacos.config.namespace`
+
+###### 多环境处理
+
+官网建议，通过Namespace区分环境，通过group区分业务层
