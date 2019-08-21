@@ -5,6 +5,8 @@ Git ：Windows系统安装
 
 在[官网](https://git-scm.com/downloads)根据自己的系统下载最新的Git安装包进行安装
 
+官网比较慢的情况下，可以尝试一下 https://npm.taobao.org/mirrors/git-for-windows/
+
 ###### 环境变量
 
 新版安装包安装后自动配置环境变量，可以通过在命令行输入`git --version`检查是否配置过环境变量

@@ -180,3 +180,5 @@ https://github.com/dhamaniasad/HeadlessBrowsers
 http://www.testclass.net/selenium_java
 
 [用 Spring Boot 纯手工打造私人云网盘！！！](https://mp.weixin.qq.com/s/eM321OkwJVc_HjpOiCu_6Q)
+
+中国省市县数据  http://www.42du.cn/regions-of-china
