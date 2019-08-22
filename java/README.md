@@ -307,3 +307,8 @@ c）并发高、业务执行时间长，解决这种类型任务的关键不在�
 Future模式：核心思想是异步调用
 
 生产者消费者模式：
+
+### 类型
+
+https://www.cnblogs.com/gaopeng527/p/4605322.html
+https://www.javatuples.org/
