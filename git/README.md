@@ -136,9 +136,11 @@ git clone xxx
 
 git remote add upstream xxx
 
-拉取原项目，在本地完成合并
+拉取原项目
 
 git fetch upstream
+
+将原项目master分支合并到当前分支
 
 git merge upstream/master
 
