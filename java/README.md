@@ -28,6 +28,11 @@
 [NIO 2.0](https://mp.weixin.qq.com/s?__biz=MzU3NzczMTAzMg==&mid=2247484760&idx=1&sn=c4e8015ec8618a798f2f98fafeceb726&chksm=fd0165efca76ecf9df1250a8a21055d38e18a9bcee18ce5d605bbe487e8d57c99ae59133f8c6&scene=21#wechat_redirect)
 
 
+[正则表达式](regex.md)
+
+[16 个有用的的 Java 工具类](https://juejin.im/post/5d4a25b351882505c105cc6e)
+
+
 ABA问题
 
 ABA问题是由CAS引起的数据问题
@@ -312,7 +317,3 @@ Future模式：核心思想是异步调用
 
 https://www.cnblogs.com/gaopeng527/p/4605322.html
 https://www.javatuples.org/
-
-#### 正则表达式
-
-Matcher.group  https://www.cnblogs.com/jiafuwei/p/6080984.html
