@@ -20,6 +20,7 @@ Spring
     - [Transaction Source Code](data-access/transaction_sc.md)
 
 - Spring Integration
+    - [Email](integration/email.md)
 	- [Task - XML配置](task/task_xml.md)
 	- [Task - async](task/async.md)
 	- [几种任务实现的对比](https://blog.csdn.net/wqh8522/article/details/79224290)
