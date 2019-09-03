@@ -10,6 +10,7 @@ Spring
 - Boot
     - [Spring Boot 启动过程（一）SpringBootApplication](boot/SpringBootApplication.md)
     - [Spring Boot 启动过程（二）SpringApplication](boot/SpringApplication.md)
+    - [监控应用 - Actuator](boot/actuator.md)
 
 - Spring Core
     - [Spring Validation](core/validation.md)
