@@ -1,7 +1,7 @@
 Spring Boot Actuator
 =
 
-1 加入依赖
+## 1 加入依赖
 
 ``` xml
 <dependencies>
@@ -12,7 +12,7 @@ Spring Boot Actuator
 </dependencies>
 ```
 
-2 关于端点
+## 2 关于端点
 
 Spring Boot 内置了许多端点，用于监控应用，也可以添加自定义端点，这些端点通过JMX或HTTP暴露出去用于远程监控
 
@@ -35,18 +35,45 @@ content.</p></td><td style="border-bottom: 1px solid ; " align="left" valign="to
 
 ``` properties
 management.endpoint.shutdown.enabled = true
-``` 
+```
 
 可以通过`management.endponits.enabled-by-default`端点的默认启用状态
 
-2.2 公开端点
+### 2.2 公开端点
+
+下面是默认情况下，各端点的公开方式
 
 <table class="informaltable" style="border-collapse: collapse;border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">ID</th><th style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">JMX</th><th style="border-bottom: 1px solid ; " align="left" valign="top">Web</th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">auditevents</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">beans</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">caches</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">conditions</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">configprops</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">env</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">flyway</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">health</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">heapdump</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>N/A</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">httptrace</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">info</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">integrationgraph</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">jolokia</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>N/A</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">logfile</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>N/A</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">loggers</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">liquibase</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">metrics</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">mappings</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">prometheus</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>N/A</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">scheduledtasks</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">sessions</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">shutdown</code></p></td><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p>No</p></td></tr><tr><td style="border-right: 1px solid ; " align="left" valign="top"><p><code class="literal">threaddump</code></p></td><td style="border-right: 1px solid ; " align="left" valign="top"><p>Yes</p></td><td style="" align="left" valign="top"><p>No</p></td></tr></tbody></table>
 
+通过`include`和`exclude`配置端点的公开方式，`exclude`优先于`include`生效，配置方式如下
+
+<table class="informaltable" style="border-collapse: collapse;border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col class="col_1"><col class="col_2"></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">Property</th><th style="border-bottom: 1px solid ; " align="left" valign="top">Default</th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">management.endpoints.jmx.exposure.exclude</code></p></td><td style="border-bottom: 1px solid ; " align="left" valign="top">&nbsp;</td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">management.endpoints.jmx.exposure.include</code></p></td><td style="border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">*</code></p></td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top"><p><code class="literal">management.endpoints.web.exposure.exclude</code></p></td><td style="border-bottom: 1px solid ; " align="left" valign="top">&nbsp;</td></tr><tr><td style="border-right: 1px solid ; " align="left" valign="top"><p><code class="literal">management.endpoints.web.exposure.include</code></p></td><td style="" align="left" valign="top"><p><code class="literal">info, health</code></p></td></tr></tbody></table>
+
+若希望公开d端点时，实现自定义策略，可以注册`EndpointFilter`Bean
+
+### 2.3 保护端点
+
+略，详情查看官方文档
+
+### 2.4 配置端点
+
+配置端点缓存时间，如：`management.endpoint.<id>.cache.time-to-live = 10s`
+
+### 2.5 发现页面
+
+发现页面保护了所有端点的链接，默认是`/actuator`，与端点前缀相同
+
+### 2.6 CORS支持
+
+默认情况，CORS被禁用，具体的配置属性查看 `CorsEndpointProperties`
+
+### 2.7 自定义端点
 
 
-参考文档
+
+## 参考文档
 
 https://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/reference/htmlsingle/#production-ready
 
 https://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/actuator-api//html/
+
